@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaFoto">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="147dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_athleta" />
+
+    <ImageButton
+        android:id="@+id/botao_voltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="#00FFFFFF"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/seta_volta" />
+
+    <Button
+        android:id="@+id/botao_cadastrese"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="144dp"
+        android:background="@drawable/gray_button_design"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Cadastre-se"
+        android:textAllCaps="false"
+        android:textColor="@color/gray"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/borda"
+        android:layout_width="223dp"
+        android:layout_height="223dp"
+        app:layout_constraintBottom_toTopOf="@+id/botao_cadastrese"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.452"
+        app:srcCompat="@drawable/borda_foto" />
+
+    <ImageButton
+        android:id="@+id/camera"
+        android:layout_width="223dp"
+        android:layout_height="223dp"
+        android:backgroundTint="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/botao_cadastrese"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.452"
+        app:srcCompat="@drawable/camera_foto" />
+
+    <TextView
+        android:id="@+id/titulo_camera"
+        android:layout_width="328dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="44dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Tudo pronto, vamos adicionar uma foto de perfil!"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/borda"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.626"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.26" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

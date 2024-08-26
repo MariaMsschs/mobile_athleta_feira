@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.682"
-        tools:listitem="@layout/card_produto" />
+        tools:listitem="@layout/card_anuncio" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="412dp"
@@ -26,6 +26,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@drawable/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

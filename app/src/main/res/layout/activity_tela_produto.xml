@@ -44,12 +44,15 @@
         android:id="@+id/titulo_produto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Luva de baseball"
         android:textColor="@color/gray"
         android:textSize="30sp"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="523dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.259"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/titulo_anunciante"
@@ -105,15 +108,17 @@
         app:layout_constraintTop_toBottomOf="@+id/titulo_desc" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="411dp"
-        android:layout_height="60dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
         android:background="#f4f4f4"
+        app:itemIconTint="@color/gray"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="830dp"
-        app:menu="@menu/bottom_nav_menu"
-        />
+        app:menu="@menu/bottom_nav_menu" />
 
     <Button
         android:id="@+id/botao_anuncio"

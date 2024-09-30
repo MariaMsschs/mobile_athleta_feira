@@ -8,7 +8,7 @@
     tools:context=".TelaCadastro">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imagem_perfil"
         android:layout_width="147dp"
         android:layout_height="37dp"
         android:layout_marginTop="36dp"
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imagem_perfil" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/imagem_perfil"
         app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

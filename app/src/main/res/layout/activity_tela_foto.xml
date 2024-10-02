@@ -30,7 +30,7 @@
         app:srcCompat="@drawable/seta_volta" />
 
     <Button
-        android:id="@+id/botao_cadastrese"
+        android:id="@+id/botao_cadastro"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="350dp"
         android:layout_height="55dp"
@@ -50,7 +50,7 @@
         android:id="@+id/borda"
         android:layout_width="223dp"
         android:layout_height="223dp"
-        app:layout_constraintBottom_toTopOf="@+id/botao_cadastrese"
+        app:layout_constraintBottom_toTopOf="@+id/botao_cadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagem_perfil"
@@ -62,7 +62,7 @@
         android:layout_width="223dp"
         android:layout_height="223dp"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/botao_cadastrese"
+        app:layout_constraintBottom_toTopOf="@+id/botao_cadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagem_perfil"

@@ -28,8 +28,8 @@
 
     <ScrollView
         android:id="@+id/scrollview"
-        android:layout_width="wrap_content"
-        android:layout_height="755dp"
+        android:layout_width="407dp"
+        android:layout_height="689dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +81,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_posts"
-                android:layout_width="match_parent"
+                android:layout_width="383dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 tools:listitem="@layout/card_post" />
@@ -89,7 +89,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_forum"
                 android:layout_width="wrap_content"
-                android:layout_height="215dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="40dp"
                 tools:listitem="@layout/card_comunidade" />

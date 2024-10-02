@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cadastre_se = findViewById(R.id.cadastre_se);
+        cadastre_se = findViewById(R.id.botao_cadastrese);
 
         cadastre_se.setOnClickListener(v -> {
             TelaCadastro telaCadastro = new TelaCadastro();

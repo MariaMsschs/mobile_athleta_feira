@@ -4,19 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mobile_athleta.adapter.EsporteCardAdapter;
 import com.example.mobile_athleta.adapter.ForumAdapter;
 import com.example.mobile_athleta.adapter.PostAdapter;
+import com.example.mobile_athleta.databinding.ActivityTelaHomeBinding;
 import com.example.mobile_athleta.models.Esporte;
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Post;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TelaHome extends AppCompatActivity {
+    private ActivityTelaHomeBinding binding;
 
     private RecyclerView recyclerViewCards, recyclerViewPosts, recyclerViewForum;
     private EsporteCardAdapter esportesAdapter;
@@ -25,6 +32,7 @@ public class TelaHome extends AppCompatActivity {
     private List<Esporte> esportesList;
     private List<Post> postList;
 
+    private ImageView logo;
     private List<Forum> forumList;
 
     @Override
@@ -32,6 +40,7 @@ public class TelaHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_home);
 
+        logo = findViewById(R.id.logo);
         //recycler cards
         recyclerViewCards = findViewById(R.id.cards_recycler);
 
@@ -71,5 +80,12 @@ public class TelaHome extends AppCompatActivity {
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         forumAdapter = new ForumAdapter(forumList);
         recyclerViewForum.setAdapter(forumAdapter);
+
+        logo.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent login = new Intent(this, Login.class);
+            startActivity(login);
+            finish();
+        });
     }
 }

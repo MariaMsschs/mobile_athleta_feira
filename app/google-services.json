@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1002709738421",
+    "project_id": "athleta-authentication",
+    "storage_bucket": "athleta-authentication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002709738421:android:be9bd6dc6bd461e1fceffc",
+        "android_client_info": {
+          "package_name": "com.example.mobile_athleta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFL9x-ATVoNfhU-2DDl8aZL8z3tfgJF24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

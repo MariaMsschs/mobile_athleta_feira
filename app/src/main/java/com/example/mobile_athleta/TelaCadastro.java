@@ -35,8 +35,6 @@ public class TelaCadastro extends AppCompatActivity {
         dataNascimento = findViewById(R.id.data_nascimento);
         username = findViewById(R.id.nome_usuario);
 
-//        String data = binding.dataNascimento.getText().toString();
-
         binding.botaoVoltar.setOnClickListener(v -> {
             Intent login = new Intent(this, Login.class);
             startActivity(login);

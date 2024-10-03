@@ -33,7 +33,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TelaCadastro"
+            android:name=".TelaHome"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -41,7 +41,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TelaHome"
+            android:name=".TelaCadastro"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

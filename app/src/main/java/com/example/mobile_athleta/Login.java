@@ -1,20 +1,14 @@
 package com.example.mobile_athleta;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobile_athleta.databinding.ActivityLoginBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
@@ -45,7 +39,7 @@ public class Login extends AppCompatActivity {
 
         binding.botaoLogin.setOnClickListener(v -> {
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
-            String senha = ((EditText)findViewById(R.id.senha)).getText().toString();
+            String senha = ((EditText)findViewById(R.id.cad_senha)).getText().toString();
 
             auth.signInWithEmailAndPassword(email, senha)
                     .addOnCompleteListener( task -> {

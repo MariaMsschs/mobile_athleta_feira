@@ -67,7 +67,7 @@
                 android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/senha"
+                android:id="@+id/cad_senha"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="33dp"

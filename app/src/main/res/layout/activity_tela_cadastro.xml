@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/data_nascimento" />
 
     <EditText
-        android:id="@+id/senha"
+        android:id="@+id/cad_senha"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginTop="48dp"
@@ -179,7 +179,7 @@
         android:text="Senha:"
         android:textColor="#626161"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/senha"
+        app:layout_constraintBottom_toTopOf="@+id/cad_senha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
         app:layout_constraintStart_toStartOf="parent" />
@@ -199,7 +199,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/senha" />
+        app:layout_constraintTop_toBottomOf="@+id/cad_senha" />
 
 <!--    <ImageButton-->
 <!--        android:id="@+id/calendario"-->

@@ -1,39 +1,39 @@
 package com.example.mobile_athleta;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageButton;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-
-import java.util.Calendar;
 
 public class TelaCadastro extends AppCompatActivity {
     private ActivityTelaCadastroBinding binding;
     private int selectedYear, selectedMonth, selectedDay;
-    private String username;
-    private String email;
-    private String senha;
+//    private String username;
+//    private String email;
+//    private String senha;
 
+    private EditText nome;
+    private EditText email;
+    private EditText senha;
+    private EditText dataNascimento;
+    private EditText username;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityTelaCadastroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        nome = findViewById(R.id.nome);
+        email = findViewById(R.id.cad_email);
+        senha = findViewById(R.id.cad_senha);
+        dataNascimento = findViewById(R.id.data_nascimento);
+        username = findViewById(R.id.nome_usuario);
 
 //        String data = binding.dataNascimento.getText().toString();
 
@@ -43,11 +43,10 @@ public class TelaCadastro extends AppCompatActivity {
         });
 
         binding.botaoCadastro.setOnClickListener(v -> {
-            username = binding.nomeUsuario.getText().toString();
-            email = binding.cadEmail.getText().toString();
-            senha = binding.senha.getText().toString();
-
-            salvarLogin(username, email, senha);
+//            username = binding.nomeUsuario.getText().toString();
+//            email = binding.cadEmail.getText().toString();
+//            senha = binding.senha.getText().toString();
+            salvarLogin(nome, email, senha);
         });
 //
 //        // Obter a data atual
@@ -75,10 +74,12 @@ public class TelaCadastro extends AppCompatActivity {
 //        });
     }
 
-    private void salvarLogin(String username, String email, String senha) {
+    private void salvarLogin(EditText username, EditText email, EditText senha) {
+        checkAllFields();
+        if(email.getError() == null && username.getError() == null && senha.getError() == null) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-        auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
+        auth.createUserWithEmailAndPassword(email.getText().toString(), senha.getText().toString()).addOnCompleteListener( task -> {
 
             if (task.isSuccessful()) {
                 Toast.makeText(TelaCadastro.this, "Cadastro efetuado", Toast.LENGTH_SHORT).show();
@@ -89,9 +90,24 @@ public class TelaCadastro extends AppCompatActivity {
         });
     }
 
+
 //    private void validarCadastro(String username, String email, String senha) {
 //        if(username.isEmpty() || email.isEmpty() || senha.isEmpty()){
 //            Toast.makeText(TelaCadastro.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
 //        }
 //    }
+    }
+    public void checkAllFields() {
+        if(nome.getText().toString().trim().isEmpty()){
+            nome.setError("Este campo é obrigatório");
+        } if (email.getText().toString().trim().isEmpty()) {
+            email.setError("Este campo é obrigatório");
+        } if(senha.getText().toString().trim().isEmpty()){
+            senha.setError("Este campo é obrigatório");
+        } if(dataNascimento.getText().toString().trim().isEmpty()){
+            dataNascimento.setError("Este campo é obrigatório");
+        } if(username.getText().toString().trim().isEmpty()){
+            username.setError("Este campo é obrigatório");
+        }
+    }
 }

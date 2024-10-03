@@ -81,7 +81,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_posts"
-                android:layout_width="383dp"
+                android:layout_width="393dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 tools:listitem="@layout/card_post" />
@@ -91,7 +91,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="40dp"
                 tools:listitem="@layout/card_comunidade" />
         </LinearLayout>
     </ScrollView>

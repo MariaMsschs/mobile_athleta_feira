@@ -38,6 +38,7 @@ public class TelaCadastro extends AppCompatActivity {
         binding.botaoVoltar.setOnClickListener(v -> {
             Intent login = new Intent(this, Login.class);
             startActivity(login);
+            finish();
         });
 
         binding.calendario.setOnClickListener(v -> {

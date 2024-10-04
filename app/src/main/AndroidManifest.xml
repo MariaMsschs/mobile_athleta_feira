@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobile_athleta"
         tools:targetApi="31">
+        <activity
+            android:name=".TelaHome"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
@@ -36,17 +40,20 @@
             android:name=".TelaHome"
             android:exported="false"
             android:screenOrientation="portrait" />
+       <activity
+            android:name=".TelaFoto"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TelaAnuncios"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TelaFoto"
+            android:name=".SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -81,54 +81,48 @@
             app:layout_constraintTop_toBottomOf="@+id/legenda"
             app:srcCompat="@drawable/fotopost" />
 
-        <ImageButton
-            android:id="@+id/curtir"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
+            android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintHorizontal_bias="0.079"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagem_post"
-            app:srcCompat="@drawable/like" />
+            app:layout_constraintVertical_bias="0.153">
 
-        <ImageButton
-            android:id="@+id/comentar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
-            app:layout_constraintStart_toEndOf="@+id/curtir"
-            app:layout_constraintTop_toBottomOf="@+id/imagem_post"
-            app:srcCompat="@drawable/comment" />
+            <ImageButton
+                android:id="@+id/compartilhar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/compartilhar" />
 
-        <ImageButton
-            android:id="@+id/compartilhar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/comentar"
-            app:layout_constraintTop_toBottomOf="@+id/imagem_post"
-            app:srcCompat="@drawable/compartilhar" />
+            <ImageButton
+                android:id="@+id/infos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="105dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/infos" />
 
-        <ImageButton
-            android:id="@+id/infos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.116"
-            app:layout_constraintStart_toEndOf="@+id/compartilhar"
-            app:layout_constraintTop_toBottomOf="@+id/imagem_post"
-            app:srcCompat="@drawable/infos" />
+            <ImageButton
+                android:id="@+id/curtir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/like"/>
+
+            <ImageButton
+                android:id="@+id/comentar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/comment" />
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

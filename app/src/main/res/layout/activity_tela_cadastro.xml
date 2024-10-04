@@ -41,8 +41,9 @@
         android:layout_marginTop="48dp"
         android:background="@drawable/input_design"
         android:ems="10"
-        android:inputType="date"
         android:padding="10dp"
+        android:focusable="false"
+        android:clickable="false"
         android:textColor="#626161"
         android:textCursorDrawable="@drawable/cursor_design"
         android:textSize="14sp"
@@ -201,18 +202,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cad_senha" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/calendario"-->
-<!--        android:layout_width="55dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:layout_marginTop="11dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/data_nascimento"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.879"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/data_nascimento"-->
-<!--        app:layout_constraintVertical_bias="1.0"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        app:srcCompat="@drawable/calendario" />-->
-
+    <ImageButton
+        android:id="@+id/calendario"
+        android:layout_width="49dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/data_nascimento"
+        app:layout_constraintEnd_toEndOf="@+id/data_nascimento"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/data_nascimento"
+        app:layout_constraintTop_toTopOf="@+id/data_nascimento"
+        app:layout_constraintVertical_bias="0.3"
+        app:srcCompat="@drawable/calendario" />
 </androidx.constraintlayout.widget.ConstraintLayout>

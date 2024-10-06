@@ -9,10 +9,10 @@ Este projeto foi desenvolvido para Android utilizando Java.
 
 ## Commits Semânticos
 
-  • Feature: Adição de nova funcionalidade
-	• Fix: Correção de bug
-  • Refactor: refatoração de código
-	• Doc: adições na documentação
+• Feature: Adição de nova funcionalidade
+• Fix: Correção de bug
+• Refactor: refatoração de código
+• Doc: adições na documentação
 
 ## Autores
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_dialog_background"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/imagem_athleta"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/athleta_nado" />
+
+    <Button
+        android:id="@+id/tirar_foto"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/white_button_design"
+        android:fontFamily="@font/roboto"
+        android:text="Tirar foto"
+        android:textAllCaps="false"
+        android:textColor="@color/orange"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/abrir_galeria"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/white_button_design"
+        android:fontFamily="@font/roboto"
+        android:text="Escolher na galeria"
+        android:textAllCaps="false"
+        android:textColor="@color/orange"
+        android:textSize="14sp" />
+</LinearLayout>

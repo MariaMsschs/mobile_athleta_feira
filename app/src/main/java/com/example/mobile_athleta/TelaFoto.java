@@ -5,7 +5,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -35,24 +34,19 @@ public class TelaFoto extends AppCompatActivity {
         });
 
         binding.camera.setOnClickListener(view -> {
-            // Infle o layout personalizado do diálogo
             LayoutInflater inflater = getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.alert_dialog, null);
 
-            // Crie o diálogo com o layout personalizado
+            View tirarFoto = dialogView.findViewById(R.id.tirar_foto);
+            View abrirGaleria = dialogView.findViewById(R.id.abrir_galeria);
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(dialogView);
 
             AlertDialog dialog = builder.create();
             dialog.show();
 
-
-            // Obtenha referências para os botões no layout do diálogo
-            View tirarFotoButton = dialogView.findViewById(R.id.tirar_foto);
-            View abrirGaleriaButton = dialogView.findViewById(R.id.abrir_galeria);
-
-            // Defina as ações para os botões
-            tirarFotoButton.setOnClickListener(v -> {
+            tirarFoto.setOnClickListener(v -> {
                 Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (camera.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(camera, REQUEST_IMAGE_CAPTURE);
@@ -60,7 +54,7 @@ public class TelaFoto extends AppCompatActivity {
                 dialog.dismiss();
             });
 
-            abrirGaleriaButton.setOnClickListener(v -> {
+            abrirGaleria.setOnClickListener(v -> {
                 Intent galeria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 resultLauncherGaleria.launch(galeria);
                 dialog.dismiss();

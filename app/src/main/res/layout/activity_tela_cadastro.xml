@@ -7,213 +7,260 @@
     android:background="#f4f4f4"
     tools:context=".TelaCadastro">
 
-    <ImageView
-        android:id="@+id/logo_athleta"
-        android:layout_width="147dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_athleta" />
-
-    <EditText
-        android:id="@+id/nome_usuario"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/input_design"
-        android:ems="10"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColor="#626161"
-        android:textCursorDrawable="@drawable/cursor_design"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome" />
-
-    <EditText
-        android:id="@+id/data_nascimento"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/input_design"
-        android:ems="10"
-        android:padding="10dp"
-        android:focusable="false"
-        android:clickable="false"
-        android:textColor="#626161"
-        android:textCursorDrawable="@drawable/cursor_design"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nome_usuario" />
-
-    <EditText
-        android:id="@+id/nome"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/input_design"
-        android:ems="10"
-        android:inputType="text"
-        android:padding="10dp"
-        android:textColor="#626161"
-        android:textCursorDrawable="@drawable/cursor_design"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_athleta" />
-
-    <EditText
-        android:id="@+id/cad_email"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/input_design"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:padding="10dp"
-        android:textColor="#626161"
-        android:textCursorDrawable="@drawable/cursor_design"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/data_nascimento" />
-
-    <EditText
-        android:id="@+id/cad_senha"
-        android:layout_width="350dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/input_design"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:textColor="#626161"
-        android:textCursorDrawable="@drawable/cursor_design"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cad_email" />
-
-    <ImageButton
-        android:id="@+id/botao_voltar"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="416dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:backgroundTint="#00FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/logo_athleta"
-        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta_volta" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintVertical_bias="0.0">
 
-    <TextView
-        android:id="@+id/titulo_nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/roboto"
-        android:text="Nome:"
-        android:textColor="#626161"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/nome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
-        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/titulo_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/roboto"
-        android:text="Nome de usuário:"
-        android:textColor="#626161"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/nome_usuario"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/titulo_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Nome:"
+                android:textColor="#626161"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/nome"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.082"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/titulo_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/roboto"
-        android:text="Data de nascimento:"
-        android:textColor="#626161"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/data_nascimento"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/nome"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logo_athleta" />
 
-    <TextView
-        android:id="@+id/titulo_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/roboto"
-        android:text="Email:"
-        android:textColor="#626161"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/cad_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:id="@+id/titulo_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Nome de usuário:"
+                android:textColor="#626161"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/nome_usuario"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.099"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/titulo_senha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/roboto"
-        android:text="Senha:"
-        android:textColor="#626161"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/cad_senha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
-        app:layout_constraintStart_toStartOf="parent" />
+            <EditText
+                android:id="@+id/nome_usuario"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nome" />
 
-    <Button
-        style="?android:attr/borderlessButtonStyle"
-        android:id="@+id/botao_cadastro"
-        android:layout_width="350dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/button_design"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Cadastre-se"
-        android:textAllCaps="false"
-        android:textColor="#F4F4F4"
-        android:textSize="15sp"
+            <TextView
+                android:id="@+id/titulo_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Data de nascimento:"
+                android:textColor="#626161"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/data_nascimento"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.099"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/data_nascimento"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/input_design"
+                    android:clickable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:padding="10dp"
+                    android:textColor="#626161"
+                    android:textCursorDrawable="@drawable/cursor_design"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.491"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nome_usuario" />
+
+                <ImageButton
+                    android:id="@+id/calendario"
+                    android:layout_width="49dp"
+                    android:layout_height="46dp"
+                    android:layout_marginLeft="320dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="@+id/data_nascimento"
+                    app:layout_constraintEnd_toEndOf="@+id/data_nascimento"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@+id/data_nascimento"
+                    app:layout_constraintTop_toTopOf="@+id/data_nascimento"
+                    app:layout_constraintVertical_bias="0.3"
+                    app:srcCompat="@drawable/calendario" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/titulo_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Email:"
+                android:textColor="#626161"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/cad_email"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.08"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/cad_email"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/data_nascimento" />
+
+            <TextView
+                android:id="@+id/titulo_senha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Senha:"
+                android:textColor="#626161"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/cad_senha"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.081"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/cad_senha"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cad_email" />
+
+            <Button
+                android:id="@+id/botao_cadastro"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="350dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="52dp"
+                android:background="@drawable/button_design"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Cadastre-se"
+                android:textAllCaps="false"
+                android:textColor="#F4F4F4"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cad_senha" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="408dp"
+        android:layout_height="96dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cad_senha" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageButton
-        android:id="@+id/calendario"
-        android:layout_width="49dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="4dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/data_nascimento"
-        app:layout_constraintEnd_toEndOf="@+id/data_nascimento"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/data_nascimento"
-        app:layout_constraintTop_toTopOf="@+id/data_nascimento"
-        app:layout_constraintVertical_bias="0.3"
-        app:srcCompat="@drawable/calendario" />
+        <ImageView
+            android:id="@+id/logo_athleta"
+            android:layout_width="147dp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.598"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_athleta" />
+
+        <ImageButton
+            android:id="@+id/botao_voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/logo_athleta"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/seta_volta" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

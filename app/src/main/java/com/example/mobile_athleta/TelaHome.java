@@ -3,28 +3,12 @@ package com.example.mobile_athleta;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageView;
-
-import com.example.mobile_athleta.adapter.EsporteCardAdapter;
-import com.example.mobile_athleta.adapter.ForumAdapter;
-import com.example.mobile_athleta.adapter.PostAdapter;
 import com.example.mobile_athleta.databinding.ActivityTelaHomeBinding;
 import com.example.mobile_athleta.fragments.HomeFragment;
 import com.example.mobile_athleta.fragments.PerfilFragment;
-import com.example.mobile_athleta.models.Esporte;
-import com.example.mobile_athleta.models.Forum;
-import com.example.mobile_athleta.models.Post;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TelaHome extends AppCompatActivity {
     private ActivityTelaHomeBinding binding;
@@ -44,7 +28,7 @@ public class TelaHome extends AppCompatActivity {
 
         // Carregar o primeiro fragmento como padrão
         if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+            carregarFragment(new HomeFragment());
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,8 +40,12 @@ public class TelaHome extends AppCompatActivity {
                     selectedFragment = new PerfilFragment();
                 }
 
+                if (item.getItemId() == R.id.home) {
+                    selectedFragment = new HomeFragment();
+                }
+
                 if (selectedFragment != null) {
-                    loadFragment(selectedFragment);
+                    carregarFragment(selectedFragment);
                     return true;
                 }
 
@@ -67,9 +55,9 @@ public class TelaHome extends AppCompatActivity {
     }
 
     // Método para trocar de fragment
-    private void loadFragment(Fragment fragment) {
+    private void carregarFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frameConteudo, fragment)
+                .replace(R.id.frame_conteudo_home, fragment)
                 .commit();
     }
 }

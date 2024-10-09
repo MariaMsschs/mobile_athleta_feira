@@ -21,10 +21,6 @@ public class TelaHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_home);
 
-        //FRAGMENT ---------------------------------------------------------------------------
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.frameConteudo, perfilFragment).commit();
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomviewnav);
 
         // Carregar o primeiro fragmento como padrão

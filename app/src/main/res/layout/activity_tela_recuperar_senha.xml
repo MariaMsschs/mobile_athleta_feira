@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaRecuperarSenha">
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="408dp"
+        android:layout_height="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logo_athleta"
+            android:layout_width="147dp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.598"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_athleta" />
+
+        <ImageButton
+            android:id="@+id/botao_voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/logo_athleta"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/seta_volta" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/titulo_recuperar"
+        android:layout_width="328dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Insira o e-mail cadastrado na sua conta para recuperar a senha!"
+        android:textColor="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+    <TextView
+        android:id="@+id/titulo_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/roboto"
+        android:text="Email:"
+        android:textColor="#626161"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.079"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titulo_recuperar" />
+
+    <EditText
+        android:id="@+id/email_recuperar"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/input_design"
+        android:ems="10"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textColor="#626161"
+        android:textCursorDrawable="@drawable/cursor_design"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titulo_recuperar" />
+
+    <Button
+        android:id="@+id/botao_recuperar"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/button_design"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Enviar email de recuperação"
+        android:textAllCaps="false"
+        android:textColor="#F4F4F4"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_recuperar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

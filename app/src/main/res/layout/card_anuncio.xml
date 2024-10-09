@@ -2,19 +2,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="200dp"
-    android:layout_height="300dp"
+    android:layout_width="212dp"
+    android:layout_height="313dp"
     android:layout_margin="5dp"
+    android:layout_marginRight="20dp"
     android:padding="20dp"
     app:cardBackgroundColor="#f4f4f4"
     app:cardCornerRadius="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="212dp"
+        android:layout_height="313dp">
 
         <ImageView
-            android:id="@+id/imagem_perfil"
+            android:id="@+id/imagem_produto_anuncio"
             android:layout_width="162dp"
             android:layout_height="182dp"
             android:layout_marginTop="16dp"
@@ -25,28 +26,60 @@
             app:srcCompat="@drawable/luva_baseball" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/titulo_anuncio"
             android:layout_width="57dp"
             android:layout_height="24dp"
             android:layout_marginTop="12dp"
+            android:fontFamily="@font/roboto_bold"
             android:text="Titulo"
             android:textColor="#F9A400"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.118"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imagem_perfil" />
+            app:layout_constraintTop_toBottomOf="@+id/imagem_produto_anuncio" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/autor_anuncio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_bold"
             android:text="Anunciante"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.119"
+            app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/titulo_anuncio" />
+
+        <TextView
+            android:id="@+id/real"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="R$"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.092"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autor_anuncio" />
+
+        <TextView
+            android:id="@+id/preco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="89,90"
+            android:textColor="@color/orange"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.232"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/autor_anuncio" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

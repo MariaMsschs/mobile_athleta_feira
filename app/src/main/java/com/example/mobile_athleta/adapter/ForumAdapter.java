@@ -46,7 +46,7 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
 
         public ForumViewHolder(@NonNull View itemView) {
             super(itemView);
-            imagem_perfil = itemView.findViewById(R.id.imagem_perfil);
+            imagem_perfil = itemView.findViewById(R.id.imagem_produto_anuncio);
             forum_titulo = itemView.findViewById(R.id.forum_titulo);
             forum_descricao = itemView.findViewById(R.id.forum_descricao);
             forum_seguidores = itemView.findViewById(R.id.forum_seguidores);

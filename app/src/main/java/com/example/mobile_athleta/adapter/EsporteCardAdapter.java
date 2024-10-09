@@ -47,7 +47,7 @@ public class EsporteCardAdapter extends RecyclerView.Adapter<EsporteCardAdapter.
 
         public EsporteViewHolder(@NonNull View itemView) {
             super(itemView);
-            sportImage = itemView.findViewById(R.id.imagem_perfil);
+            sportImage = itemView.findViewById(R.id.imagem_produto_anuncio);
             sportTitle = itemView.findViewById(R.id.forum_titulo);
             sportDescription = itemView.findViewById(R.id.forum_descricao);
         }

@@ -1,91 +1,63 @@
 package com.example.mobile_athleta;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.example.mobile_athleta.adapter.EsporteCardAdapter;
-import com.example.mobile_athleta.adapter.ForumAdapter;
-import com.example.mobile_athleta.adapter.PostAdapter;
+import android.view.MenuItem;
 import com.example.mobile_athleta.databinding.ActivityTelaHomeBinding;
-import com.example.mobile_athleta.models.Esporte;
-import com.example.mobile_athleta.models.Forum;
-import com.example.mobile_athleta.models.Post;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.mobile_athleta.fragments.AnuncioFragment;
+import com.example.mobile_athleta.fragments.HomeFragment;
+import com.example.mobile_athleta.fragments.PerfilFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TelaHome extends AppCompatActivity {
     private ActivityTelaHomeBinding binding;
 
-    private RecyclerView recyclerViewCards, recyclerViewPosts, recyclerViewForum;
-    private EsporteCardAdapter esportesAdapter;
-    private PostAdapter postAdapter;
-    private ForumAdapter forumAdapter;
-    private List<Esporte> esportesList;
-    private List<Post> postList;
-
-    private ImageView logo;
-    private List<Forum> forumList;
+    private PerfilFragment perfilFragment = new PerfilFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_home);
 
-        logo = findViewById(R.id.logo);
-        //recycler cards
-        recyclerViewCards = findViewById(R.id.cards_recycler);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomviewnav);
 
-        esportesList = new ArrayList<>();
-        esportesList.add(new Esporte("Beisebol", "A prática do beisebol envolve duas equipes de nove jogadores...", R.drawable.baseball));
-        esportesList.add(new Esporte("Badminton", "Badminton é um esporte de raquete que pode ser jogado...", R.drawable.baseball));
+        // Carregar o primeiro fragmento como padrão
+        if (savedInstanceState == null) {
+            carregarFragment(new HomeFragment());
+        }
 
-        recyclerViewCards.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        esportesAdapter = new EsporteCardAdapter(esportesList);
-        recyclerViewCards.setAdapter(esportesAdapter);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selectedFragment = null;
 
-        //recycler posts
+                if (item.getItemId() == R.id.perfil) {
+                    selectedFragment = new PerfilFragment();
+                }
 
-        recyclerViewPosts = findViewById(R.id.recycler_posts);
+                if (item.getItemId() == R.id.home) {
+                    selectedFragment = new HomeFragment();
+                }
 
-        postList = new ArrayList<>();
+                if (item.getItemId() == R.id.anuncios) {
+                    selectedFragment = new AnuncioFragment();
+                }
 
-        postList.add(new Post(1, "post2", 0, "User2", R.drawable.perfil_pequeno));
-        postList.add(new Post(2, "post3", 0, "User2", R.drawable.perfil_pequeno));
-        postList.add(new Post(3, "post1", 0, "User2", R.drawable.perfil_pequeno));
+                if (selectedFragment != null) {
+                    carregarFragment(selectedFragment);
+                    return true;
+                }
 
-
-        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        postAdapter = new PostAdapter(postList);
-        recyclerViewPosts.setAdapter(postAdapter);
-
-        //recycler forum
-        recyclerViewForum = findViewById(R.id.recycler_forum);
-
-        forumList = new ArrayList<>();
-
-        forumList.add(new Forum(1, "PingPros", "Comunidade de ping pong.", "user2", R.drawable.comunidadefoto, R.drawable.comunidadefoto, 0));
-        forumList.add(new Forum(2, "PingPros", "Comunidade de ping pong.", "user2", R.drawable.comunidadefoto, R.drawable.comunidadefoto, 0));
-        forumList.add(new Forum(3, "PingPros", "Comunidade de ping pong.", "user2", R.drawable.comunidadefoto, R.drawable.comunidadefoto, 0));
-
-
-        recyclerViewForum.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        forumAdapter = new ForumAdapter(forumList);
-        recyclerViewForum.setAdapter(forumAdapter);
-
-        logo.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            Intent login = new Intent(this, Login.class);
-            startActivity(login);
-            finish();
+                return false;
+            }
         });
+    }
+
+    private void carregarFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_conteudo_home, fragment)
+                .commit();
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="250dp"
+    android:layout_width="240dp"
     android:layout_height="wrap_content"
     android:background="@drawable/custom_dialog_background"
     android:gravity="center_horizontal"
@@ -13,8 +13,19 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        app:srcCompat="@drawable/athleta_nado" />
+        android:layout_marginTop="25dp"
+        app:srcCompat="@drawable/athleta_corrida" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="199dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="O link de recuperação de senha foi enviado para o seu e-mail!"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/botao_ok"
@@ -22,24 +33,10 @@
         android:layout_width="200dp"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/white_button_design"
         android:fontFamily="@font/roboto_bold"
-        android:text="Tirar foto"
-        android:textAllCaps="false"
-        android:textColor="@color/orange"
-        android:textSize="14sp" />
-
-    <Button
-        android:id="@+id/abrir_galeria"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/white_button_design"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Escolher na galeria"
+        android:text="OK"
         android:textAllCaps="false"
         android:textColor="@color/orange"
         android:textSize="14sp" />

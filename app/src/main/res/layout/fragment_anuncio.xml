@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".fragments.AnuncioFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <SearchView
+                android:layout_width="320dp"
+                android:layout_height="45dp"
+                android:background="@drawable/search_design"
+                android:queryHint="Faça sua busca aqui!" />
+
+            <ImageButton
+                android:id="@+id/chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:src="@drawable/chat" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/filtro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/filtro" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_anuncios"
+        android:layout_width="match_parent"
+        android:layout_height="558dp"
+        android:layout_marginTop="130dp"
+        android:background="@color/white"
+        tools:listitem="@layout/card_anuncio" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="620dp"
+        android:contentDescription="Adicionar"
+        android:src="@drawable/adicionar"
+        app:backgroundTint="@color/orange"
+        app:elevation="0dp" />
+
+</FrameLayout>

@@ -5,9 +5,9 @@ public class Produto {
     private String title;
     private String description;
     private double price;
-    private String image;
+    private int image;
 
-    private Produto (int id, String title, String description, double price, String image) {
+    public Produto (int id, String title, String description, double price, int image) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -31,7 +31,7 @@ public class Produto {
         return price;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 

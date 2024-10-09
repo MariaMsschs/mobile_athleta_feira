@@ -20,28 +20,33 @@ public class TelaFoto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityTelaFotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         binding.botaoVoltar.setOnClickListener(view -> {
             Intent intent = new Intent(TelaFoto.this, TelaCadastro.class);
             startActivity(intent);
             finish();
         });
         binding.camera.setOnClickListener(view -> {
+
             LayoutInflater inflater = getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.alert_dialog, null);
-            View tirarFoto = dialogView.findViewById(R.id.tirar_foto);
+            View tirarFoto = dialogView.findViewById(R.id.botao_ok);
             View abrirGaleria = dialogView.findViewById(R.id.abrir_galeria);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setView(dialogView);
             AlertDialog dialog = builder.create();
             dialog.show();
+
             tirarFoto.setOnClickListener(v -> {
                 Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (camera.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(camera, REQUEST_IMAGE_CAPTURE);
                 }
                 dialog.dismiss();
+                finish();
             });
             abrirGaleria.setOnClickListener(v -> {
                 Intent galeria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

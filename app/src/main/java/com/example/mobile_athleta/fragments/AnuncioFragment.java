@@ -63,8 +63,8 @@ public class AnuncioFragment extends Fragment {
 
         produtoList = new ArrayList<>();
         produtoList.add(new Produto(1, "Luva de Baseball", "possivel anunciante", 70, R.drawable.luva_baseball));
-        produtoList.add(new Produto(2, "raquete", "blaba", 50, R.drawable.luva_baseball));
         produtoList.add(new Produto(3, "Luva de Baseball", "possivel anunciante", 70, R.drawable.luva_baseball));
+        produtoList.add(new Produto(2, "coisas", "blaba", 50, R.drawable.luva_baseball));
         produtoList.add(new Produto(4, "raquete", "blaba", 50, R.drawable.luva_baseball));
         produtoList.add(new Produto(5, "Luva de Baseball", "possivel anunciante", 70, R.drawable.luva_baseball));
         produtoList.add(new Produto(6, "raquete", "blaba", 50, R.drawable.luva_baseball));

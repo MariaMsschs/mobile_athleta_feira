@@ -51,11 +51,11 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/configuracao"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="75dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="70dp"
                 android:layout_marginBottom="15dp"
                 android:contentDescription="Configurações"
                 android:src="@drawable/config" />
@@ -179,7 +179,7 @@
     <FrameLayout
         android:id="@+id/frame_conteudo_perfil"
         android:layout_width="match_parent"
-        android:layout_height="479dp"
+        android:layout_height="470dp"
         android:layout_marginTop="233dp">
 
     </FrameLayout>

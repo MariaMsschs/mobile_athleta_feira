@@ -1,13 +1,16 @@
 package com.example.mobile_athleta.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaConfiguracao;
 
 public class PerfilFragment extends Fragment {
 
@@ -39,6 +42,7 @@ public class PerfilFragment extends Fragment {
     }
 
     TextView tabPosts, tabForuns, tabEventos;
+    ImageButton config;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +79,13 @@ public class PerfilFragment extends Fragment {
             tabEventos.setTextColor(getResources().getColor(R.color.black));
         });
 
+        config = view.findViewById(R.id.configuracao);
+
+        config.setOnClickListener(v -> {
+            Intent configuracao = new Intent(getActivity(), TelaConfiguracao.class);
+            startActivity(configuracao);
+//            getActivity().finish();
+        });
         return view;
     }
 

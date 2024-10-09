@@ -55,7 +55,6 @@ public class TelaHome extends AppCompatActivity {
         });
     }
 
-    // Método para trocar de fragment
     private void carregarFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_conteudo_home, fragment)

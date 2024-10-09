@@ -31,8 +31,14 @@ public class Login extends AppCompatActivity {
             finish();
         }
 
+        binding.esqueciSenha.setOnClickListener(v -> {
+            Intent recuperar = new Intent(this, TelaRecuperarSenha.class);
+            startActivity(recuperar);
+
+        });
+
         binding.botaoCadastrese.setOnClickListener(v -> {
-            Intent cadastro = new Intent(Login.this, TelaCadastro.class);
+            Intent cadastro = new Intent(this, TelaCadastro.class);
             startActivity(cadastro);
             finish();
         });

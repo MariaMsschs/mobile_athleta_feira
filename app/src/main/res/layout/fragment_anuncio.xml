@@ -49,7 +49,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_anuncios"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="558dp"
         android:layout_marginTop="130dp"
         android:background="@color/white"
         tools:listitem="@layout/card_anuncio" />
@@ -61,10 +61,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="330dp"
-        android:layout_marginTop="700dp"
+        android:layout_marginTop="620dp"
         android:contentDescription="Adicionar"
-        app:elevation="0dp"
         android:src="@drawable/adicionar"
-        app:backgroundTint="@color/orange" />
+        app:backgroundTint="@color/orange"
+        app:elevation="0dp" />
 
 </FrameLayout>

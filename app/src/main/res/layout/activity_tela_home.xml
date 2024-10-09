@@ -30,7 +30,7 @@
     <FrameLayout
         android:id="@+id/frame_conteudo_home"
         android:layout_width="413dp"
-        android:layout_height="744dp"
+        android:layout_height="730dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomviewnav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

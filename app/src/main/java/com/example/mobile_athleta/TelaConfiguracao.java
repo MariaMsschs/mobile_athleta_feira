@@ -30,5 +30,11 @@ public class TelaConfiguracao extends AppCompatActivity {
             startActivity(login);
             finish();
         });
+
+        binding.alterarSenha.setOnClickListener(v -> {
+            Intent alterarSenha = new Intent(this, TelaAlterarSenha.class);
+            startActivity(alterarSenha);
+            finish();
+        });
     }
 }

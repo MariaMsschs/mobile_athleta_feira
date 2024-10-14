@@ -8,8 +8,8 @@
     tools:context=".TelaCadastro">
 
     <ScrollView
-        android:layout_width="441dp"
-        android:layout_height="478dp"
+        android:layout_width="410dp"
+        android:layout_height="516dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -104,7 +104,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <FrameLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <EditText
@@ -120,11 +120,7 @@
                     android:padding="10dp"
                     android:textColor="#626161"
                     android:textCursorDrawable="@drawable/cursor_design"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.491"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/nome_usuario" />
+                    android:textSize="14sp" />
 
                 <ImageButton
                     android:id="@+id/calendario"
@@ -134,12 +130,6 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="4dp"
                     android:background="@android:color/transparent"
-                    app:layout_constraintBottom_toBottomOf="@+id/data_nascimento"
-                    app:layout_constraintEnd_toEndOf="@+id/data_nascimento"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/data_nascimento"
-                    app:layout_constraintTop_toTopOf="@+id/data_nascimento"
-                    app:layout_constraintVertical_bias="0.3"
                     app:srcCompat="@drawable/calendario" />
             </FrameLayout>
 

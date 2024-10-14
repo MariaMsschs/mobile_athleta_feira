@@ -15,6 +15,15 @@
         android:theme="@style/Theme.Mobile_athleta"
         tools:targetApi="31">
         <activity
+            android:name=".TelaInfosConta"
+            android:exported="false" />
+        <activity
+            android:name=".TelaAlterarSenha"
+            android:exported="false" />
+        <activity
+            android:name=".TelaInfoConta"
+            android:exported="false" />
+        <activity
             android:name=".TelaConfiguracao"
             android:exported="false" />
         <activity

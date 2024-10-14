@@ -101,10 +101,4 @@ public class TelaCadastro extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
         datePickerDialog.show();
     }
-
-    //    private void validarCadastro(String username, String email, String senha) {
-//        if(username.isEmpty() || email.isEmpty() || senha.isEmpty()){
-//            Toast.makeText(TelaCadastro.this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 }

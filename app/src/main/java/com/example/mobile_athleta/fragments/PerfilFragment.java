@@ -77,6 +77,7 @@ public class PerfilFragment extends Fragment {
             indicator.animate().x(tabEventos.getX()).setDuration(200);
             resetTabColors();
             tabEventos.setTextColor(getResources().getColor(R.color.black));
+            carregarFragment(new EventoPerfil());
         });
 
         config = view.findViewById(R.id.configuracao);

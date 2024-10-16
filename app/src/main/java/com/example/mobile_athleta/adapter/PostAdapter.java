@@ -1,5 +1,6 @@
 package com.example.mobile_athleta.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Post;
 
@@ -44,19 +46,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private ImageView usuarioPerfil, imagem;
         private TextView usuarioNome, legenda;
 
+        private Context context;
+
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             usuarioNome = itemView.findViewById(R.id.usuario);
             legenda = itemView.findViewById(R.id.legenda);
-//            imagem = itemView.findViewById(R.id.imagem_post);
+            imagem = itemView.findViewById(R.id.imagem_post);
             usuarioPerfil = itemView.findViewById(R.id.foto_perfil);
+            context = itemView.getContext();
         }
 
         public void bind(Post post) {
             usuarioNome.setText(post.getUsuario());
             legenda.setText(post.getLegenda());
-//            imagem.setImageResource(post.getImagem());
-            usuarioPerfil.setImageResource(post.getUsuario_perfil());
+
+            String imagemPostUrl = post.getImagem();
+            Glide.with(itemView.getContext()).load(imagemPostUrl).into(imagem);
+
+            String imagemPerfilUrl = post.getUsuarioPerfil();
+            Glide.with(itemView.getContext()).load(imagemPerfilUrl).into(usuarioPerfil);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.mobile_athleta.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Esporte;
 
@@ -41,21 +43,25 @@ public class EsporteCardAdapter extends RecyclerView.Adapter<EsporteCardAdapter.
     }
 
     public static class EsporteViewHolder extends RecyclerView.ViewHolder {
-        private ImageView sportImage;
-        private TextView sportTitle;
-        private TextView sportDescription;
+        private ImageView esporteImagem;
+        private TextView esporteTitulo;
+        private TextView esporteDescricao;
+
+        private Context context;
 
         public EsporteViewHolder(@NonNull View itemView) {
             super(itemView);
-            sportImage = itemView.findViewById(R.id.imagem_produto_anuncio);
-            sportTitle = itemView.findViewById(R.id.forum_titulo);
-            sportDescription = itemView.findViewById(R.id.forum_descricao);
+            esporteImagem = itemView.findViewById(R.id.imagem_produto_anuncio);
+            esporteTitulo = itemView.findViewById(R.id.esporte_titulo);
+            esporteDescricao = itemView.findViewById(R.id.esporte_descricao);
+            context = itemView.getContext();
         }
 
         public void bind(Esporte esporte) {
-            sportTitle.setText(esporte.getTitle());
-            sportDescription.setText(esporte.getDescription());
-            sportImage.setImageResource(esporte.getImageResource());
+            esporteTitulo.setText(esporte.getTitle());
+            esporteDescricao.setText(esporte.getDescription());
+            String imageUrl = esporte.getImagem();
+            Glide.with(itemView.getContext()).load(imageUrl).into(esporteImagem);
         }
     }
 }

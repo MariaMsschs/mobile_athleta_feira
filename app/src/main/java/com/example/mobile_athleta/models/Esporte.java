@@ -3,9 +3,9 @@ package com.example.mobile_athleta.models;
 public class Esporte {
     private String title;
     private String description;
-    private int imageResource;
+    private String imageResource;
 
-    public Esporte(String title, String description, int imageResource) {
+    public Esporte(String title, String description, String imageResource) {
         this.title = title;
         this.description = description;
         this.imageResource = imageResource;
@@ -19,7 +19,7 @@ public class Esporte {
         return description;
     }
 
-    public int getImageResource() {
+    public String getImagem() {
         return imageResource;
     }
 }

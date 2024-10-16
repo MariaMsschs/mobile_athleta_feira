@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="187dp"
     android:layout_margin="4dp"
@@ -13,59 +14,58 @@
         android:layout_height="match_parent"
         android:background="@drawable/card_design">
 
-        <ImageView
-            android:id="@+id/imagem_produto_anuncio"
-            android:layout_width="105dp"
-            android:layout_height="170dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/comunidadefoto"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <LinearLayout
             android:id="@+id/text_layout"
             android:layout_width="233dp"
             android:layout_height="146dp"
-            android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintStart_toEndOf="@+id/imagem_produto_anuncio"
+            app:layout_constraintEnd_toStartOf="@+id/imagem_evento"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.39">
 
             <TextView
-                android:id="@+id/forum_titulo"
+                android:id="@+id/evento_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-
-                android:text="PingPros"
+                android:text="Aula gratuita de esgrima"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/forum_descricao"
+                android:id="@+id/evento_descricao"
                 android:layout_width="match_parent"
                 android:layout_height="89dp"
                 android:fontFamily="@font/roboto"
                 android:paddingTop="4dp"
-                android:text="Somos a maior comunidade de Tênis de Mesa do Brasil. Se junte a nós e faça parte desta família!"
+                android:text="Nós da Associação de Esgrima Brasil temos o prazer de te convidar para nossa aula gratuita. Gostaríamos de ter sua presença!"
                 android:textColor="@color/gray"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/forum_seguidores"
+                android:id="@+id/titulo_data_evento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-                android:text="2000 seguidores"
+                android:text="Data: xx/xx/xxxx"
                 android:textColor="@color/gray" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imagem_evento"
+            android:layout_width="105dp"
+            android:layout_height="170dp"
+            android:src="@drawable/evento_foto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.946"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.47" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ForumPerfil">
+    tools:context=".fragments.EventoPerfil">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_forum_perfil"
+        android:id="@+id/recycler_evento_perfil"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/card_comunidade" />
+        tools:listitem="@layout/card_evento" />
 </FrameLayout>

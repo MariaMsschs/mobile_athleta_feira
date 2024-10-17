@@ -5,7 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -20,6 +24,8 @@ public class TelaCadastro extends AppCompatActivity {
     private EditText dataNascimento;
     private EditText username;
 
+    private FrameLayout frameLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +38,8 @@ public class TelaCadastro extends AppCompatActivity {
         senha = findViewById(R.id.cad_senha);
         dataNascimento = findViewById(R.id.data_nascimento);
         username = findViewById(R.id.nome_usuario);
+        frameLayout = findViewById(R.id.frameLayoutCadastro);
+        frameLayout.setVisibility(ProgressBar.GONE);
 
         binding.botaoVoltar.setOnClickListener(v -> {
             Intent login = new Intent(this, Login.class);
@@ -48,7 +56,7 @@ public class TelaCadastro extends AppCompatActivity {
         });
 
         binding.botaoCadastro.setOnClickListener(v -> {
-            salvarLogin(nome, email, senha);
+            salvarLogin(username, email, senha);
         });
     }
 
@@ -56,10 +64,12 @@ public class TelaCadastro extends AppCompatActivity {
         checkAllFields();
         if(email.getError() == null && username.getError() == null && senha.getError() == null) {
             FirebaseAuth auth = FirebaseAuth.getInstance();
-
+            frameLayout.setVisibility(ProgressBar.VISIBLE);
             auth.createUserWithEmailAndPassword(email.getText().toString(), senha.getText().toString()).addOnCompleteListener( task -> {
                 if (task.isSuccessful()) {
+                    getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username.getText().toString()).apply();
                     Intent home = new Intent(this, TelaFoto.class);
+                    frameLayout.setVisibility(ProgressBar.GONE);
                     startActivity(home);
                     finish();
                 }

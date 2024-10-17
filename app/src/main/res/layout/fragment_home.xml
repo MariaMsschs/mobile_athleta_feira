@@ -68,6 +68,7 @@
                 android:id="@+id/recycler_forum"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
+                android:layout_marginLeft="3dp"
                 android:layout_marginTop="10dp"
                 tools:listitem="@layout/card_comunidade" />
         </LinearLayout>

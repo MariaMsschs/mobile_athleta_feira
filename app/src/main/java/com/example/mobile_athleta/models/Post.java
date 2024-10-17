@@ -3,12 +3,12 @@ package com.example.mobile_athleta.models;
 public class Post {
     private int id;
     private String legenda;
-    private int imagem;
+    private String imagem;
     private String usuario;
 
-    private int usuario_perfil;
+    private String usuario_perfil;
 
-    public Post(int id, String legenda, int imagem, String usuario, int usuario_perfil) {
+    public Post(int id, String legenda, String imagem, String usuario, String usuario_perfil) {
         this.id = id;
         this.legenda = legenda;
         this.imagem = imagem;
@@ -24,7 +24,7 @@ public class Post {
         return legenda;
     }
 
-    public int getImagem() {
+    public String getImagem() {
         return imagem;
     }
 
@@ -32,7 +32,7 @@ public class Post {
         return usuario;
     }
 
-    public int getUsuario_perfil(){
+    public String getUsuarioPerfil(){
         return usuario_perfil;
     }
 }

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="365dp"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_marginStart="23dp"
+    android:layout_marginTop="10dp"
     android:background="@drawable/card_design"
-    android:foregroundGravity="center_vertical"
     app:cardCornerRadius="8dp"
     app:cardElevation="0dp">
 
@@ -19,54 +19,58 @@
             android:id="@+id/text_layout"
             android:layout_width="220dp"
             android:layout_height="146dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/imagem_comunidade"
+            app:layout_constraintEnd_toStartOf="@+id/imagem_evento"
+            app:layout_constraintHorizontal_bias="0.24"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.529">
+            app:layout_constraintVertical_bias="0.47">
 
             <TextView
-                android:id="@+id/forum_titulo"
+                android:id="@+id/evento_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-
-                android:text="PingPros"
+                android:text="Aula gratuita de esgrima"
                 android:textColor="@color/orange"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/forum_descricao"
+                android:id="@+id/evento_descricao"
                 android:layout_width="match_parent"
                 android:layout_height="89dp"
                 android:fontFamily="@font/roboto"
                 android:paddingTop="4dp"
-                android:text="Somos a maior comunidade de Tênis de Mesa do Brasil. Se junte a nós e faça parte desta família!"
+                android:text="Nós da Associação de Esgrima Brasil temos o prazer de te convidar para nossa aula gratuita. Gostaríamos de ter sua presença!"
                 android:textColor="@color/gray"
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/forum_seguidores"
+                android:id="@+id/titulo_data_evento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
-                android:text="2000 seguidores"
+                android:text="Data: xx/xx/xxxx"
                 android:textColor="@color/gray" />
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/imagem_comunidade"
-        android:layout_width="120dp"
-        android:layout_height="180dp"
-        android:background="@drawable/card_comunidade_design"
-        android:clipToOutline="true"
-        android:scaleType="centerCrop" />
+        <ImageView
+            android:id="@+id/imagem_evento"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
+            android:background="@drawable/card_esporte_design"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

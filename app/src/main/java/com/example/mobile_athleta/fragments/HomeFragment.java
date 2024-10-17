@@ -66,8 +66,8 @@ public class HomeFragment extends Fragment {
         recyclerViewCards = view.findViewById(R.id.cards_recycler);
 
         esportesList = new ArrayList<>();
-        esportesList.add(new Esporte("Beisebol", "A prática do beisebol envolve duas equipes de nove jogadores...", R.drawable.baseball));
-        esportesList.add(new Esporte("Badminton", "Badminton é um esporte de raquete que pode ser jogado...", R.drawable.baseball));
+        esportesList.add(new Esporte("Beisebol", "A prática do beisebol envolve duas equipes de nove jogadores...", "https://lastfm.freetls.fastly.net/i/u/770x0/2c99d172718679ddefa26d910452545e.jpg#2c99d172718679ddefa26d910452545e"));
+        esportesList.add(new Esporte("Badminton", "Badminton é um esporte de raquete que pode ser jogado...", "https://lastfm.freetls.fastly.net/i/u/770x0/2c99d172718679ddefa26d910452545e.jpg#2c99d172718679ddefa26d910452545e"));
 
         recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
         esportesAdapter = new EsporteCardAdapter(esportesList);
@@ -79,24 +79,22 @@ public class HomeFragment extends Fragment {
 
         postList = new ArrayList<>();
 
-        postList.add(new Post(1, "post2", 0, "User2", R.drawable.perfil_pequeno));
-        postList.add(new Post(2, "post3", 0, "User2", R.drawable.perfil_pequeno));
-        postList.add(new Post(3, "post1", 0, "User2", R.drawable.perfil_pequeno));
+        postList.add(new Post(1, "post2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/7dcd4fabfd9e48fc81a5fda66e2274bd", "User2", "https://lastfm.freetls.fastly.net/i/u/500x500/b00527c6ae0cd1d4c9bf3706b130ad56.jpg"));
+        postList.add(new Post(2, "post3", "https://lastfm.freetls.fastly.net/i/u/avatar170s/7dcd4fabfd9e48fc81a5fda66e2274bd", "User2", "https://lastfm.freetls.fastly.net/i/u/500x500/b00527c6ae0cd1d4c9bf3706b130ad56.jpg"));
+        postList.add(new Post(3, "post1", "https://lastfm.freetls.fastly.net/i/u/avatar170s/7dcd4fabfd9e48fc81a5fda66e2274bd", "User2","https://lastfm.freetls.fastly.net/i/u/500x500/b00527c6ae0cd1d4c9bf3706b130ad56.jpg"));
 
 
         recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         postAdapter = new PostAdapter(postList);
         recyclerViewPosts.setAdapter(postAdapter);
 
-        //recycler forum
         recyclerViewForum = view.findViewById(R.id.recycler_forum);
 
         forumList = new ArrayList<>();
 
-        forumList.add(new Forum(1, "PingPros", "Comunidade de ping pong.", "user2", R.drawable.comunidadefoto, R.drawable.comunidadefoto, 0));
-        forumList.add(new Forum(2, "PingPros", "Comunidade de ping pong.", "user2", R.drawable.comunidadefoto, R.drawable.comunidadefoto, 0));
-        forumList.add(new Forum(3, "PingPros", "Comunidade de ping pong.", "user2", R.drawable.comunidadefoto, R.drawable.comunidadefoto, 0));
-
+        forumList.add(new Forum(1, "PingPros", "Comunidade de ping pong.", "user2","https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", 0));
+        forumList.add(new Forum(2, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", "https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", 0));
+        forumList.add(new Forum(3, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", 0));
 
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         forumAdapter = new ForumAdapter(forumList);

@@ -10,23 +10,24 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="297dp"
-        android:layout_height="match_parent"
-        android:background="#FFA500">
+        android:layout_height="130dp"
+        android:background="@color/orange">
 
         <LinearLayout
             android:id="@+id/text_layout"
-            android:layout_width="160dp"
-            android:layout_height="117dp"
+            android:layout_width="170dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imagem_produto_anuncio"
+            app:layout_constraintEnd_toStartOf="@+id/imagem_esporte"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/forum_titulo"
+                android:id="@+id/esporte_titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
@@ -37,9 +38,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/forum_descricao"
+                android:id="@+id/esporte_descricao"
                 android:layout_width="match_parent"
                 android:layout_height="89dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/roboto"
                 android:paddingTop="4dp"
                 android:text="A prática do beisebol envolve duas equipes de nove jogadores que se revezam entre ataque e defesa."
@@ -48,10 +50,12 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imagem_produto_anuncio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseball"
+            android:id="@+id/imagem_esporte"
+            android:layout_width="98dp"
+            android:layout_height="130dp"
+            android:background="@drawable/card_esporte_design"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -58,16 +58,15 @@ public class AnuncioFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_anuncio, container, false);
 
-        //recycler cards
         recyclerViewAnuncios = view.findViewById(R.id.recycler_anuncios);
 
         produtoList = new ArrayList<>();
-        produtoList.add(new Produto(1, "Luva de Baseball", "possivel anunciante", 70, R.drawable.luva_baseball));
-        produtoList.add(new Produto(3, "Luva de Baseball", "possivel anunciante", 70, R.drawable.luva_baseball));
-        produtoList.add(new Produto(2, "coisas", "blaba", 50, R.drawable.luva_baseball));
-        produtoList.add(new Produto(4, "raquete", "blaba", 50, R.drawable.luva_baseball));
-        produtoList.add(new Produto(5, "Luva de Baseball", "possivel anunciante", 70, R.drawable.luva_baseball));
-        produtoList.add(new Produto(6, "raquete", "blaba", 50, R.drawable.luva_baseball));
+        produtoList.add(new Produto(1, "Luva de Baseball", "possivel anunciante", 70, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
+        produtoList.add(new Produto(3, "Luva de Baseball", "possivel anunciante", 70, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
+        produtoList.add(new Produto(2, "coisas", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
+        produtoList.add(new Produto(4, "raquete", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
+        produtoList.add(new Produto(5, "Luva de Baseball", "possivel anunciante", 70, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
+        produtoList.add(new Produto(6, "raquete", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
 
         recyclerViewAnuncios.setLayoutManager(new GridLayoutManager(getContext(), 2));
         AnuncioAdapter anuncioAdapter = new AnuncioAdapter(produtoList);

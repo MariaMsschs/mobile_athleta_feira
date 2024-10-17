@@ -5,12 +5,12 @@ public class Forum {
     private String nome;
     private String descricao;
     private String usuario;
-    private int imagem_perfil;
-    private int  imagem_fundo;
+    private String imagem_perfil;
+    private String  imagem_fundo;
     private int seguidores = 0;
 
 
-    public Forum(int id, String nome, String descricao, String usuario, int imagem_perfil, int imagem_fundo, int seguidores) {
+    public Forum(int id, String nome, String descricao, String usuario, String imagem_perfil, String imagem_fundo, int seguidores) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -36,11 +36,11 @@ public class Forum {
         return usuario;
     }
 
-    public int getImagem_perfil() {
+    public String getImagem_perfil() {
         return imagem_perfil;
     }
 
-    public int getImagem_fundo() {
+    public String getImagem_fundo() {
         return imagem_fundo;
     }
 

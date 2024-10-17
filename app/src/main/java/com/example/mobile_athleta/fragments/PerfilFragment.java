@@ -72,11 +72,11 @@ public class PerfilFragment extends Fragment {
             carregarFragment(new ForumPerfil());
         });
 
-        //criar recycler de evento e adicionar fragment
         tabEventos.setOnClickListener(v -> {
             indicator.animate().x(tabEventos.getX()).setDuration(200);
             resetTabColors();
             tabEventos.setTextColor(getResources().getColor(R.color.black));
+            carregarFragment(new EventoPerfil());
         });
 
         config = view.findViewById(R.id.configuracao);
@@ -84,7 +84,7 @@ public class PerfilFragment extends Fragment {
         config.setOnClickListener(v -> {
             Intent configuracao = new Intent(getActivity(), TelaConfiguracao.class);
             startActivity(configuracao);
-//            getActivity().finish();
+            getActivity().finish();
         });
         return view;
     }

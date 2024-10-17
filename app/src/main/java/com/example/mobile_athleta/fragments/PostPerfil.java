@@ -57,9 +57,9 @@ public class PostPerfil extends Fragment {
 
         postList = new ArrayList<>();
 
-        postList.add(new Post(1, "post2", 0, "User2", R.drawable.perfil_pequeno));
-        postList.add(new Post(2, "post3", 0, "User2", R.drawable.perfil_pequeno));
-        postList.add(new Post(3, "post1", 0, "User2", R.drawable.perfil_pequeno));
+        postList.add(new Post(1, "post2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/41049b383497d46303be8310be34fd96", "User2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/295a03bef4538a8704d1689e0d8ed3b9"));
+        postList.add(new Post(2, "post3", "https://lastfm.freetls.fastly.net/i/u/avatar170s/071a740e92bb4d4498f9f12f94f90c2f", "User2","https://lastfm.freetls.fastly.net/i/u/avatar170s/295a03bef4538a8704d1689e0d8ed3b9"));
+        postList.add(new Post(3, "post1", "https://lastfm.freetls.fastly.net/i/u/avatar170s/47df7c610398db3abd32691b05d24ed7", "User2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/295a03bef4538a8704d1689e0d8ed3b9"));
 
         recyclerViewPost.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         postAdapter = new PostAdapter(postList);

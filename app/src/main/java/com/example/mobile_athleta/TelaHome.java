@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.example.mobile_athleta.databinding.ActivityTelaHomeBinding;
 import com.example.mobile_athleta.fragments.AnuncioFragment;
 import com.example.mobile_athleta.fragments.HomeFragment;
+import com.example.mobile_athleta.fragments.NotificacaoFragment;
 import com.example.mobile_athleta.fragments.PerfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -43,6 +44,10 @@ public class TelaHome extends AppCompatActivity {
 
                 if (item.getItemId() == R.id.anuncios) {
                     selectedFragment = new AnuncioFragment();
+                }
+
+                if(item.getItemId() == R.id.notificacoes){
+                    selectedFragment = new NotificacaoFragment();
                 }
 
                 if (selectedFragment != null) {

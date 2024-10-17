@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.mobile_athleta.databinding.ActivityLoginBinding;
@@ -24,8 +26,10 @@ public class Login extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
+        binding.frameLayoutLogin.setVisibility(View.GONE);
 
         if(auth.getCurrentUser() != null){
+            auth.getCurrentUser().getEmail();
             Intent home = new Intent(Login.this, TelaHome.class);
             startActivity(home);
             finish();
@@ -46,13 +50,14 @@ public class Login extends AppCompatActivity {
         binding.botaoLogin.setOnClickListener(v -> {
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String senha = ((EditText)findViewById(R.id.cad_senha)).getText().toString();
-
+            binding.frameLayoutLogin.setVisibility(ProgressBar.VISIBLE);
             auth.signInWithEmailAndPassword(email, senha)
                     .addOnCompleteListener( task -> {
-
                         String msg="Você esqueceu de preencher algum dado";
                         if (task.isSuccessful()) {
                             Intent home = new Intent(Login.this, TelaHome.class);
+                            binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                            Toast.makeText(this, getSharedPreferences("login", MODE_PRIVATE).getString("username", ""), Toast.LENGTH_SHORT).show();
                             startActivity(home);
                             finish();
                         }else{
@@ -65,6 +70,7 @@ public class Login extends AppCompatActivity {
                             }catch (Exception e){
                                 Log.e("ERRO",e.getMessage());
                             }
+                            binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
                             Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
                         }
                     });

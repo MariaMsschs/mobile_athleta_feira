@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Esporte;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class EsporteCardAdapter extends RecyclerView.Adapter<EsporteCardAdapter.
 
         public EsporteViewHolder(@NonNull View itemView) {
             super(itemView);
-            esporteImagem = itemView.findViewById(R.id.imagem_produto_anuncio);
+            esporteImagem = itemView.findViewById(R.id.imagem_esporte);
             esporteTitulo = itemView.findViewById(R.id.esporte_titulo);
             esporteDescricao = itemView.findViewById(R.id.esporte_descricao);
             context = itemView.getContext();
@@ -61,7 +62,10 @@ public class EsporteCardAdapter extends RecyclerView.Adapter<EsporteCardAdapter.
             esporteTitulo.setText(esporte.getTitle());
             esporteDescricao.setText(esporte.getDescription());
             String imageUrl = esporte.getImagem();
-            Glide.with(itemView.getContext()).load(imageUrl).into(esporteImagem);
+//            Glide.with(itemView.getContext()).load(imageUrl).into(esporteImagem);
+            Picasso.get()
+                    .load(imageUrl)
+                    .into(esporteImagem);
         }
     }
 }

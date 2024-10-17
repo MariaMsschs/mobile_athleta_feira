@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Evento;
 import com.example.mobile_athleta.models.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -59,7 +60,10 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
         }
         public void bind(Evento evento) {
             String imagemUrl = evento.getImg();
-            Glide.with(itemView.getContext()).load(imagemUrl).into(imagem_evento);
+//            Glide.with(itemView.getContext()).load(imagemUrl).into(imagem_evento);
+            Picasso.get()
+                    .load(imagemUrl)
+                    .into(imagem_evento);
             evento_titulo.setText(evento.getNome());
             evento_descricao.setText(evento.getDescricao());
             evento_data.setText(String.valueOf(evento.getDtEvento()));

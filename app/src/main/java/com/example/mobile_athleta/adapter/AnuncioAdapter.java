@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Produto;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -60,7 +61,10 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
 
         public void bind(Produto produto) {
             String imageUrl = produto.getImage();
-            Glide.with(itemView.getContext()).load(imageUrl).into(imagem_produto);
+//            Glide.with(itemView.getContext()).load(imageUrl).into(imagem_produto);
+            Picasso.get()
+                    .load(imageUrl)
+                    .into(imagem_produto);
             titulo_anuncio.setText(produto.getTitle());
             anunciante.setText(produto.getDescription());
             preco.setText(String.valueOf(produto.getPrice()));

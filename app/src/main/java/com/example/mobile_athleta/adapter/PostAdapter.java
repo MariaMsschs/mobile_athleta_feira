@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -62,10 +63,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             legenda.setText(post.getLegenda());
 
             String imagemPostUrl = post.getImagem();
-            Glide.with(itemView.getContext()).load(imagemPostUrl).into(imagem);
+            Picasso.get()
+                    .load(imagemPostUrl)
+                    .into(imagem);
 
             String imagemPerfilUrl = post.getUsuarioPerfil();
-            Glide.with(itemView.getContext()).load(imagemPerfilUrl).into(usuarioPerfil);
+            Picasso.get()
+                    .load(imagemPerfilUrl)
+                    .into(usuarioPerfil);
         }
     }
 }

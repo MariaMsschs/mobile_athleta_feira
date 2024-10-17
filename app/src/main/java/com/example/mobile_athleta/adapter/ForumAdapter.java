@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Forum;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
 
         public ForumViewHolder(@NonNull View itemView) {
             super(itemView);
-            imagem_perfil = itemView.findViewById(R.id.imagem_produto_anuncio);
+            imagem_perfil = itemView.findViewById(R.id.imagem_comunidade);
             forum_titulo = itemView.findViewById(R.id.forum_titulo);
             forum_descricao = itemView.findViewById(R.id.forum_descricao);
             forum_seguidores = itemView.findViewById(R.id.forum_seguidores);
@@ -59,7 +60,10 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
 
         public void bind(Forum forum) {
             String imagemUrl = forum.getImagem_perfil();
-            Glide.with(itemView.getContext()).load(imagemUrl).into(imagem_perfil);
+//            Glide.with(itemView.getContext()).load(imagemUrl).into(imagem_perfil);
+            Picasso.get()
+                    .load(imagemUrl)
+                    .into(imagem_perfil);
             forum_titulo.setText(forum.getNome());
             forum_descricao.setText(forum.getDescricao());
             forum_seguidores.setText(String.valueOf(forum.getSeguidores()));

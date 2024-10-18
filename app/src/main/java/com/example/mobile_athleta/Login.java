@@ -10,13 +10,16 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityLoginBinding;
+import com.example.mobile_athleta.service.UserLogin;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class Login extends AppCompatActivity {
     private ActivityLoginBinding binding;
+    private LoginUseCase loginUseCase = new LoginUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,7 @@ public class Login extends AppCompatActivity {
         binding.esqueciSenha.setOnClickListener(v -> {
             Intent recuperar = new Intent(this, TelaRecuperarSenha.class);
             startActivity(recuperar);
-
+            finish();
         });
 
         binding.botaoCadastrese.setOnClickListener(v -> {
@@ -50,7 +53,10 @@ public class Login extends AppCompatActivity {
         binding.botaoLogin.setOnClickListener(v -> {
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String senha = ((EditText)findViewById(R.id.cad_senha)).getText().toString();
+            UserLogin userLogin = new UserLogin(email, senha);
             binding.frameLayoutLogin.setVisibility(ProgressBar.VISIBLE);
+
+            loginUseCase.login(userLogin);
             auth.signInWithEmailAndPassword(email, senha)
                     .addOnCompleteListener( task -> {
                         String msg="Você esqueceu de preencher algum dado";

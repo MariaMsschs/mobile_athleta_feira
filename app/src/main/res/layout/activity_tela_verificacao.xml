@@ -67,7 +67,7 @@
         android:id="@+id/codigo_verificacao"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="1dp"
         android:background="@drawable/input_design"
         android:ems="10"
         android:inputType="number"

@@ -44,6 +44,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.7.7")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.0")
+    implementation("com.google.firebase:firebase-storage:21.0.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -58,4 +59,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.moshi:moshi:1.12.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-storage")
 }

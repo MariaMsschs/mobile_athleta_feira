@@ -37,10 +37,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Notificacoes"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".SplashScreen"
             android:exported="false"
             android:screenOrientation="portrait" />

@@ -16,16 +16,9 @@
         android:theme="@style/Theme.Mobile_athleta"
         tools:targetApi="31">
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
+        <activity
+            android:name=".TelaHome"
+            android:exported="false"/>
         <activity
             android:name=".TelaInfosConta"
             android:exported="false" />
@@ -37,18 +30,16 @@
             android:exported="false" />
         <activity
             android:name=".TelaConfiguracao"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:exported="false" />
         <activity
             android:name=".TelaRecuperarSenha"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TelaHome"
+            android:name=".TelaVerificacao"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -77,8 +68,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
     </application>
-
-
 
 </manifest>

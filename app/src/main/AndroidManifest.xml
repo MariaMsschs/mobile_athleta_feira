@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -14,24 +15,40 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobile_athleta"
         tools:targetApi="31">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".TelaInfosConta"
+            android:exported="false" />
+        <activity
+            android:name=".TelaSocial"
             android:exported="false" />
         <activity
             android:name=".TelaAlterarSenha"
             android:exported="false" />
         <activity
             android:name=".TelaConfiguracao"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TelaRecuperarSenha"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Login"
+            android:name=".TelaHome"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -43,7 +60,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TelaHome"
+            android:name=".Login"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -61,5 +78,7 @@
             </intent-filter>
         </activity>
     </application>
+
+
 
 </manifest>

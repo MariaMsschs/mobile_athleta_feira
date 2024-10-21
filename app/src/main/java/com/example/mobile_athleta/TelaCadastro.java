@@ -21,7 +21,6 @@ import com.example.mobile_athleta.models.Usuario;
 
 public class TelaCadastro extends AppCompatActivity {
     private ActivityTelaCadastroBinding binding;
-    private CadastrarUsuarioUseCase cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase();
     private int selectedYear, selectedMonth, selectedDay;
     private EditText nomeEdit;
     private EditText emailEdit;
@@ -67,11 +66,13 @@ public class TelaCadastro extends AppCompatActivity {
 
                 frameLayout.setVisibility(ProgressBar.VISIBLE);
 
-                Usuario usuario = new Usuario(nomeEdit.getText().toString(), emailEdit.getText().toString(),
-                        senhaEdit.getText().toString(), converterData(dataNascimentoEdit.getText().toString()),
-                        usernameEdit.getText().toString());
+                Bundle bundle = new Bundle();
+                bundle.putString("nome", nomeEdit.getText().toString());
+                bundle.putString("email", emailEdit.getText().toString());
+                bundle.putString("senha", senhaEdit.getText().toString());
+                bundle.putString("username", usernameEdit.getText().toString());
+                bundle.putString("dataNasc", dataNascimentoEdit.getText().toString());
 
-                cadastrarUsuario(usuario);
                 salvarLoginFirebase(usernameEdit.getText().toString(), emailEdit.getText().toString(),
                         senhaEdit.getText().toString());
 
@@ -82,37 +83,13 @@ public class TelaCadastro extends AppCompatActivity {
             }
         });
     }
-
-    private void cadastrarUsuario(Usuario usuario){
-        cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
-    }
     private void salvarLoginFirebase(String username, String email, String senha) {
-        if(email.isEmpty()) {
-            Log.d("EmailVazio", "Email vazio");
-        }
-        if(senha.isEmpty()) {
-            Log.d("SenhaVazia", "Senha vazia");
-        }
-        else{
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
-                if (task.isSuccessful()) {
-                    getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
-                }
-            });
-        }
-    }
-
-    private Date converterData(String dataString) {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-        try {
-            Date data = formato.parse(dataString);
-            return data;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
+            if (task.isSuccessful()) {
+                getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
+            }
+        });
     }
 
     public void checkAllFields() {

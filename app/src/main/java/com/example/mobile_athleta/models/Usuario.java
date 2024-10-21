@@ -30,9 +30,10 @@ public class Usuario {
         this.dtNasc = dtNasc;
         this.username = username;
     }
-    public Usuario(String nome, String email, String senha, Date dtNasc, String username) {
+    public Usuario(String nome, String email, String senha, Date dtNasc, String username, String fotoPerfil) {
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
         this.dtNasc = dtNasc;
         this.username = username;
     }

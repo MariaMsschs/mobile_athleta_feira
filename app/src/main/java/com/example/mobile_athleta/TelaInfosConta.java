@@ -1,20 +1,28 @@
 package com.example.mobile_athleta;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.AtualizarUsuarioUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaInfosContaBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +37,8 @@ public class TelaInfosConta extends AppCompatActivity{
     private EditText email;
     private EditText dataNascimento;
     private EditText username;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     AtualizarUsuarioUseCase atualizarUsuarioUseCase = new AtualizarUsuarioUseCase();
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -47,10 +57,6 @@ public class TelaInfosConta extends AppCompatActivity{
         dataNascimento = findViewById(R.id.info_data);
         username = findViewById(R.id.info_user);
 
-        Date data = converterData(dataNascimento.getText().toString());
-
-        Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(), data, username.getText().toString());
-
         binding.botaoVoltar.setOnClickListener(v -> {
             Intent config = new Intent(this, TelaConfiguracao.class);
             startActivity(config);
@@ -65,51 +71,83 @@ public class TelaInfosConta extends AppCompatActivity{
             definirData();
         });
 
+        binding.camera.setOnClickListener(view -> {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.alert_dialog, null);
+            View tirarFoto = dialogView.findViewById(R.id.botao_ok);
+            View abrirGaleria = dialogView.findViewById(R.id.abrir_galeria);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(dialogView);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            tirarFoto.setOnClickListener(v -> {
+                Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (camera.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(camera, REQUEST_IMAGE_CAPTURE);
+                }
+                dialog.dismiss();
+            });
+            abrirGaleria.setOnClickListener(v -> {
+                Intent galeria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                resultLauncherGaleria.launch(galeria);
+                dialog.dismiss();
+            });
+        });
+
         binding.infoSalvar.setOnClickListener(v -> {
-            atualizarUsuarioFire();
-            //O id do usuário será passado entre as telas após o login, isso ainda não está pronto na API, aplicar depois
-//            atualizarUsuarioUseCase.atualizarUsuario(usuario);
+            checkAllFields();
+            if(nome.getText().toString() != null && email.getText().toString() != null
+                    && dataNascimento.getText().toString() != null && username.getText().toString() != null) {
+
+                Date data = converterData(dataNascimento.getText().toString());
+                Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(), data, username.getText().toString());
+                Long userId = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
+                atualizarUsuario(usuario, userId);
+                atualizarUsuarioFire();
+            }
         });
     }
-
+    private void atualizarUsuario(Usuario usuario, Long id){
+        atualizarUsuarioUseCase.atualizarUsuario(usuario, id);
+    }
     private void atualizarUsuarioFire(){
-        checkAllFields();
-        if (user != null) {
-            String novoEmail = email.getText().toString();
-            user.updateEmail(novoEmail)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            LayoutInflater inflater = getLayoutInflater();
-                            View dialogView = inflater.inflate(R.layout.alterado_dialog, null);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                            builder.setView(dialogView);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                            View botao_alterado = dialogView.findViewById(R.id.botao_alterado);
-                            botao_alterado.setOnClickListener(v -> {
-                                Intent config = new Intent(this, TelaConfiguracao.class);
-                                startActivity(config);
-                                finish();
-                                dialog.dismiss();
-                            });
+        String novoEmail = email.getText().toString();
+        user.updateEmail(novoEmail)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        LayoutInflater inflater = getLayoutInflater();
+                        View dialogView = inflater.inflate(R.layout.alterado_dialog, null);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setView(dialogView);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        View botao_alterado = dialogView.findViewById(R.id.botao_alterado);
+                        botao_alterado.setOnClickListener(v -> {
+                            Intent config = new Intent(this, TelaConfiguracao.class);
+                            startActivity(config);
+                            finish();
+                            dialog.dismiss();
+                        });
 
-                        } else {
-                            LayoutInflater inflater = getLayoutInflater();
-                            View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
-                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                            builder.setView(dialogView);
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-                            View botao_erro_alterar = dialogView.findViewById(R.id.botao_erro_alterar);
-                            botao_erro_alterar.setOnClickListener(v -> {
-                                Intent config = new Intent(this, TelaConfiguracao.class);
-                                startActivity(config);
-                                finish();
-                                dialog.dismiss();
-                            });
-                        }
-                    });
-        }
+                    } else {
+                        LayoutInflater inflater = getLayoutInflater();
+                        View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setView(dialogView);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        View botao_erro_alterar = dialogView.findViewById(R.id.botao_erro_alterar);
+                        botao_erro_alterar.setOnClickListener(v -> {
+                            Intent config = new Intent(this, TelaConfiguracao.class);
+                            startActivity(config);
+                            finish();
+                            dialog.dismiss();
+                        });
+                    }
+                });
+
     }
 
     public void checkAllFields() {
@@ -156,4 +194,25 @@ public class TelaInfosConta extends AppCompatActivity{
         }
         return null;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            if (data != null && data.getExtras() != null) {
+                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                binding.camera.setImageBitmap(imageBitmap);
+            }
+        }
+    }
+    private final ActivityResultLauncher<Intent> resultLauncherGaleria = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    Uri imageUri = result.getData().getData();
+                    Picasso.get()
+                            .load(imageUri)
+                            .into(binding.camera);
+                }
+            }
+    );
 }

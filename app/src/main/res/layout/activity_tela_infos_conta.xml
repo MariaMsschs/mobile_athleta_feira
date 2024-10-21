@@ -71,6 +71,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
 
+
+            <ImageButton
+                android:id="@+id/camera"
+                android:layout_width="223dp"
+                android:layout_height="223dp"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#00FFFFFF"
+                android:scaleType="centerCrop"
+                android:clipToOutline="true"
+                app:srcCompat="@drawable/foto" />
+
             <TextView
                 android:id="@+id/titulo_info_nome"
                 android:layout_width="wrap_content"

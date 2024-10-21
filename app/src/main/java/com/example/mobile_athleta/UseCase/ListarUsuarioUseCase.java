@@ -7,12 +7,15 @@ import com.example.mobile_athleta.service.ApiResponse;
 import com.example.mobile_athleta.service.AthletaService;
 import com.example.mobile_athleta.service.UserLogin;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginUseCase {
+public class ListarUsuarioUseCase {
     private String URL = "https://api-spring-z2b5.onrender.com";
 
     private Retrofit retrofit = new Retrofit.Builder()
@@ -20,19 +23,14 @@ public class LoginUseCase {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void login(UserLogin login){
+    public String listarUsuarioPorEmail(String email) {
         AthletaService service = retrofit.create(AthletaService.class);
-        Call<ApiResponse> call = service.login(login);
-        call.enqueue(new Callback<ApiResponse>() {
-            @Override
-            public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                Log.e("AlterarUsuarioUseCase", response.body().toString());
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse> call, Throwable throwable) {
-                Log.e("ERRO", throwable.getMessage());
-            }
-        });
+        Response<Usuario> response = service.listarUsuarioPorEmail(email);
+        Usuario usuario = response.body();
+        if (usuario != null) {
+            return usuario.getUsername();
+        }else {
+            return null;
+        }
     }
 }

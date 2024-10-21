@@ -27,13 +27,19 @@ public class TelaConfiguracao extends AppCompatActivity {
         binding.logout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent login = new Intent(this, Login.class);
+            login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(login);
-            finish();
         });
 
         binding.alterarSenha.setOnClickListener(v -> {
             Intent alterarSenha = new Intent(this, TelaAlterarSenha.class);
             startActivity(alterarSenha);
+            finish();
+        });
+
+        binding.infoConta.setOnClickListener(v -> {
+            Intent infosConta = new Intent(this, TelaInfosConta.class);
+            startActivity(infosConta);
             finish();
         });
     }

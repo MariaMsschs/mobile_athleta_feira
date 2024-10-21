@@ -11,6 +11,9 @@ public class Usuario {
     private String username;
     private String fotoPerfil;
 
+    public Usuario() {
+
+    }
     public Usuario(Long id, String nome, String email, String senha, Date dtNasc, String username, String fotoPerfil) {
         this.id = id;
         this.nome = nome;
@@ -22,6 +25,12 @@ public class Usuario {
     }
 
     public Usuario(String nome, String email, Date dtNasc, String username) {
+        this.nome = nome;
+        this.email = email;
+        this.dtNasc = dtNasc;
+        this.username = username;
+    }
+    public Usuario(String nome, String email, String senha, Date dtNasc, String username) {
         this.nome = nome;
         this.email = email;
         this.dtNasc = dtNasc;

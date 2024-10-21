@@ -29,6 +29,7 @@ public class TelaFoto extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
         binding.camera.setOnClickListener(view -> {
 
             LayoutInflater inflater = getLayoutInflater();
@@ -46,7 +47,6 @@ public class TelaFoto extends AppCompatActivity {
                     startActivityForResult(camera, REQUEST_IMAGE_CAPTURE);
                 }
                 dialog.dismiss();
-                finish();
             });
             abrirGaleria.setOnClickListener(v -> {
                 Intent galeria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

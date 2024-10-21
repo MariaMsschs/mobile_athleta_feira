@@ -13,22 +13,22 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AthletaService {
-    @PUT("/atualizar/{id}")
+    @PUT("atualizar/{id}")
     Call<ApiResponse> atualizarUsuario(@Body Usuario usuario, @Path("id") Long id);
 
-    @PUT("/mudarSenha")
+    @PUT("mudarSenha")
     Call<ApiResponse> alterarSenha(@Body UserLogin login);
 
-    @GET("/listar/{username}")
+    @GET("listar/{username}")
     Call<ApiResponse> listarUsuarioPorUsername(@Path("username") String username);
 
-    @POST("/login")
+    @POST("login")
     Call<LoginResponse> login(@Body UserLogin login);
 
-    @POST("/adicionar")
+    @POST("adicionar")
     Call<ApiResponse> cadastrarUsuario(@Body Usuario usuario);
 
-    @GET("/listar/username/{email}")
+    @GET("listar/username/{email}")
     Response<Usuario> listarUsuarioPorEmail(@Path("email") String email);
 
 }

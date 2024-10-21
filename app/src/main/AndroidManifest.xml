@@ -21,9 +21,6 @@
             android:name=".TelaAlterarSenha"
             android:exported="false" />
         <activity
-            android:name=".TelaInfoConta"
-            android:exported="false" />
-        <activity
             android:name=".TelaConfiguracao"
             android:exported="false" />
         <activity
@@ -43,10 +40,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".TelaCadastro"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Notificacoes"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -45,14 +46,6 @@ public class TelaCadastro extends AppCompatActivity {
         frameLayout = findViewById(R.id.frameLayoutCadastro);
         frameLayout.setVisibility(ProgressBar.GONE);
 
-
-        String nome = binding.nome.getText().toString();
-        String email = binding.cadEmail.getText().toString();
-        String senha = binding.cadSenha.getText().toString();
-        String dataNascimento = binding.dataNascimento.getText().toString();
-        String username = binding.nomeUsuario.getText().toString();
-
-
         binding.botaoVoltar.setOnClickListener(v -> {
             Intent login = new Intent(this, Login.class);
             startActivity(login);
@@ -74,10 +67,13 @@ public class TelaCadastro extends AppCompatActivity {
 
                 frameLayout.setVisibility(ProgressBar.VISIBLE);
 
-                Usuario usuario = new Usuario(nome, email, senha, converterData(dataNascimento), username);
+                Usuario usuario = new Usuario(nomeEdit.getText().toString(), emailEdit.getText().toString(),
+                        senhaEdit.getText().toString(), converterData(dataNascimentoEdit.getText().toString()),
+                        usernameEdit.getText().toString());
 
                 cadastrarUsuario(usuario);
-                salvarLoginFirebase(username, email, senha);
+                salvarLoginFirebase(usernameEdit.getText().toString(), emailEdit.getText().toString(),
+                        senhaEdit.getText().toString());
 
                 Intent home = new Intent(this, TelaFoto.class);
                 frameLayout.setVisibility(ProgressBar.GONE);
@@ -91,12 +87,20 @@ public class TelaCadastro extends AppCompatActivity {
         cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
     }
     private void salvarLoginFirebase(String username, String email, String senha) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
-            if (task.isSuccessful()) {
-                getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
-            }
-        });
+        if(email.isEmpty()) {
+            Log.d("EmailVazio", "Email vazio");
+        }
+        if(senha.isEmpty()) {
+            Log.d("SenhaVazia", "Senha vazia");
+        }
+        else{
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
+                if (task.isSuccessful()) {
+                    getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
+                }
+            });
+        }
     }
 
     private Date converterData(String dataString) {

@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CadastrarUsuarioUseCase {
-    private String URL = "https://api-spring-z2b5.onrender.com";
+    private String URL = "https://api-spring-z2b5.onrender.com/api/usuario/";
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URL)
@@ -25,7 +25,11 @@ public class CadastrarUsuarioUseCase {
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                Log.e("CadastrarUsuarioUseCase", response.body().toString());
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.e("CadastrarUsuarioUseCase", response.body().toString());
+                } else {
+                    Log.e("CadastrarUsuarioUseCase", "Response is not successful or body is null. Code: " + response.code() + ", Message: " + response.message());
+                }
             }
 
             @Override

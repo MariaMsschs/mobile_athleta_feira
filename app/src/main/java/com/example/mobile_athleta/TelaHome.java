@@ -24,7 +24,6 @@ public class TelaHome extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomviewnav);
 
-        // Carregar o primeiro fragmento como padrão
         if (savedInstanceState == null) {
             carregarFragment(new HomeFragment());
         }

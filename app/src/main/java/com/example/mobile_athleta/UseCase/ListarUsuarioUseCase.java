@@ -16,7 +16,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListarUsuarioUseCase {
-    private String URL = "https://api-spring-z2b5.onrender.com";
+    private String URL = "https://api-spring-z2b5.onrender.com/api/usuario/";
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URL)

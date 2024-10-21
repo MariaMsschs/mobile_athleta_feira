@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void login(UserLogin login){
-        String URL = "https://api-spring-z2b5.onrender.com";
+        String URL = "https://api-spring-z2b5.onrender.com/api/auth/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)

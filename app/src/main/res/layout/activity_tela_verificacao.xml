@@ -35,18 +35,18 @@
         android:layout_width="350dp"
         android:layout_height="55dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="400dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="144dp"
         android:background="@drawable/button_design"
         android:fontFamily="@font/roboto_bold"
         android:text="Continuar"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/codigo_verificacao" />
 
     <TextView
         android:id="@+id/titulo_verificacao"
@@ -63,36 +63,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagem_produto_anuncio" />
 
-    <TextView
-        android:id="@+id/titulo_nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        android:text="Código de verificação"
-        android:textColor="#626161"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/codigo_verificacao"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <EditText
         android:id="@+id/codigo_verificacao"
         android:layout_width="350dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/input_design"
         android:ems="10"
         android:inputType="number"
+        android:maxLength="6"
         android:padding="10dp"
         android:textColor="#626161"
         android:textCursorDrawable="@drawable/cursor_design"
         android:textSize="14sp"
-        android:maxLength="6"
-        app:layout_constraintBottom_toTopOf="@+id/botao_verificacao"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo_verificacao"
-        app:layout_constraintVertical_bias="0.17" />
+        app:layout_constraintTop_toBottomOf="@+id/titulo_nome" />
+
+    <TextView
+        android:id="@+id/titulo_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:fontFamily="@font/roboto"
+        android:text="Código de verificação"
+        android:textColor="#626161"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titulo_verificacao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

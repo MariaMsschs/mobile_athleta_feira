@@ -79,8 +79,9 @@
                 android:layout_marginStart="90dp"
                 android:layout_marginTop="30dp"
                 android:backgroundTint="#00FFFFFF"
-                android:scaleType="centerCrop"
                 android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/escolher_foto_design"
                 app:srcCompat="@drawable/foto" />
 
             <TextView
@@ -215,7 +216,5 @@
                 tools:layout_editor_absoluteY="644dp" />
         </LinearLayout>
     </ScrollView>
-
-    <!--    foto-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

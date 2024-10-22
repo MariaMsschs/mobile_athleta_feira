@@ -9,7 +9,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AtualizarUsuarioUseCase {
-    private String URL = "https://api-spring-z2b5.onrender.com/api/usuario/";
+    private String URL = "https://api-sql-gbb8.onrender.com/api/usuario/";
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URL)
@@ -22,12 +22,12 @@ public class AtualizarUsuarioUseCase {
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                Log.e("AlterarUsuarioUseCase", response.body().toString());
+                Log.e("ALTERAR SUCESSO", response.body().toString());
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable throwable) {
-                Log.e("ERRO", throwable.getMessage());
+                Log.e("ALTERAR ERRO", throwable.getMessage());
             }
         });
     }

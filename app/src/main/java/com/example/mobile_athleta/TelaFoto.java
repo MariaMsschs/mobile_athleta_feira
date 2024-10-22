@@ -1,12 +1,10 @@
 package com.example.mobile_athleta;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,18 +12,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,7 +27,7 @@ public class TelaFoto extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ActivityTelaFotoBinding binding;
     private Uri imageUri;
-
+    private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
     private CadastrarUsuarioUseCase cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase();
 
     @Override
@@ -53,7 +46,6 @@ public class TelaFoto extends AppCompatActivity {
         });
 
         binding.camera.setOnClickListener(view -> {
-
             LayoutInflater inflater = getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.alert_dialog, null);
             View tirarFoto = dialogView.findViewById(R.id.botao_ok);
@@ -70,6 +62,7 @@ public class TelaFoto extends AppCompatActivity {
                 }
                 dialog.dismiss();
             });
+
             abrirGaleria.setOnClickListener(v -> {
                 Intent galeria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 galeria.setType("image/*");
@@ -80,14 +73,36 @@ public class TelaFoto extends AppCompatActivity {
 
         binding.botaoCadastro.setOnClickListener(v -> {
             binding.frameLayoutFoto.setVisibility(ProgressBar.VISIBLE);
-            uploadImage(imageUri,getSharedPreferences("login", MODE_PRIVATE).getString("username",""));
-
             Bundle bundle = getIntent().getExtras();
-            Usuario usuario = new Usuario(bundle.getString("nome"), bundle.getString("email"),
-                    bundle.getString("senha"), converterData(bundle.getString("dataNasc")),
-                    bundle.getString("username"), imageUri.toString());
-            cadastrarUsuario(usuario);
+            cadastrarUsuario(bundle);
+            binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
+            startActivity(new Intent(TelaFoto.this, TelaHome.class));
+            finish();
         });
+    }
+
+    private void cadastrarUsuario(Bundle bundle){
+        String data =  converterData(bundle.getString("dataNasc"));
+
+        String caminho = getSharedPreferences("fotoPerfil", MODE_PRIVATE).getString("caminho_imagem","");
+
+        Usuario usuario = new Usuario(bundle.getString("nome"), bundle.getString("email"),
+                bundle.getString("senha"), data,
+                bundle.getString("username"), caminho);
+
+        cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
+    }
+
+    private String converterData(String dataString) {
+        final SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy");
+        final SimpleDateFormat formatoSaida = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date data = formatoEntrada.parse(dataString);
+            return formatoSaida.format(data);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return dataString;
+        }
     }
 
     @Override
@@ -96,13 +111,15 @@ public class TelaFoto extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (data != null && data.getExtras() != null) {
                 Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-                imageUri = getImageUri(this, imageBitmap);
+                imageUri = fotoFirebaseImpl.recuperarImageUri(this, imageBitmap);
                 Glide.with(this)
                         .load(imageBitmap)
                         .circleCrop()
                         .into(binding.camera);
+
                 binding.botaoCadastro.setBackgroundResource(R.drawable.button_design);
                 binding.botaoCadastro.setTextColor(getResources().getColor(R.color.white));
+                fotoFirebaseImpl.uploadImage(imageUri, this);
             }
         }
     }
@@ -117,66 +134,9 @@ public class TelaFoto extends AppCompatActivity {
                             .into(binding.camera);
                     binding.botaoCadastro.setBackgroundResource(R.drawable.button_design);
                     binding.botaoCadastro.setTextColor(getResources().getColor(R.color.white));
+
+                    fotoFirebaseImpl.uploadImage(imageUri, this);
                 }
             }
     );
-
-    public Uri getImageUri(Context context, Bitmap bitmap) {
-        File cachePath = new File(context.getCacheDir(), "images");
-        cachePath.mkdirs();
-
-        FileOutputStream stream = null;
-        try {
-            File imageFile = new File(cachePath, "image.png");
-            stream = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            stream.flush();
-            stream.close();
-
-            return FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", imageFile);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-
-    public void uploadImage(Uri imagem, String username){
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference reference = storageReference.child("users/" + username +"/"+ System.currentTimeMillis());
-        reference.putFile(imagem).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-                startActivity(new Intent(TelaFoto.this, TelaHome.class));
-                finish();
-            }
-        });
-
-    }
-
-    private void cadastrarUsuario(Usuario usuario){
-        cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
-    }
-
-    private Date converterData(String dataString) {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-        try {
-            Date data = formato.parse(dataString);
-            return data;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

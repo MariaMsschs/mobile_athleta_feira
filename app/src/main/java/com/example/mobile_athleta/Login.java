@@ -66,14 +66,15 @@ public class Login extends AppCompatActivity {
 
             loginFirebase(email, senha, auth);
 
-            String username = listarUsuarioUseCase.listarUsuarioPorEmail(email);
+            listarUsuarioUseCase.listarUsuarioPorEmail(email, this);
+            String username = getSharedPreferences("username", MODE_PRIVATE).getString("username", "");
             UserLogin userLogin = new UserLogin(username, senha);
             login(userLogin);
         });
     }
 
     public void login(UserLogin login){
-        String URL = "https://api-spring-z2b5.onrender.com/api/auth/";
+        String URL = "https://api-sql-gbb8.onrender.com/api/auth/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
@@ -87,13 +88,17 @@ public class Login extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
-                    if (loginResponse != null) {
+                    if (response.isSuccessful() && loginResponse != null) {
+                        Log.d("LOGIN SUCCESS", loginResponse.toString());
                         Usuario usuario = loginResponse.getUsuario();
-                        Long idUsuario = usuario.getId();
+                        Long idUsuario = usuario.getIdUsuario();
                         getSharedPreferences("login", MODE_PRIVATE).edit().putLong("idUsuario", idUsuario).apply();
                         Intent home = new Intent(Login.this, TelaHome.class);
                         startActivity(home);
                         finish();
+                    }
+                    else {
+                        Log.e("CadastrarUsuarioUseCase", "Response is not successful or body is null. Code: " + response.code() + ", Message: " + response.message());
                     }
                 }
             }

@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.ParseException;
@@ -21,7 +22,6 @@ import com.example.mobile_athleta.models.Usuario;
 
 public class TelaCadastro extends AppCompatActivity {
     private ActivityTelaCadastroBinding binding;
-    private int selectedYear, selectedMonth, selectedDay;
     private EditText nomeEdit;
     private EditText emailEdit;
     private EditText senhaEdit;
@@ -29,6 +29,8 @@ public class TelaCadastro extends AppCompatActivity {
     private EditText usernameEdit;
 
     private FrameLayout frameLayout;
+
+    private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +54,11 @@ public class TelaCadastro extends AppCompatActivity {
         });
 
         binding.calendario.setOnClickListener(v -> {
-            definirData();
+            validacaoCadastroImpl.definirData(dataNascimentoEdit, this);
         });
 
         dataNascimentoEdit.setOnClickListener(v -> {
-            definirData();
+            validacaoCadastroImpl.definirData(dataNascimentoEdit, this);
         });
 
         binding.botaoCadastro.setOnClickListener(v -> {
@@ -76,8 +78,9 @@ public class TelaCadastro extends AppCompatActivity {
                 salvarLoginFirebase(usernameEdit.getText().toString(), emailEdit.getText().toString(),
                         senhaEdit.getText().toString());
 
-                Intent home = new Intent(this, TelaFoto.class);
                 frameLayout.setVisibility(ProgressBar.GONE);
+                Intent home = new Intent(this, TelaFoto.class);
+                home.putExtras(bundle);
                 startActivity(home);
                 finish();
             }
@@ -104,26 +107,5 @@ public class TelaCadastro extends AppCompatActivity {
         } if(usernameEdit.getText().toString().trim().isEmpty()){
             usernameEdit.setError("Este campo é obrigatório");
         }
-    }
-
-    public void definirData() {
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                (view, year1, month1, dayOfMonth) -> {
-                    selectedYear = year1;
-                    selectedMonth = month1;
-                    selectedDay = dayOfMonth;
-                    String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                    binding.dataNascimento.setText(selectedDate);
-                },
-                year, month, day);
-
-        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
-        datePickerDialog.show();
     }
 }

@@ -12,7 +12,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AlterarSenhaUseCase {
-    private String URL = "https://api-spring-z2b5.onrender.com/api/usuario/";
+    private String URL = "https://api-sql-gbb8.onrender.com/api/usuario/";
+
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(URL)

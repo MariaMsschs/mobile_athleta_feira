@@ -5,42 +5,35 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.AtualizarUsuarioUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaInfosContaBinding;
 import com.example.mobile_athleta.models.Usuario;
+import com.example.mobile_athleta.service.FotoFirebaseImpl;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.squareup.picasso.Picasso;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 public class TelaInfosConta extends AppCompatActivity{
 
     private ActivityTelaInfosContaBinding binding;
-    private int selectedYear, selectedMonth, selectedDay;
     private EditText nome;
     private EditText email;
     private EditText dataNascimento;
     private EditText username;
-
+    private Uri imageUri;
     static final int REQUEST_IMAGE_CAPTURE = 1;
-
-    AtualizarUsuarioUseCase atualizarUsuarioUseCase = new AtualizarUsuarioUseCase();
+    private AtualizarUsuarioUseCase atualizarUsuarioUseCase = new AtualizarUsuarioUseCase();
+    private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
+    private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser user = auth.getCurrentUser();
 
@@ -57,6 +50,16 @@ public class TelaInfosConta extends AppCompatActivity{
         dataNascimento = findViewById(R.id.info_data);
         username = findViewById(R.id.info_user);
 
+        String caminho = getSharedPreferences("fotoPerfil", MODE_PRIVATE).getString("caminho_imagem","");
+        Log.d("TelaInfosConta", caminho);
+
+        if (!caminho.isEmpty()) {
+            fotoFirebaseImpl.recuperarImagem(binding.camera, caminho);
+            Log.d("IMAGEM!", "Caminho da imagem encontrado: " + caminho);
+        } else {
+            Log.d("IMAGEM!", "Caminho da imagem não encontrado");
+        }
+
         binding.botaoVoltar.setOnClickListener(v -> {
             Intent config = new Intent(this, TelaConfiguracao.class);
             startActivity(config);
@@ -64,15 +67,14 @@ public class TelaInfosConta extends AppCompatActivity{
         });
 
         binding.calendario.setOnClickListener(v -> {
-            definirData();
+            validacaoCadastroImpl.definirData(dataNascimento, this);
         });
 
         dataNascimento.setOnClickListener(v -> {
-            definirData();
+            validacaoCadastroImpl.definirData(dataNascimento, this);
         });
 
         binding.camera.setOnClickListener(view -> {
-
             LayoutInflater inflater = getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.alert_dialog, null);
             View tirarFoto = dialogView.findViewById(R.id.botao_ok);
@@ -89,6 +91,7 @@ public class TelaInfosConta extends AppCompatActivity{
                 }
                 dialog.dismiss();
             });
+
             abrirGaleria.setOnClickListener(v -> {
                 Intent galeria = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 resultLauncherGaleria.launch(galeria);
@@ -98,20 +101,23 @@ public class TelaInfosConta extends AppCompatActivity{
 
         binding.infoSalvar.setOnClickListener(v -> {
             checkAllFields();
-            if(nome.getText().toString() != null && email.getText().toString() != null
-                    && dataNascimento.getText().toString() != null && username.getText().toString() != null) {
+            if(nome.getText().toString() != null && email.getText().toString() != null &&
+                    dataNascimento.getText().toString() != null &&
+                    username.getText().toString() != null) {
 
-                Date data = converterData(dataNascimento.getText().toString());
-                Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(), data, username.getText().toString());
+                String dataConvertida = validacaoCadastroImpl.converterData(dataNascimento.getText().toString());
+
+                Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(),
+                        dataConvertida, username.getText().toString(), caminho);
+
                 Long userId = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
-                atualizarUsuario(usuario, userId);
+
+                atualizarUsuarioUseCase.atualizarUsuario(usuario, userId);
                 atualizarUsuarioFire();
             }
         });
     }
-    private void atualizarUsuario(Usuario usuario, Long id){
-        atualizarUsuarioUseCase.atualizarUsuario(usuario, id);
-    }
+
     private void atualizarUsuarioFire(){
         String novoEmail = email.getText().toString();
         user.updateEmail(novoEmail)
@@ -162,46 +168,19 @@ public class TelaInfosConta extends AppCompatActivity{
         }
     }
 
-    public void definirData() {
-        Calendar calendar = Calendar.getInstance();
-        final int year = calendar.get(Calendar.YEAR);
-        final int month = calendar.get(Calendar.MONTH);
-        final int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                (view, year1, month1, dayOfMonth) -> {
-                    selectedYear = year1;
-                    selectedMonth = month1;
-                    selectedDay = dayOfMonth;
-                    String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                    binding.infoData.setText(selectedDate);
-                },
-                year, month, day);
-
-        datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis());
-        datePickerDialog.show();
-    }
-
-    public Date converterData(String stringData) {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-
-        try {
-            Date data = formato.parse(stringData);
-            return data;
-        } catch (ParseException e) {
-            System.out.println("Erro ao converter data: " + e.getMessage());
-        }
-        return null;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (data != null && data.getExtras() != null) {
                 Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-                binding.camera.setImageBitmap(imageBitmap);
+                imageUri = fotoFirebaseImpl.recuperarImageUri(this, imageBitmap);
+                Glide.with(this)
+                        .load(imageBitmap)
+                        .circleCrop()
+                        .into(binding.camera);
+
+                fotoFirebaseImpl.uploadImage(imageUri, this);
             }
         }
     }
@@ -209,9 +188,12 @@ public class TelaInfosConta extends AppCompatActivity{
             new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Uri imageUri = result.getData().getData();
-                    Picasso.get()
+                    Glide.with(this)
                             .load(imageUri)
+                            .circleCrop()
                             .into(binding.camera);
+
+                    fotoFirebaseImpl.uploadImage(imageUri, this);
                 }
             }
     );

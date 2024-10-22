@@ -3,19 +3,18 @@ package com.example.mobile_athleta.models;
 import java.util.Date;
 
 public class Usuario {
-    private Long id;
+    private Long idUsuario;
     private String nome;
     private String email;
     private String senha;
-    private Date dtNasc;
+    private String dtNasc;
     private String username;
     private String fotoPerfil;
-
     public Usuario() {
 
     }
-    public Usuario(Long id, String nome, String email, String senha, Date dtNasc, String username, String fotoPerfil) {
-        this.id = id;
+    public Usuario(Long idUsuario, String nome, String email, String senha, String dtNasc, String username, String fotoPerfil) {
+        this.idUsuario = idUsuario;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -24,22 +23,24 @@ public class Usuario {
         this.fotoPerfil = fotoPerfil;
     }
 
-    public Usuario(String nome, String email, Date dtNasc, String username) {
+    public Usuario(String nome, String email, String dtNasc, String username, String fotoPerfil) {
         this.nome = nome;
         this.email = email;
         this.dtNasc = dtNasc;
         this.username = username;
+        this.fotoPerfil = fotoPerfil;
     }
-    public Usuario(String nome, String email, String senha, Date dtNasc, String username, String fotoPerfil) {
+    public Usuario(String nome, String email, String senha, String dtNasc, String username, String fotoPerfil) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
         this.dtNasc = dtNasc;
         this.username = username;
+        this.fotoPerfil = fotoPerfil;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
     public String getNome() {
         return nome;
@@ -53,7 +54,7 @@ public class Usuario {
         return senha;
     }
 
-    public Date getDtNasc() {
+    public String getDtNasc() {
         return dtNasc;
     }
 

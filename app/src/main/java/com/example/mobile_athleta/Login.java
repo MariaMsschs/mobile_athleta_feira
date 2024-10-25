@@ -3,6 +3,7 @@ package com.example.mobile_athleta;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +11,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityLoginBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.AthletaService;
+import com.example.mobile_athleta.service.ListarUsuarioCallBack;
 import com.example.mobile_athleta.service.LoginResponse;
 import com.example.mobile_athleta.service.UserLogin;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +30,8 @@ public class Login extends AppCompatActivity {
     private ActivityLoginBinding binding;
 
     private ListarUsuarioUseCase listarUsuarioUseCase = new ListarUsuarioUseCase();
+    private LoginUseCase loginUseCase = new LoginUseCase();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,50 +69,20 @@ public class Login extends AppCompatActivity {
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String senha = ((EditText)findViewById(R.id.cad_senha)).getText().toString();
 
-            loginFirebase(email, senha, auth);
+            listarUsuarioUseCase.listarUsuarioPorEmail(email, this, new ListarUsuarioCallBack() {
+                @Override
+                public void onUsernameRetrieved(String username) {
+                    UserLogin userLogin = new UserLogin(username, senha);
+                    loginUseCase.login(userLogin, Login.this);
+                    loginFirebase(email, senha, auth);
 
-            listarUsuarioUseCase.listarUsuarioPorEmail(email, this);
-            String username = getSharedPreferences("username", MODE_PRIVATE).getString("username", "");
-            UserLogin userLogin = new UserLogin(username, senha);
-            login(userLogin);
-        });
-    }
-
-    public void login(UserLogin login){
-        String URL = "https://api-sql-gbb8.onrender.com/api/auth/";
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        AthletaService service = retrofit.create(AthletaService.class);
-        Call<LoginResponse> call = service.login(login);
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
-                if (response.isSuccessful()) {
-                    LoginResponse loginResponse = response.body();
-                    if (response.isSuccessful() && loginResponse != null) {
-                        Log.d("LOGIN SUCCESS", loginResponse.toString());
-                        Usuario usuario = loginResponse.getUsuario();
-                        Long idUsuario = usuario.getIdUsuario();
-                        getSharedPreferences("login", MODE_PRIVATE).edit().putLong("idUsuario", idUsuario).apply();
-                        Intent home = new Intent(Login.this, TelaHome.class);
-                        startActivity(home);
-                        finish();
-                    }
-                    else {
-                        Log.e("CadastrarUsuarioUseCase", "Response is not successful or body is null. Code: " + response.code() + ", Message: " + response.message());
-                    }
+                    Intent home = new Intent(Login.this, TelaHome.class);
+                    startActivity(home);
+                    finish();
                 }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable throwable) {
-                Log.e("ERRO", throwable.getMessage());
-            }
+            });
         });
+
     }
 
     private void loginFirebase(String email, String senha, FirebaseAuth auth) {

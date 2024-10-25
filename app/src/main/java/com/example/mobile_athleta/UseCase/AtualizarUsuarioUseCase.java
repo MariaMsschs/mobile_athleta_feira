@@ -22,7 +22,7 @@ public class AtualizarUsuarioUseCase {
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                Log.e("ALTERAR SUCESSO", response.body().toString());
+                Log.e("ALTERAR SUCESSO", "sucesso");
             }
 
             @Override

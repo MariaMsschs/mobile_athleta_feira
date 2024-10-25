@@ -50,12 +50,20 @@ public class TelaInfosConta extends AppCompatActivity{
         dataNascimento = findViewById(R.id.info_data);
         username = findViewById(R.id.info_user);
 
-        String caminho = getSharedPreferences("fotoPerfil", MODE_PRIVATE).getString("caminho_imagem","");
-        Log.d("TelaInfosConta", caminho);
+        String nomeAtual = getSharedPreferences("login", MODE_PRIVATE).getString("nome", "");
+        String emailAtual = getSharedPreferences("login", MODE_PRIVATE).getString("email", "");
+        String usernameAtual = getSharedPreferences("login", MODE_PRIVATE).getString("username", "");
+        String dataNascimentoAtual = getSharedPreferences("login", MODE_PRIVATE).getString("data_nascimento", "");
+        String caminhoAtual = getSharedPreferences("login", MODE_PRIVATE).getString("caminho","");
 
-        if (!caminho.isEmpty()) {
-            fotoFirebaseImpl.recuperarImagem(binding.camera, caminho);
-            Log.d("IMAGEM!", "Caminho da imagem encontrado: " + caminho);
+        nome.setText(nomeAtual);
+        email.setText(emailAtual);
+        username.setText(usernameAtual);
+        dataNascimento.setText(dataNascimentoAtual);
+
+        if (!caminhoAtual.isEmpty()) {
+            fotoFirebaseImpl.recuperarImagem(binding.camera, caminhoAtual);
+            Log.d("IMAGEM!", "Caminho da imagem encontrado: " + caminhoAtual);
         } else {
             Log.d("IMAGEM!", "Caminho da imagem não encontrado");
         }
@@ -108,7 +116,7 @@ public class TelaInfosConta extends AppCompatActivity{
                 String dataConvertida = validacaoCadastroImpl.converterData(dataNascimento.getText().toString());
 
                 Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(),
-                        dataConvertida, username.getText().toString(), caminho);
+                        dataConvertida, username.getText().toString(), caminhoAtual);
 
                 Long userId = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
 
@@ -121,39 +129,38 @@ public class TelaInfosConta extends AppCompatActivity{
     private void atualizarUsuarioFire(){
         String novoEmail = email.getText().toString();
         user.updateEmail(novoEmail)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        LayoutInflater inflater = getLayoutInflater();
-                        View dialogView = inflater.inflate(R.layout.alterado_dialog, null);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setView(dialogView);
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        View botao_alterado = dialogView.findViewById(R.id.botao_alterado);
-                        botao_alterado.setOnClickListener(v -> {
-                            Intent config = new Intent(this, TelaConfiguracao.class);
-                            startActivity(config);
-                            finish();
-                            dialog.dismiss();
-                        });
-
-                    } else {
-                        LayoutInflater inflater = getLayoutInflater();
-                        View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setView(dialogView);
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                        View botao_erro_alterar = dialogView.findViewById(R.id.botao_erro_alterar);
-                        botao_erro_alterar.setOnClickListener(v -> {
-                            Intent config = new Intent(this, TelaConfiguracao.class);
-                            startActivity(config);
-                            finish();
-                            dialog.dismiss();
-                        });
-                    }
+        .addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.alterado_dialog, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                View botao_alterado = dialogView.findViewById(R.id.botao_alterado);
+                botao_alterado.setOnClickListener(v -> {
+                    Intent config = new Intent(this, TelaConfiguracao.class);
+                    startActivity(config);
+                    finish();
+                    dialog.dismiss();
                 });
 
+            } else {
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                View botao_erro_alterar = dialogView.findViewById(R.id.botao_erro_alterar);
+                botao_erro_alterar.setOnClickListener(v -> {
+                    Intent config = new Intent(this, TelaConfiguracao.class);
+                    startActivity(config);
+                    finish();
+                    dialog.dismiss();
+                });
+            }
+        });
     }
 
     public void checkAllFields() {

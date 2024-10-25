@@ -22,6 +22,15 @@
             android:name=".TelaHome"
             android:exported="false" />
         <activity
+            android:name=".TelaInfosConta"
+            android:exported="false" />
+        <activity
+            android:name=".TelaSocial"
+            android:exported="false" />
+        <activity
+            android:name=".TelaAlterarSenha"
+            android:exported="false" />
+        <activity
             android:name=".TelaConfiguracao"
             android:exported="false" />
         <activity

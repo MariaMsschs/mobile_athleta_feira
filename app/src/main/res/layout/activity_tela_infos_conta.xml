@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TelaInfosConta">
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="408dp"
+        android:layout_height="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logo_athleta"
+            android:layout_width="147dp"
+            android:layout_height="37dp"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.598"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo_athleta" />
+
+        <ImageButton
+            android:id="@+id/botao_voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/logo_athleta"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/seta_volta" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="410dp"
+        android:layout_height="724dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_info_conta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Informações da conta"
+                android:textColor="@color/gray"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.075"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+
+
+            <ImageButton
+                android:id="@+id/camera"
+                android:layout_width="223dp"
+                android:layout_height="223dp"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#00FFFFFF"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/escolher_foto_design"
+                app:srcCompat="@drawable/foto" />
+
+            <TextView
+                android:id="@+id/titulo_info_nome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Nome:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/info_nome"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/titulo_info_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Username:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/info_user"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/titulo_info_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Data de nascimento:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/info_data"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/input_design"
+                    android:clickable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:padding="10dp"
+                    android:textColor="#626161"
+                    android:textCursorDrawable="@drawable/cursor_design"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/calendario"
+                    android:layout_width="49dp"
+                    android:layout_height="46dp"
+                    android:layout_marginLeft="320dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/calendario" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/titulo_info_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Email:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/info_email"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/info_salvar"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="350dp"
+                android:layout_height="55dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button_design"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Salvar Informações"
+                android:textAllCaps="false"
+                android:textColor="#F4F4F4"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="644dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

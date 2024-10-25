@@ -7,7 +7,7 @@
     tools:context=".TelaFoto">
 
     <ImageView
-        android:id="@+id/imagem_produto_anuncio"
+        android:id="@+id/logo_athleta"
         android:layout_width="147dp"
         android:layout_height="37dp"
         android:layout_marginTop="36dp"
@@ -23,7 +23,7 @@
         android:layout_marginTop="36dp"
         android:backgroundTint="#00FFFFFF"
         android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/imagem_produto_anuncio"
+        app:layout_constraintEnd_toStartOf="@+id/logo_athleta"
         app:layout_constraintHorizontal_bias="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,17 +48,6 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/borda"
-        android:layout_width="223dp"
-        android:layout_height="223dp"
-        app:layout_constraintBottom_toTopOf="@+id/botao_cadastro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagem_produto_anuncio"
-        app:layout_constraintVertical_bias="0.452"
-        app:srcCompat="@drawable/borda_foto" />
-
     <ImageButton
         android:id="@+id/camera"
         android:layout_width="223dp"
@@ -67,9 +56,9 @@
         app:layout_constraintBottom_toTopOf="@+id/botao_cadastro"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagem_produto_anuncio"
+        app:layout_constraintTop_toBottomOf="@+id/logo_athleta"
         app:layout_constraintVertical_bias="0.452"
-        app:srcCompat="@drawable/camera_foto" />
+        app:srcCompat="@drawable/foto" />
 
     <TextView
         android:id="@+id/titulo_camera"
@@ -81,11 +70,11 @@
         android:textAlignment="center"
         android:textColor="@color/gray"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/borda"
+        app:layout_constraintBottom_toTopOf="@+id/camera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.626"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagem_produto_anuncio"
+        app:layout_constraintTop_toBottomOf="@+id/logo_athleta"
         app:layout_constraintVertical_bias="0.26" />
 
     <FrameLayout

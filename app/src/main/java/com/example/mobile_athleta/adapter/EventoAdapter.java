@@ -60,7 +60,6 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
         }
         public void bind(Evento evento) {
             String imagemUrl = evento.getImg();
-//            Glide.with(itemView.getContext()).load(imagemUrl).into(imagem_evento);
             Picasso.get()
                     .load(imagemUrl)
                     .into(imagem_evento);

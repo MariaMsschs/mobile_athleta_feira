@@ -27,9 +27,25 @@ public class TelaConfiguracao extends AppCompatActivity {
         binding.logout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent login = new Intent(this, Login.class);
+            getSharedPreferences("login", MODE_PRIVATE).edit().remove("idUsuario").apply();
+            getSharedPreferences("login", MODE_PRIVATE).edit().remove("nome").apply();
+            getSharedPreferences("login", MODE_PRIVATE).edit().remove("email").apply();
+            getSharedPreferences("login", MODE_PRIVATE).edit().remove("data_nascimento").apply();
+            getSharedPreferences("login", MODE_PRIVATE).edit().remove("caminho").apply();
             getSharedPreferences("login", MODE_PRIVATE).edit().remove("username").apply();
             login.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(login);
+        });
+
+        binding.alterarSenha.setOnClickListener(v -> {
+            Intent alterarSenha = new Intent(this, TelaAlterarSenha.class);
+            startActivity(alterarSenha);
+            finish();
+        });
+
+        binding.infoConta.setOnClickListener(v -> {
+            Intent infosConta = new Intent(this, TelaInfosConta.class);
+            startActivity(infosConta);
             finish();
         });
     }

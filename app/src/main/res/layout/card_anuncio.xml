@@ -2,40 +2,43 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="200dp"
-    android:layout_height="313dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:layout_marginRight="20dp"
-    android:padding="20dp"
-    app:cardBackgroundColor="#f4f4f4"
-    app:cardCornerRadius="10dp">
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="200dp"
-        android:layout_height="313dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_design"
+        android:paddingBottom="8dp">
 
         <ImageView
             android:id="@+id/imagem_produto_anuncio"
-            android:layout_width="162dp"
-            android:layout_height="182dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1.1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.421"
+            app:layout_constraintHeight_percent="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/luva_baseball" />
+            app:layout_constraintWidth_percent="0.8" />
 
         <TextView
             android:id="@+id/titulo_anuncio"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Titulo"
+            android:textAlignment="center"
             android:textColor="#F9A400"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.118"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagem_produto_anuncio" />
 
@@ -43,41 +46,27 @@
             android:id="@+id/autor_anuncio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Anunciante"
             android:textColor="@color/gray"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titulo_anuncio" />
-
-        <TextView
-            android:id="@+id/real"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="R$"
-            android:textColor="@color/orange"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.092"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/autor_anuncio" />
 
         <TextView
             android:id="@+id/preco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="89,90"
+            android:text="R$89.99"
+            android:textAlignment="center"
             android:textColor="@color/orange"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.232"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/autor_anuncio" />
     </androidx.constraintlayout.widget.ConstraintLayout>

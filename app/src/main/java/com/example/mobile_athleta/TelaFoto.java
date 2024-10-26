@@ -139,16 +139,4 @@ public class TelaFoto extends AppCompatActivity {
                 }
             }
     );
-   public void uploadImage(Uri imagem, String username){
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference reference = storageReference.child("users/" + username +"/"+ System.currentTimeMillis());
-        reference.putFile(imagem).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-                startActivity(new Intent(TelaFoto.this, TelaItem.class));
-                finish();
-            }
-        });
-   }
 }

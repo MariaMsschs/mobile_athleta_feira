@@ -16,9 +16,13 @@ import android.view.View;
 import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.LoginFireUseCase;
+import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
+import com.example.mobile_athleta.service.UserLogin;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 
 
@@ -29,6 +33,10 @@ public class TelaFoto extends AppCompatActivity {
     private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
     private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
     private CadastrarUsuarioUseCase cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase();
+
+    private ListarUsuarioUseCase listarUsuarioUseCase = new ListarUsuarioUseCase();
+    private LoginUseCase loginUseCase = new LoginUseCase();
+    private LoginFireUseCase loginFireUseCase = new LoginFireUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +84,7 @@ public class TelaFoto extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             cadastrarUsuario(bundle);
             binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-            startActivity(new Intent(TelaFoto.this, TelaHome.class));
-            finish();
+
         });
     }
 
@@ -91,6 +98,19 @@ public class TelaFoto extends AppCompatActivity {
                 bundle.getString("username"), caminho);
 
         cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
+
+        String email = usuario.getEmail();
+        String senha = usuario.getSenha();
+
+        listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
+            UserLogin userLogin = new UserLogin(username, senha);
+            loginUseCase.login(userLogin, this);
+            loginFireUseCase.loginFirebase(email, senha);
+
+            Intent home = new Intent(this, TelaHome.class);
+            startActivity(home);
+            finish();
+        });
     }
 
     @Override

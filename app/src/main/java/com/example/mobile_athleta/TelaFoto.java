@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -23,7 +22,6 @@ import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
-import com.example.mobile_athleta.service.UserLogin;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 
 
@@ -85,18 +83,14 @@ public class TelaFoto extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             cadastrarUsuario(bundle);
 
-            String username = bundle.getString("username");
             String email = bundle.getString("email");
             String senha = bundle.getString("senha");
 
-            UserLogin userLogin = new UserLogin(username, senha);
             loginFireUseCase.loginFirebase(email, senha);
-            loginUseCase.login(userLogin, TelaFoto.this, () -> {
-                Intent home = new Intent(this, TelaHome.class);
-                binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-                startActivity(home);
-                finish();
-            });
+            Intent home = new Intent(TelaFoto.this, TelaHome.class);
+            binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
+            startActivity(home);
+            finish();
         });
     }
 

@@ -74,12 +74,11 @@ public class Login extends AppCompatActivity {
             listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
                 UserLogin userLogin = new UserLogin(username, senha);
                 loginFireUseCase.loginFirebase(email, senha);
-                loginUseCase.login(userLogin, this , () -> {
-                    Intent home = new Intent(this, TelaHome.class);
-                    binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-                    startActivity(home);
-                    finish();
-                });
+                loginUseCase.login(userLogin, this);
+                Intent home = new Intent(this, TelaHome.class);
+                binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                startActivity(home);
+                finish();
             });
         });
 

@@ -1,19 +1,12 @@
 package com.example.mobile_athleta.UseCase;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-
-import com.example.mobile_athleta.Login;
-import com.example.mobile_athleta.TelaHome;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.ListarUsuarioCallBack;
-import com.example.mobile_athleta.service.LoginCallback;
 import com.example.mobile_athleta.service.LoginResponse;
 import com.example.mobile_athleta.service.UserLogin;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -28,7 +21,7 @@ public class LoginUseCase {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void login(UserLogin login, Context context,  LoginCallback callback){
+    public void login(UserLogin login, Context context){
         AthletaService service = retrofit.create(AthletaService.class);
         Call<LoginResponse> call = service.login(login);
 
@@ -54,10 +47,6 @@ public class LoginUseCase {
                         editor.putString("caminho", caminho);
                         editor.apply();
 
-                        if (callback != null) {
-                            callback.onLoginSuccess();
-                        }
-
                         Log.d("LOGIN SUCCESS", loginResponse.toString());
                     }
                     else {
@@ -72,4 +61,5 @@ public class LoginUseCase {
             }
         });
     }
+
 }

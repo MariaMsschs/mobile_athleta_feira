@@ -50,7 +50,7 @@ public class AnuncioFragment extends Fragment {
         recyclerViewAnuncios = view.findViewById(R.id.recycler_anuncios);
 
         produtoList = new ArrayList<>();
-        produtoList.add(new Produto(1, "Luva de Baseball", "possivel anunciante", 70, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
+        produtoList.add(new Produto(1, "Luva de Baseball", "possivel anunciante", 70, "https://www.designi.com.br/images/preview/10073442.jpg"));
         produtoList.add(new Produto(3, "Luva de Baseball", "possivel anunciante", 70, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
         produtoList.add(new Produto(2, "coisas", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
         produtoList.add(new Produto(4, "raquete", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));

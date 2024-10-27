@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <ScrollView
-        android:layout_width="416dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="75dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="100dp"
                 android:src="@drawable/logo_athleta" />
 
@@ -42,9 +42,10 @@
 
             <EditText
                 android:id="@+id/email"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="33dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/input_design"
                 android:gravity="center_vertical"
@@ -68,9 +69,10 @@
 
             <EditText
                 android:id="@+id/cad_senha"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginLeft="33dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/input_design"
                 android:ems="10"
@@ -81,7 +83,7 @@
                 android:textSize="14sp" />
 
             <FrameLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp">
 
@@ -99,8 +101,9 @@
                     android:id="@+id/esqueciSenha"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="200dp"
+                    android:layout_gravity="end"
                     android:layout_marginTop="14dp"
+                    android:layout_marginEnd="30dp"
                     android:fontFamily="@font/roboto"
                     android:text="Esqueci minha senha"
                     android:textColor="#FEBB38"
@@ -110,9 +113,10 @@
             <Button
                 android:id="@+id/botao_login"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="350dp"
-                android:layout_height="55dp"
-                android:layout_marginLeft="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/button_design"
                 android:fontFamily="@font/roboto_bold"
@@ -121,54 +125,87 @@
                 android:textColor="#F4F4F4"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/entre_com"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="165dp"
-                android:layout_marginTop="12dp"
-                android:text="ou Entre com"
-                android:textColor="#626161"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/botao_login" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/entre_com"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:text="ou Entre com"
+                        android:textColor="#626161"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/botao_login" />
+                </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
+                android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_marginTop="10dp">
 
-                <ImageView
-                    android:id="@+id/google"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/icon_google" />
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="70dp"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView9"
-                    app:layout_constraintHorizontal_bias="0.527"
-                    app:srcCompat="@drawable/logos_facebook" />
+                    <ImageView
+                        android:id="@+id/google"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/icon_google" />
 
-                <ImageView
-                    android:id="@+id/imageView9"
+                </FrameLayout>
+
+                <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="140dp"
-                    app:srcCompat="@drawable/logos_microsoft" />
-            </FrameLayout>
+                    android:layout_marginStart="20dp">
+
+                    <ImageView
+                        android:id="@+id/facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/logos_facebook" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/logos_microsoft" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+
 
             <FrameLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
                 android:layout_marginTop="90dp"
+                android:gravity="center"
                 android:layout_marginBottom="30dp">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
 
                 <TextView
                     android:id="@+id/nao_login"
@@ -181,9 +218,11 @@
                     android:id="@+id/botao_cadastrese"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="130dp"
+                    android:layout_marginStart="6dp"
                     android:text="Cadastre-se"
                     android:textColor="#FEBB38" />
+
+                </LinearLayout>
 
             </FrameLayout>
 

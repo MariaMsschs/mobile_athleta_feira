@@ -2,8 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="480dp"
-    android:layout_margin="15dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     android:background="@drawable/card_design"
     android:padding="20dp"
     app:cardBackgroundColor="#f4f4f4"
@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="480dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/card_design"
         android:padding="5dp">
 
@@ -64,24 +64,21 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="2dp"
-                android:scaleType="centerCrop"
+                android:background="@drawable/foto_perfil_design"
                 android:clipToOutline="true"
-                android:background="@drawable/foto_perfil_design" />
+                android:scaleType="centerCrop" />
 
         </FrameLayout>
 
         <ImageView
             android:id="@+id/imagem_post"
-            android:layout_width="330dp"
-            android:layout_height="330dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/post_design"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="12dp"
             android:clipToOutline="true"
             android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1.1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/legenda" />
 
@@ -89,12 +86,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.079"
+            android:layout_marginStart="12dp"
+            android:paddingBottom="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imagem_post"
-            app:layout_constraintVertical_bias="0.153">
+            app:layout_constraintTop_toBottomOf="@+id/imagem_post">
 
             <ImageButton
                 android:id="@+id/compartilhar"
@@ -117,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/like"/>
+                app:srcCompat="@drawable/like" />
 
             <ImageButton
                 android:id="@+id/comentar"

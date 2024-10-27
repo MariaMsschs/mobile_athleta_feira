@@ -52,13 +52,12 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="330dp"
-        android:layout_marginTop="620dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:contentDescription="Adicionar"
         android:src="@drawable/adicionar"
         app:backgroundTint="@color/orange"
-        app:elevation="0dp" />
+        app:elevation="4dp"/>
 
 </FrameLayout>

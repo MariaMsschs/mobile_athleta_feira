@@ -79,9 +79,9 @@ public class TelaCadastro extends AppCompatActivity {
                         senhaEdit.getText().toString());
 
                 frameLayout.setVisibility(ProgressBar.GONE);
-                Intent home = new Intent(this, TelaFoto.class);
-                home.putExtras(bundle);
-                startActivity(home);
+                Intent foto = new Intent(this, TelaFoto.class);
+                foto.putExtras(bundle);
+                startActivity(foto);
                 finish();
             }
         });
@@ -90,7 +90,7 @@ public class TelaCadastro extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
             if (task.isSuccessful()) {
-//                getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
+                getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
             }
         });
     }

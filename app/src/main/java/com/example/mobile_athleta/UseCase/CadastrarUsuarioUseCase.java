@@ -26,7 +26,7 @@ public class CadastrarUsuarioUseCase {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.e("SUCESSO CADASTRO", response.body().toString());
+                    Log.d("SUCESSO CADASTRO", response.body().toString());
                 } else {
                     Log.e("ERRO CADASTRO", "Response is not successful or body is null. Code: " + response.code() + ", Message: " + response.message());
                 }

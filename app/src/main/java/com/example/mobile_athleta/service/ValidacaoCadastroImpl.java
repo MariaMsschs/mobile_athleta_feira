@@ -38,7 +38,7 @@ public class ValidacaoCadastroImpl implements ValidacaoCadastro {
     @Override
     public String converterData(String dataString) {
         final SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy");
-        final SimpleDateFormat formatoSaida = new SimpleDateFormat("yyyy/MM/dd");
+        final SimpleDateFormat formatoSaida = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date data = formatoEntrada.parse(dataString);
             return formatoSaida.format(data);

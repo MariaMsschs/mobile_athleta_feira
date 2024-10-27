@@ -113,7 +113,7 @@ public class PerfilFragment extends Fragment {
         config.setOnClickListener(v -> {
             Intent configuracao = new Intent(getActivity(), TelaConfiguracao.class);
             startActivity(configuracao);
-            getActivity().finish();
+            getActivity();
         });
         return view;
     }

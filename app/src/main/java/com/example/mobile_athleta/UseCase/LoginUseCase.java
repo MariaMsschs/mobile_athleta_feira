@@ -9,6 +9,8 @@ import com.example.mobile_athleta.Login;
 import com.example.mobile_athleta.TelaHome;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.AthletaService;
+import com.example.mobile_athleta.service.ListarUsuarioCallBack;
+import com.example.mobile_athleta.service.LoginCallback;
 import com.example.mobile_athleta.service.LoginResponse;
 import com.example.mobile_athleta.service.UserLogin;
 
@@ -26,7 +28,7 @@ public class LoginUseCase {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void login(UserLogin login, Context context){
+    public void login(UserLogin login, Context context,  LoginCallback callback){
         AthletaService service = retrofit.create(AthletaService.class);
         Call<LoginResponse> call = service.login(login);
 
@@ -51,6 +53,10 @@ public class LoginUseCase {
                         editor.putString("data_nascimento", dataNascimento);
                         editor.putString("caminho", caminho);
                         editor.apply();
+
+                        if (callback != null) {
+                            callback.onLoginSuccess();
+                        }
 
                         Log.d("LOGIN SUCCESS", loginResponse.toString());
                     }

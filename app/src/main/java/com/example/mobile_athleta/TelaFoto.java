@@ -84,8 +84,19 @@ public class TelaFoto extends AppCompatActivity {
             binding.frameLayoutFoto.setVisibility(ProgressBar.VISIBLE);
             Bundle bundle = getIntent().getExtras();
             cadastrarUsuario(bundle);
-            binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
 
+            String username = bundle.getString("username");
+            String email = bundle.getString("email");
+            String senha = bundle.getString("senha");
+
+            UserLogin userLogin = new UserLogin(username, senha);
+            loginFireUseCase.loginFirebase(email, senha);
+            loginUseCase.login(userLogin, TelaFoto.this, () -> {
+                Intent home = new Intent(this, TelaHome.class);
+                binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
+                startActivity(home);
+                finish();
+            });
         });
     }
 
@@ -99,19 +110,6 @@ public class TelaFoto extends AppCompatActivity {
                 bundle.getString("username"), caminho);
 
         cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
-
-        String email = usuario.getEmail();
-        String senha = usuario.getSenha();
-
-        listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
-            UserLogin userLogin = new UserLogin(username, senha);
-            loginUseCase.login(userLogin, this);
-            loginFireUseCase.loginFirebase(email, senha);
-
-            Intent home = new Intent(this, TelaHome.class);
-            startActivity(home);
-            finish();
-        });
     }
 
     @Override

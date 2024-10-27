@@ -12,23 +12,31 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+
 import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.LoginFireUseCase;
+import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.example.mobile_athleta.service.UserLogin;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
+
 
 public class TelaFoto extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ActivityTelaFotoBinding binding;
     private Uri imageUri;
     private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
+    private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
     private CadastrarUsuarioUseCase cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase();
+
+    private ListarUsuarioUseCase listarUsuarioUseCase = new ListarUsuarioUseCase();
+    private LoginUseCase loginUseCase = new LoginUseCase();
+    private LoginFireUseCase loginFireUseCase = new LoginFireUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,13 +84,12 @@ public class TelaFoto extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             cadastrarUsuario(bundle);
             binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-            startActivity(new Intent(TelaFoto.this, TelaHome.class));
-            finish();
+
         });
     }
 
     private void cadastrarUsuario(Bundle bundle){
-        String data =  converterData(bundle.getString("dataNasc"));
+        String data =  validacaoCadastroImpl.converterData(bundle.getString("dataNasc"));
 
         String caminho = getSharedPreferences("fotoPerfil", MODE_PRIVATE).getString("caminho_imagem","");
 
@@ -91,18 +98,19 @@ public class TelaFoto extends AppCompatActivity {
                 bundle.getString("username"), caminho);
 
         cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
-    }
 
-    private String converterData(String dataString) {
-        final SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy");
-        final SimpleDateFormat formatoSaida = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date data = formatoEntrada.parse(dataString);
-            return formatoSaida.format(data);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return dataString;
-        }
+        String email = usuario.getEmail();
+        String senha = usuario.getSenha();
+
+        listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
+            UserLogin userLogin = new UserLogin(username, senha);
+            loginUseCase.login(userLogin, this);
+            loginFireUseCase.loginFirebase(email, senha);
+
+            Intent home = new Intent(this, TelaHome.class);
+            startActivity(home);
+            finish();
+        });
     }
 
     @Override

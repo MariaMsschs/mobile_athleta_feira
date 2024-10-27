@@ -22,7 +22,6 @@ import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
-import com.example.mobile_athleta.service.UserLogin;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 
 
@@ -83,8 +82,15 @@ public class TelaFoto extends AppCompatActivity {
             binding.frameLayoutFoto.setVisibility(ProgressBar.VISIBLE);
             Bundle bundle = getIntent().getExtras();
             cadastrarUsuario(bundle);
-            binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
 
+            String email = bundle.getString("email");
+            String senha = bundle.getString("senha");
+
+            loginFireUseCase.loginFirebase(email, senha);
+            Intent home = new Intent(TelaFoto.this, TelaHome.class);
+            binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
+            startActivity(home);
+            finish();
         });
     }
 
@@ -98,19 +104,6 @@ public class TelaFoto extends AppCompatActivity {
                 bundle.getString("username"), caminho);
 
         cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
-
-        String email = usuario.getEmail();
-        String senha = usuario.getSenha();
-
-        listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
-            UserLogin userLogin = new UserLogin(username, senha);
-            loginUseCase.login(userLogin, this);
-            loginFireUseCase.loginFirebase(email, senha);
-
-            Intent home = new Intent(this, TelaHome.class);
-            startActivity(home);
-            finish();
-        });
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.mobile_athleta.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaProduto;
 import com.example.mobile_athleta.adapter.AnuncioAdapter;
 import com.example.mobile_athleta.adapter.EsporteCardAdapter;
 import com.example.mobile_athleta.adapter.ForumAdapter;
@@ -22,31 +24,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnuncioFragment extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
 
     public AnuncioFragment(){
     }
 
-    public static AnuncioFragment newInstance(String param1, String param2) {
+    public static AnuncioFragment newInstance() {
         AnuncioFragment fragment = new AnuncioFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     RecyclerView recyclerViewAnuncios;
@@ -69,7 +58,16 @@ public class AnuncioFragment extends Fragment {
         produtoList.add(new Produto(6, "raquete", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
 
         recyclerViewAnuncios.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        AnuncioAdapter anuncioAdapter = new AnuncioAdapter(produtoList);
+
+        anuncioAdapter = new AnuncioAdapter(produtoList, new AnuncioAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Produto produto) {
+                Intent intent = new Intent(getContext(), TelaProduto.class);
+                intent.putExtra("produtoId", produto.getId());
+                startActivity(intent);
+            }
+        });
+
         recyclerViewAnuncios.setAdapter(anuncioAdapter);
 
         return view;

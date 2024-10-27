@@ -12,22 +12,22 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
+
 import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
+
 
 public class TelaFoto extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ActivityTelaFotoBinding binding;
     private Uri imageUri;
     private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
+    private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
     private CadastrarUsuarioUseCase cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase();
 
     @Override
@@ -82,7 +82,7 @@ public class TelaFoto extends AppCompatActivity {
     }
 
     private void cadastrarUsuario(Bundle bundle){
-        String data =  converterData(bundle.getString("dataNasc"));
+        String data =  validacaoCadastroImpl.converterData(bundle.getString("dataNasc"));
 
         String caminho = getSharedPreferences("fotoPerfil", MODE_PRIVATE).getString("caminho_imagem","");
 
@@ -91,18 +91,6 @@ public class TelaFoto extends AppCompatActivity {
                 bundle.getString("username"), caminho);
 
         cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
-    }
-
-    private String converterData(String dataString) {
-        final SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy");
-        final SimpleDateFormat formatoSaida = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            Date data = formatoEntrada.parse(dataString);
-            return formatoSaida.format(data);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return dataString;
-        }
     }
 
     @Override
@@ -139,16 +127,4 @@ public class TelaFoto extends AppCompatActivity {
                 }
             }
     );
-   public void uploadImage(Uri imagem, String username){
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference reference = storageReference.child("users/" + username +"/"+ System.currentTimeMillis());
-        reference.putFile(imagem).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-                startActivity(new Intent(TelaFoto.this, TelaItem.class));
-                finish();
-            }
-        });
-   }
 }

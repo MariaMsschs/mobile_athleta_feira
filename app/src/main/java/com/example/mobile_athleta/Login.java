@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.LoginFireUseCase;
 import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityLoginBinding;
 import com.example.mobile_athleta.models.Usuario;
@@ -31,6 +32,7 @@ public class Login extends AppCompatActivity {
 
     private ListarUsuarioUseCase listarUsuarioUseCase = new ListarUsuarioUseCase();
     private LoginUseCase loginUseCase = new LoginUseCase();
+    private LoginFireUseCase loginFireUseCase = new LoginFireUseCase();
 
 
     @Override
@@ -69,45 +71,17 @@ public class Login extends AppCompatActivity {
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String senha = ((EditText)findViewById(R.id.cad_senha)).getText().toString();
 
-            listarUsuarioUseCase.listarUsuarioPorEmail(email, this, new ListarUsuarioCallBack() {
-                @Override
-                public void onUsernameRetrieved(String username) {
-                    UserLogin userLogin = new UserLogin(username, senha);
-                    loginUseCase.login(userLogin, Login.this);
-                    loginFirebase(email, senha, auth);
-
-                    Intent home = new Intent(Login.this, TelaHome.class);
-                    startActivity(home);
-                    finish();
-                }
+            listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
+                UserLogin userLogin = new UserLogin(username, senha);
+                loginFireUseCase.loginFirebase(email, senha);
+                loginUseCase.login(userLogin, this);
+                Intent home = new Intent(this, TelaHome.class);
+                binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                startActivity(home);
+                finish();
             });
         });
 
     }
 
-    private void loginFirebase(String email, String senha, FirebaseAuth auth) {
-        auth.signInWithEmailAndPassword(email, senha)
-                .addOnCompleteListener( task -> {
-                    String msg="Você esqueceu de preencher algum dado";
-                    if (task.isSuccessful()) {
-                        Intent home = new Intent(Login.this, TelaHome.class);
-                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-                        Toast.makeText(this, getSharedPreferences("login", MODE_PRIVATE).getString("username", ""), Toast.LENGTH_SHORT).show();
-                        startActivity(home);
-                        finish();
-                    }else{
-                        try{
-                            throw task.getException();
-                        }catch (FirebaseAuthInvalidUserException e){
-                            msg = "Usuário não encontrado";
-                        }catch (FirebaseAuthInvalidCredentialsException e) {
-                            msg = "Senha invalida";
-                        }catch (Exception e){
-                            Log.e("ERRO",e.getMessage());
-                        }
-                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-                        Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
 }

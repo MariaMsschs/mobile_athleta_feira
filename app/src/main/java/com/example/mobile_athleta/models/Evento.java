@@ -9,13 +9,13 @@ public class Evento {
 
     private String descricao;
 
-    private Date dtEvento;
+    private String dtEvento;
 
     private String img;
 
     private int organizador;
 
-    public Evento(int idEvento, String nome, String descricao, Date dtEvento, String img) {
+    public Evento(int idEvento, String nome, String descricao, String dtEvento, String img) {
         this.idEvento = idEvento;
         this.nome = nome;
         this.descricao = descricao;
@@ -39,7 +39,7 @@ public class Evento {
         return descricao;
     }
 
-    public Date getDtEvento() {
+    public String getDtEvento() {
         return dtEvento;
     }
 

@@ -66,7 +66,8 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
             Picasso.get().load(produto.getImage()).into(imagem_produto);
             titulo_anuncio.setText(produto.getTitle());
             anunciante.setText(produto.getDescription());
-            preco.setText(String.valueOf(produto.getPrice()));
+            String valor = "R$" + String.valueOf(produto.getPrice());
+            preco.setText(valor);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

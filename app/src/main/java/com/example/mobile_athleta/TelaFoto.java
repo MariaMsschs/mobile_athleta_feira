@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.LoginFireUseCase;
+import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
@@ -25,9 +28,12 @@ public class TelaFoto extends AppCompatActivity {
     private ActivityTelaFotoBinding binding;
     private Uri imageUri;
     private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
+    private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
     private CadastrarUsuarioUseCase cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase();
 
-    private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
+    private ListarUsuarioUseCase listarUsuarioUseCase = new ListarUsuarioUseCase();
+    private LoginUseCase loginUseCase = new LoginUseCase();
+    private LoginFireUseCase loginFireUseCase = new LoginFireUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +80,20 @@ public class TelaFoto extends AppCompatActivity {
             binding.frameLayoutFoto.setVisibility(ProgressBar.VISIBLE);
             Bundle bundle = getIntent().getExtras();
             cadastrarUsuario(bundle);
+
+            String email = bundle.getString("email");
+            String senha = bundle.getString("senha");
+
+            loginFireUseCase.loginFirebase(email, senha);
+            Intent home = new Intent(TelaFoto.this, TelaHome.class);
             binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-            startActivity(new Intent(TelaFoto.this, TelaHome.class));
+            startActivity(home);
             finish();
         });
     }
 
     private void cadastrarUsuario(Bundle bundle){
-        String data =  validacaoCadastroImpl.converterData(bundle.getString("dataNasc"));
+        String data =  validacaoCadastroImpl.converterDataCadastro(bundle.getString("dataNasc"));
 
         String caminho = getSharedPreferences("fotoPerfil", MODE_PRIVATE).getString("caminho_imagem","");
 
@@ -126,16 +138,4 @@ public class TelaFoto extends AppCompatActivity {
                 }
             }
     );
-   public void uploadImage(Uri imagem, String username){
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-        StorageReference reference = storageReference.child("users/" + username +"/"+ System.currentTimeMillis());
-        reference.putFile(imagem).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-                startActivity(new Intent(TelaFoto.this, TelaItem.class));
-                finish();
-            }
-        });
-   }
 }

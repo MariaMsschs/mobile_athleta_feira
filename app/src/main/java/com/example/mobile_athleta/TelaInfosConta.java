@@ -58,7 +58,9 @@ public class TelaInfosConta extends AppCompatActivity{
         String nomeAtual = getSharedPreferences("login", MODE_PRIVATE).getString("nome", "");
         String emailAtual = getSharedPreferences("login", MODE_PRIVATE).getString("email", "");
         String usernameAtual = getSharedPreferences("login", MODE_PRIVATE).getString("username", "");
-        String dataNascimentoAtual = getSharedPreferences("login", MODE_PRIVATE).getString("data_nascimento", "");
+        String data_banco = getSharedPreferences("login", MODE_PRIVATE).getString("data_nascimento", "");
+        Log.d("DATA BANCO", data_banco);
+        String dataNascimentoAtual = validacaoCadastroImpl.converterDataInterface(data_banco);
         String caminhoAtual = getSharedPreferences("login", MODE_PRIVATE).getString("caminho","");
 
         nome.setText(nomeAtual);
@@ -118,7 +120,7 @@ public class TelaInfosConta extends AppCompatActivity{
                     dataNascimento.getText().toString() != null &&
                     username.getText().toString() != null) {
 
-                String dataConvertida = validacaoCadastroImpl.converterData(dataNascimento.getText().toString());
+                String dataConvertida = validacaoCadastroImpl.converterDataCadastro(dataNascimento.getText().toString());
 
                 Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(),
                         dataConvertida, username.getText().toString(), caminhoAtual);

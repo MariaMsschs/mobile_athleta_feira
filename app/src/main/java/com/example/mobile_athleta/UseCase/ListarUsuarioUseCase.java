@@ -20,26 +20,6 @@ public class ListarUsuarioUseCase {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-//    public void listarUsuarioPorEmail(String email, Context context) {
-//        AthletaService service = retrofit.create(AthletaService.class);
-//        Call<Usuario> call = service.listarUsuarioPorEmail(email);
-//        call.enqueue(new Callback<Usuario>() {
-//            @Override
-//            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    Usuario usuario = response.body();
-//                    String username = usuario.getUsername();
-//                    context.getSharedPreferences("login", context.MODE_PRIVATE).edit().putString("username", username).apply();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Usuario> call, Throwable throwable) {
-//                Log.e("Erro ao listar usuário", throwable.getMessage());
-//            }
-//        });
-//    }
-
     public void listarUsuarioPorEmail(String email, Context context, ListarUsuarioCallBack callback) {
         AthletaService service = retrofit.create(AthletaService.class);
         Call<Usuario> call = service.listarUsuarioPorEmail(email);
@@ -65,7 +45,6 @@ public class ListarUsuarioUseCase {
             @Override
             public void onFailure(Call<Usuario> call, Throwable throwable) {
                 Log.e("Erro ao listar usuário", throwable.getMessage());
-                // Em caso de erro, retorna um valor vazio no callback
                 if (callback != null) {
                     callback.onUsernameRetrieved("");
                 }

@@ -32,6 +32,12 @@ public class TelaAlterarSenha extends AppCompatActivity {
         String senha = binding.novaSenha.getText().toString();
         UserLogin userLogin = new UserLogin(user.getEmail(), senha);
 
+        binding.botaoVoltar.setOnClickListener(v -> {
+            Intent config = new Intent(this, TelaConfiguracao.class);
+            startActivity(config);
+            finish();
+        });
+
         binding.botaoAlterarSenha.setOnClickListener(v -> {
             alterarSenhaFire();
             alterarSenhaUseCase.alterarSenha(userLogin);

@@ -15,6 +15,7 @@ import com.example.mobile_athleta.adapter.EventoAdapter;
 import com.example.mobile_athleta.adapter.ForumAdapter;
 import com.example.mobile_athleta.models.Evento;
 import com.example.mobile_athleta.models.Forum;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,8 @@ public class EventoPerfil extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
 
     public EventoPerfil() {
     }
@@ -59,19 +62,13 @@ public class EventoPerfil extends Fragment {
 
         RecyclerView recyclerViewForum = view.findViewById(R.id.recycler_evento_perfil);
 
-        String dateString = "2008-02-06";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
+        String dateString = "06-02-2008";
 
-        try {
-            date = dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        String dataFormatada = validacaoCadastroImpl.converterDataInterface(dateString);
 
         eventoList = new ArrayList<>();
-        eventoList.add(new Evento(2, "PingPros", "Comunidade de ping pong.", date, "https://static.wikia.nocookie.net/disney/images/e/e5/Profile_-_Marie.jpg/revision/latest?cb=20240215032542&path-prefix=pt-br"));
-        eventoList.add(new Evento(3, "PingPros", "Comunidade de ping pong.", date, "https://i.scdn.co/image/ab6761610000e5eb0522e98a6f0cf1ddbee9a74f"));
+        eventoList.add(new Evento(2, "PingPros", "Comunidade de ping pong.", dataFormatada, "https://static.wikia.nocookie.net/disney/images/e/e5/Profile_-_Marie.jpg/revision/latest?cb=20240215032542&path-prefix=pt-br"));
+        eventoList.add(new Evento(3, "PingPros", "Comunidade de ping pong.", dataFormatada, "https://i.scdn.co/image/ab6761610000e5eb0522e98a6f0cf1ddbee9a74f"));
 
 
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));

@@ -75,7 +75,7 @@ public class TelaCadastro extends AppCompatActivity {
                 bundle.putString("username", usernameEdit.getText().toString());
                 bundle.putString("dataNasc", dataNascimentoEdit.getText().toString());
 
-                salvarLoginFirebase(usernameEdit.getText().toString(), emailEdit.getText().toString(),
+                salvarLoginFirebase(emailEdit.getText().toString(),
                         senhaEdit.getText().toString());
 
                 frameLayout.setVisibility(ProgressBar.GONE);
@@ -86,11 +86,11 @@ public class TelaCadastro extends AppCompatActivity {
             }
         });
     }
-    private void salvarLoginFirebase(String username, String email, String senha) {
+    private void salvarLoginFirebase(String email, String senha) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
             if (task.isSuccessful()) {
-//                getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
+                Log.d("CADASTRO FIRE", "Sucesso");
             }
         });
     }

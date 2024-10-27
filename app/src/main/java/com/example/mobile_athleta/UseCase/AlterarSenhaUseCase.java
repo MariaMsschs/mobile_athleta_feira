@@ -26,12 +26,12 @@ public class AlterarSenhaUseCase {
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                Log.e("AlterarSenhaUseCase", response.body().toString());
+                Log.e("SUCESSO ALTERAR SENHA", response.body().toString());
             }
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable throwable) {
-                Log.e("ERRO", throwable.getMessage());
+                Log.e("ERRO ALTERAR SENHA", throwable.getMessage());
             }
         });
     }

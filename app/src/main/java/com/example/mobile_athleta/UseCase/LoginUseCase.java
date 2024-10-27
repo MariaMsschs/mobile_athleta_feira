@@ -50,6 +50,7 @@ public class LoginUseCase {
                         editor.putString("email", email);
                         editor.putString("data_nascimento", dataNascimento);
                         editor.putString("caminho", caminho);
+                        editor.putString("senha", login.getSenha());
                         editor.apply();
 
                         Log.d("LOGIN SUCCESS", loginResponse.toString());

@@ -68,7 +68,7 @@ public class PerfilFragment extends Fragment {
         String usernameAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("username", "");
         String caminhoAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("caminho","");
 
-        nome.setText(nomeAtual);
+        nome.setText(nomeAtual.toLowerCase());
         username.setText(usernameAtual);
         if (!caminhoAtual.isEmpty()) {
             fotoFirebaseImpl.recuperarImagem(foto, caminhoAtual);
@@ -113,7 +113,7 @@ public class PerfilFragment extends Fragment {
         config.setOnClickListener(v -> {
             Intent configuracao = new Intent(getActivity(), TelaConfiguracao.class);
             startActivity(configuracao);
-            getActivity().finish();
+            getActivity();
         });
         return view;
     }

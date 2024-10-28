@@ -16,13 +16,19 @@ public class AtualizarUsuarioUseCase {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void atualizarUsuario(Usuario usuario, Long id){
+    public void atualizarUsuario(String token, Usuario usuario, Long id){
         AthletaService service = retrofit.create(AthletaService.class);
-        Call<ApiResponse> call = service.atualizarUsuario(usuario, id);
+        Call<ApiResponse> call = service.atualizarUsuario(token, usuario, id);
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                Log.e("ALTERAR SUCESSO", "sucesso");
+                if(response.isSuccessful()){
+                    Log.e("ALTERAR SUCESSO", "sucesso");
+                }
+                else{
+                    Log.e("ALTERAR ERRO", "Response is not successful. Code: " + response.code() + ", Message: " + response.message());
+
+                }
             }
 
             @Override

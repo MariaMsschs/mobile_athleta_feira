@@ -2,10 +2,12 @@ package com.example.mobile_athleta;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +22,10 @@ import com.example.mobile_athleta.databinding.ActivityTelaInfosContaBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 public class TelaInfosConta extends AppCompatActivity{
@@ -120,9 +126,17 @@ public class TelaInfosConta extends AppCompatActivity{
                 Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(),
                         dataConvertida, username.getText().toString(), caminhoAtual);
 
-                Long userId = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
+                SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
+                editor.putString("nome", nome.getText().toString());
+                editor.putString("email", email.getText().toString());
+                editor.putString("data_nascimento", dataNascimento.getText().toString());
+                editor.putString("caminho", caminhoAtual);
+                editor.apply();
 
-                atualizarUsuarioUseCase.atualizarUsuario(usuario, userId);
+                Long userId = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
+                String token = getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
+
+                atualizarUsuarioUseCase.atualizarUsuario(token, usuario, userId);
                 atualizarUsuarioFire();
             }
         });
@@ -130,39 +144,55 @@ public class TelaInfosConta extends AppCompatActivity{
 
     private void atualizarUsuarioFire(){
         String novoEmail = email.getText().toString();
-        user.updateEmail(novoEmail)
-        .addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                LayoutInflater inflater = getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.alterado_dialog, null);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setView(dialogView);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                View botao_alterado = dialogView.findViewById(R.id.botao_alterado);
-                botao_alterado.setOnClickListener(v -> {
-                    Intent config = new Intent(this, TelaConfiguracao.class);
-                    startActivity(config);
-                    finish();
-                    dialog.dismiss();
-                });
 
-            } else {
-                LayoutInflater inflater = getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setView(dialogView);
-                AlertDialog dialog = builder.create();
-                dialog.show();
-                View botao_erro_alterar = dialogView.findViewById(R.id.botao_erro_alterar);
-                botao_erro_alterar.setOnClickListener(v -> {
-                    Intent config = new Intent(this, TelaConfiguracao.class);
-                    startActivity(config);
-                    finish();
-                    dialog.dismiss();
+        String email = getSharedPreferences("login", MODE_PRIVATE).getString("email", "");
+        String senha = getSharedPreferences("login", MODE_PRIVATE).getString("senha", "");
+        AuthCredential credential = EmailAuthProvider.getCredential(email, senha);
+
+        user.reauthenticate(credential)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        user.updateEmail(novoEmail)
+                                .addOnCompleteListener(taskseg -> {
+                                    if (taskseg.isSuccessful()) {
+                                        getSharedPreferences("login", MODE_PRIVATE).edit().putString("email", novoEmail).apply();
+                                        LayoutInflater inflater = getLayoutInflater();
+                                        View dialogView = inflater.inflate(R.layout.alterado_dialog, null);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                                        builder.setView(dialogView);
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                        View botao_alterado = dialogView.findViewById(R.id.botao_alterado);
+                                        botao_alterado.setOnClickListener(v -> {
+                                            Intent config = new Intent(this, TelaConfiguracao.class);
+                                            startActivity(config);
+                                            finish();
+                                            dialog.dismiss();
+                                        });
+
+                                        Log.d("EMAIL", "Email alterado com sucesso");
+                                    } else {
+                                        LayoutInflater inflater = getLayoutInflater();
+                                        View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                                        builder.setView(dialogView);
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                        View botao_erro_alterar = dialogView.findViewById(R.id.botao_erro_alterar);
+                                        botao_erro_alterar.setOnClickListener(v -> {
+                                            Intent config = new Intent(this, TelaConfiguracao.class);
+                                            startActivity(config);
+                                            finish();
+                                            dialog.dismiss();
+                                        });
+
+                                        Log.d("EMAIL", "Erro ao alterar o email");
+                                    }
+                                });
+                    } else {
+                        Log.e("UpdateEmail", "Erro ao reautenticar: ", task.getException());
+                    }
                 });
-            }
-        });
     }
 
     public void checkAllFields() {

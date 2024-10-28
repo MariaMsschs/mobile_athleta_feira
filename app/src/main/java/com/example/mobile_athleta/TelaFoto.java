@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
@@ -23,7 +22,6 @@ import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
-
 
 public class TelaFoto extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;

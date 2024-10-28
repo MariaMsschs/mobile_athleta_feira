@@ -68,7 +68,7 @@ public class PerfilFragment extends Fragment {
         String usernameAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("username", "");
         String caminhoAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("caminho","");
 
-        nome.setText(nomeAtual.toLowerCase());
+        nome.setText(nomeAtual);
         username.setText(usernameAtual);
         if (!caminhoAtual.isEmpty()) {
             fotoFirebaseImpl.recuperarImagem(foto, caminhoAtual);

@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -14,7 +15,10 @@ import retrofit2.http.Query;
 
 public interface AthletaService {
     @PUT("atualizar/{id}")
-    Call<ApiResponse> atualizarUsuario(@Body Usuario usuario, @Path("id") Long id);
+    Call<ApiResponse> atualizarUsuario(
+            @Header("Authorization") String token,
+            @Body Usuario usuario,
+            @Path("id") Long id);
 
     @PUT("mudarSenha")
     Call<ApiResponse> alterarSenha(@Body UserLogin login);

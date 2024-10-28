@@ -91,6 +91,7 @@ public class TelaCadastro extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
             if (task.isSuccessful()) {
                 getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
+                Log.d("CADASTRO FIRE", "Sucesso");
             }
         });
     }

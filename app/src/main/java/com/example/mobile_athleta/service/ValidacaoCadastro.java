@@ -9,4 +9,6 @@ public interface ValidacaoCadastro {
 
     String converterDataCadastro(String dataString);
     String converterDataInterface(String dataString);
+
+    String converterDataEditar(String dataString);
 }

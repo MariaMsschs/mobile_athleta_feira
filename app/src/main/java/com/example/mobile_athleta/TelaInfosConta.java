@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -125,9 +126,17 @@ public class TelaInfosConta extends AppCompatActivity{
                 Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(),
                         dataConvertida, username.getText().toString(), caminhoAtual);
 
-                Long userId = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
+                SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
+                editor.putString("nome", nome.getText().toString());
+                editor.putString("email", email.getText().toString());
+                editor.putString("data_nascimento", dataNascimento.getText().toString());
+                editor.putString("caminho", caminhoAtual);
+                editor.apply();
 
-//                atualizarUsuarioUseCase.atualizarUsuario(usuario, userId);
+                Long userId = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
+                String token = getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
+
+                atualizarUsuarioUseCase.atualizarUsuario(token, usuario, userId);
                 atualizarUsuarioFire();
             }
         });
@@ -138,7 +147,6 @@ public class TelaInfosConta extends AppCompatActivity{
 
         String email = getSharedPreferences("login", MODE_PRIVATE).getString("email", "");
         String senha = getSharedPreferences("login", MODE_PRIVATE).getString("senha", "");
-
         AuthCredential credential = EmailAuthProvider.getCredential(email, senha);
 
         user.reauthenticate(credential)

@@ -32,6 +32,7 @@ public class LoginUseCase {
                     LoginResponse loginResponse = response.body();
                     if (response.isSuccessful() && loginResponse != null) {
                         Usuario usuario = loginResponse.getUsuario();
+                        String token = loginResponse.getToken();
 
                         Long idUsuario = usuario.getIdUsuario();
                         String nome = usuario.getNome();
@@ -46,6 +47,7 @@ public class LoginUseCase {
                         editor.putString("data_nascimento", dataNascimento);
                         editor.putString("caminho", caminho);
                         editor.putString("senha", login.getSenha());
+                        editor.putString("token", token);
                         editor.apply();
 
                         Log.d("LOGIN SUCCESS", loginResponse.toString());

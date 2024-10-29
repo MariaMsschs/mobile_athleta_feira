@@ -22,7 +22,7 @@ public class LoginFireUseCase {
                         }catch (FirebaseAuthInvalidCredentialsException e) {
                             msg = "Senha invalida";
                         }catch (Exception e){
-                            Log.e("ERRO",e.getMessage());
+                            Log.e("ERRO Login Fire",e.getMessage());
                         }
                     }
                 });

@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.mobile_athleta.UseCase.AlterarSenhaUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaAlterarSenhaBinding;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
+import com.example.mobile_athleta.service.EmailLogin;
 import com.example.mobile_athleta.service.UserLogin;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,9 +31,6 @@ public class TelaAlterarSenha extends AppCompatActivity {
         binding = ActivityTelaAlterarSenhaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        String senha = binding.novaSenha.getText().toString();
-        UserLogin userLogin = new UserLogin(user.getEmail(), senha);
-
         binding.botaoVoltar.setOnClickListener(v -> {
             Intent config = new Intent(this, TelaConfiguracao.class);
             startActivity(config);
@@ -39,8 +38,12 @@ public class TelaAlterarSenha extends AppCompatActivity {
         });
 
         binding.botaoAlterarSenha.setOnClickListener(v -> {
+            String senha = binding.novaSenha.getText().toString();
+            EmailLogin emailLogin = new EmailLogin(user.getEmail(), senha);
+            String token = getSharedPreferences("login", MODE_PRIVATE).getString("token", null);
+
             alterarSenhaFire();
-            alterarSenhaUseCase.alterarSenha(userLogin);
+            alterarSenhaUseCase.alterarSenha(token, emailLogin);
         });
     }
 

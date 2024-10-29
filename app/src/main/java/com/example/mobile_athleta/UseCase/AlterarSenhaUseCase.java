@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.mobile_athleta.service.ApiResponse;
 import com.example.mobile_athleta.service.AthletaService;
+import com.example.mobile_athleta.service.EmailLogin;
 import com.example.mobile_athleta.service.UserLogin;
 
 import retrofit2.Call;
@@ -20,13 +21,18 @@ public class AlterarSenhaUseCase {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void alterarSenha(UserLogin login){
+    public void alterarSenha(String token, EmailLogin login){
         AthletaService service = retrofit.create(AthletaService.class);
-        Call<ApiResponse> call = service.alterarSenha(login);
+        Call<ApiResponse> call = service.alterarSenha(token, login);
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                Log.e("SUCESSO ALTERAR SENHA", response.body().toString());
+                if(response.isSuccessful()){
+                    Log.e("SUCESSO ALTERAR SENHA", response.body().toString());
+                }
+                else{
+                    Log.e("ERRO ALTERAR SENHA", "Response is not successful. Code: " + response.code() + ", Message: " + response.message());
+                }
             }
 
             @Override

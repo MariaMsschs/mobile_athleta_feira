@@ -1,9 +1,12 @@
 package com.example.mobile_athleta;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.example.mobile_athleta.databinding.ActivityTelaConfiguracaoBinding;
 import com.example.mobile_athleta.fragments.PerfilFragment;
@@ -47,6 +50,27 @@ public class TelaConfiguracao extends AppCompatActivity {
             Intent infosConta = new Intent(this, TelaInfosConta.class);
             startActivity(infosConta);
             finish();
+        });
+
+        binding.areaRestrita.setOnClickListener(v -> {
+            String role = getSharedPreferences("login", MODE_PRIVATE).getString("userRole", null);
+            if( role != null && Integer.parseInt(role) == 1) {
+                Intent areaRestrita = new Intent(this, TelaAreaRestrita.class);
+                startActivity(areaRestrita);
+            }
+            else {
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.erro_area_restrita, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                View botao_erro_alterar = dialogView.findViewById(R.id.botao_erro_area);
+                botao_erro_alterar.setOnClickListener(view -> {
+                    dialog.dismiss();
+                });
+            }
+
         });
     }
 }

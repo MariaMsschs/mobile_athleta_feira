@@ -136,7 +136,35 @@
                 android:text="Alterar Senha"
                 android:textSize="16sp" />
         </LinearLayout>
-    </FrameLayout>
 
+        <LinearLayout
+            android:id="@+id/area_restrita"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                app:srcCompat="@drawable/area_restrita" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Área Restrita"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

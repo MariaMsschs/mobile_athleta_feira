@@ -1,31 +1,19 @@
 package com.example.mobile_athleta;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
 import com.example.mobile_athleta.UseCase.LoginFireUseCase;
 import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityLoginBinding;
 import com.example.mobile_athleta.models.Usuario;
-import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.ListarUsuarioCallBack;
-import com.example.mobile_athleta.service.LoginResponse;
 import com.example.mobile_athleta.service.UserLogin;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Login extends AppCompatActivity {
     private ActivityLoginBinding binding;
@@ -70,15 +58,27 @@ public class Login extends AppCompatActivity {
 
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String senha = ((EditText)findViewById(R.id.cad_senha)).getText().toString();
+            Intent home = new Intent(this, TelaHome.class);
 
             listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
                 UserLogin userLogin = new UserLogin(username, senha);
                 loginFireUseCase.loginFirebase(email, senha);
-                loginUseCase.login(userLogin, this);
-                Intent home = new Intent(this, TelaHome.class);
-                binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-                startActivity(home);
-                finish();
+                loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
+                    @Override
+                    public void onLoginSuccess(Usuario usuario, String token) {
+                        Log.d("LOGIN", "Login bem-sucedido para o usuário: " + usuario.getNome());
+                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                        startActivity(home);
+                        finish();
+                    }
+
+                    @Override
+                    public void onLoginFailure(String errorMessage) {
+                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                        Log.e("LOGIN", "Falha no login: " + errorMessage);
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                });
             });
         });
 

@@ -21,7 +21,7 @@ public interface AthletaService {
             @Path("id") Long id);
 
     @PUT("mudarSenha")
-    Call<ApiResponse> alterarSenha(@Body UserLogin login);
+    Call<ApiResponse> alterarSenha(@Header("Authorization") String token, @Body EmailLogin login);
 
     @GET("listar/{username}")
     Call<ApiResponse> listarUsuarioPorUsername(@Path("username") String username);

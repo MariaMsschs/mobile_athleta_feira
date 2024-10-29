@@ -10,6 +10,7 @@ public class Usuario {
     private String dtNasc;
     private String username;
     private String fotoPerfil;
+
     public Usuario() {
 
     }

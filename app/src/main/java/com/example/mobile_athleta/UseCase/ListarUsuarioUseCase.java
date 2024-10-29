@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.ListarUsuarioCallBack;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +18,10 @@ public class ListarUsuarioUseCase {
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+
+    public interface ListarUsuarioCallBack {
+        void onUsernameRetrieved(String username);
+    }
 
     public void listarUsuarioPorEmail(String email, Context context, ListarUsuarioCallBack callback) {
         AthletaService service = retrofit.create(AthletaService.class);

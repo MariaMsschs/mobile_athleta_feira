@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.MandarEmailUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,8 @@ public class TelaCadastro extends AppCompatActivity {
     private FrameLayout frameLayout;
 
     private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
+
+    private MandarEmailUseCase mandarEmailUseCase = new MandarEmailUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,30 +64,32 @@ public class TelaCadastro extends AppCompatActivity {
             validacaoCadastroImpl.definirData(dataNascimentoEdit, this);
         });
 
-        binding.botaoCadastro.setOnClickListener(v -> {
-            checkAllFields();
-            if(emailEdit.getError() == null && nomeEdit.getError() == null && senhaEdit.getError() == null
-                    && usernameEdit.getError() == null && dataNascimentoEdit.getError() == null) {
+            binding.botaoCadastro.setOnClickListener(v -> {
+                checkAllFields();
+                if(emailEdit.getError() == null && nomeEdit.getError() == null && senhaEdit.getError() == null
+                        && usernameEdit.getError() == null && dataNascimentoEdit.getError() == null) {
 
-                frameLayout.setVisibility(ProgressBar.VISIBLE);
+                    frameLayout.setVisibility(ProgressBar.VISIBLE);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("nome", nomeEdit.getText().toString());
-                bundle.putString("email", emailEdit.getText().toString());
-                bundle.putString("senha", senhaEdit.getText().toString());
-                bundle.putString("username", usernameEdit.getText().toString());
-                bundle.putString("dataNasc", dataNascimentoEdit.getText().toString());
+                    Bundle bundle = new Bundle();
+                    bundle.putString("nome", nomeEdit.getText().toString());
+                    bundle.putString("email", emailEdit.getText().toString());
+                    bundle.putString("senha", senhaEdit.getText().toString());
+                    bundle.putString("username", usernameEdit.getText().toString());
+                    bundle.putString("dataNasc", dataNascimentoEdit.getText().toString());
 
-                salvarLoginFirebase(usernameEdit.getText().toString(), emailEdit.getText().toString(),
-                        senhaEdit.getText().toString());
+                    mandarEmailUseCase.mandarEmail(emailEdit.getText().toString(),this);
 
-                frameLayout.setVisibility(ProgressBar.GONE);
-                Intent foto = new Intent(this, TelaFoto.class);
-                foto.putExtras(bundle);
-                startActivity(foto);
-                finish();
-            }
-        });
+                    salvarLoginFirebase(usernameEdit.getText().toString(), emailEdit.getText().toString(),
+                            senhaEdit.getText().toString());
+
+                    frameLayout.setVisibility(ProgressBar.GONE);
+                    Intent foto = new Intent(this, TelaFoto.class);
+                    foto.putExtras(bundle);
+                    startActivity(foto);
+                    finish();
+                }
+            });
     }
     private void salvarLoginFirebase(String username, String email, String senha) {
         FirebaseAuth auth = FirebaseAuth.getInstance();

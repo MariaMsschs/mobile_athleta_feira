@@ -3,42 +3,32 @@ package com.example.mobile_athleta.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.adapter.EventoAdapter;
+import com.example.mobile_athleta.models.Evento;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EventoSocial#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class EventoSocial extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     public EventoSocial() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EventoSocial.
-     */
-    // TODO: Rename and change types and number of parameters
     public static EventoSocial newInstance(String param1, String param2) {
         EventoSocial fragment = new EventoSocial();
         Bundle args = new Bundle();
@@ -57,10 +47,30 @@ public class EventoSocial extends Fragment {
         }
     }
 
+    ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
+    EventoAdapter eventoAdapter;
+    List<Evento> eventoList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_evento_social, container, false);
+        View view = inflater.inflate(R.layout.fragment_evento_social, container, false);
+
+        RecyclerView recyclerViewForum = view.findViewById(R.id.recycler_evento_social);
+
+        String dateString = "06-02-2008";
+
+        String dataFormatada = validacaoCadastroImpl.converterDataInterface(dateString);
+
+        eventoList = new ArrayList<>();
+        eventoList.add(new Evento(2, "PingPros", "Comunidade de ping pong.", dataFormatada, "https://static.wikia.nocookie.net/disney/images/e/e5/Profile_-_Marie.jpg/revision/latest?cb=20240215032542&path-prefix=pt-br"));
+        eventoList.add(new Evento(3, "piruetando", "Comunidade de ballet.", dataFormatada, "https://i.scdn.co/image/ab6761610000e5eb0522e98a6f0cf1ddbee9a74f"));
+        eventoList.add(new Evento(4, "ta dando onda", "Comunidade de surfe.", dataFormatada, "https://i.scdn.co/image/ab6761610000e5eb0522e98a6f0cf1ddbee9a74f"));
+
+        recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        eventoAdapter = new EventoAdapter(eventoList);
+        recyclerViewForum.setAdapter(eventoAdapter);
+
+        return view;
     }
 }

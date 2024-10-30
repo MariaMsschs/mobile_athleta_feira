@@ -66,14 +66,14 @@ public class SocialFragment extends Fragment {
             indicator.animate().x(tabForuns.getX()).setDuration(200);
             resetTabColors();
             tabForuns.setTextColor(getResources().getColor(R.color.black));
-            carregarFragment(new ForumPerfil());
+            carregarFragment(new ForumSocial());
         });
 
         tabEventos.setOnClickListener(v -> {
             indicator.animate().x(tabEventos.getX()).setDuration(200);
             resetTabColors();
             tabEventos.setTextColor(getResources().getColor(R.color.black));
-            carregarFragment(new EventoPerfil());
+            carregarFragment(new EventoSocial());
         });
 
         return view;

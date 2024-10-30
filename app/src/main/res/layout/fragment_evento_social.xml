@@ -15,34 +15,22 @@
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@drawable/search_design"
             android:queryHint="Faça sua busca aqui!"
             app:iconifiedByDefault="false" />
-
-
-
-        <ImageButton
-            android:id="@+id/filtro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/filtro" />
     </LinearLayout>
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_evento_social"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="130dp"
-        tools:listitem="@layout/card_comunidade" />
+        android:layout_marginTop="60dp"
+        tools:listitem="@layout/card_evento" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/criar_evento"

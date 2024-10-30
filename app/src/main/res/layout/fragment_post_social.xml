@@ -15,13 +15,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/postar"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="550dp"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="440dp"
         android:clickable="true"
         android:src="@drawable/lapis"
-        style="?android:attr/borderlessButtonStyle"
         app:backgroundTint="@color/orange" />
 
 </FrameLayout>

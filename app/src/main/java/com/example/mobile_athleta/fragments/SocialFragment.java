@@ -50,7 +50,7 @@ public class SocialFragment extends Fragment {
             carregarFragment(new PostSocial());
         }
 
-        tabParaVoce = view.findViewById(R.id.tab_paravoce);
+        tabParaVoce = view.findViewById(R.id.tab_voce);
         tabForuns = view.findViewById(R.id.tab_foruns);
         tabEventos = view.findViewById(R.id.tab_eventos);
         View indicator = view.findViewById(R.id.indicator);

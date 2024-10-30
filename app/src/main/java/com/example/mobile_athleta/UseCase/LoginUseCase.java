@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.AthletaService;
 import com.example.mobile_athleta.service.LoginResponse;
+import com.example.mobile_athleta.service.RetrofitClient;
 import com.example.mobile_athleta.service.UserLogin;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,12 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginUseCase {
 
-    String URL = "https://api-sql-gbb8.onrender.com/api/auth/";
-
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
     public interface LoginCallback {
         void onLoginSuccess();
@@ -28,7 +23,7 @@ public class LoginUseCase {
     }
 
     public void login(UserLogin login, Context context, LoginCallback callback) {
-        AthletaService service = retrofit.create(AthletaService.class);
+        AthletaService service = RetrofitClient.getAthletaService();
         Call<LoginResponse> call = service.login(login);
 
         call.enqueue(new Callback<LoginResponse>() {

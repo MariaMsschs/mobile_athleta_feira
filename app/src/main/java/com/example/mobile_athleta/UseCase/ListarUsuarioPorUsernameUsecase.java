@@ -1,26 +1,16 @@
 package com.example.mobile_athleta.UseCase;
 
 import android.util.Log;
-
-import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.ApiResponse;
 import com.example.mobile_athleta.service.AthletaService;
-
+import com.example.mobile_athleta.service.RetrofitClient;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListarUsuarioPorUsernameUsecase {
-    private String URL = "https://api-sql-gbb8.onrender.com/api/usuario/";
-
-    private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
 
     public void listarUsuarioPorUsername(String username){
-        AthletaService service = retrofit.create(AthletaService.class);
+        AthletaService service = RetrofitClient.getAthletaService();
         Call<ApiResponse> call = service.listarUsuarioPorUsername(username);
 
         call.enqueue(new Callback<ApiResponse>() {

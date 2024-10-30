@@ -14,22 +14,22 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AthletaService {
-    @PUT("atualizar/{id}")
+    @PUT("api/usuario/atualizar/{id}")
     Call<ApiResponse> atualizarUsuario(
             @Header("Authorization") String token,
             @Body Usuario usuario,
             @Path("id") Long id);
 
-    @PUT("mudarSenha")
+    @PUT("api/usuario/mudarSenha")
     Call<ApiResponse> alterarSenha(@Header("Authorization") String token, @Body EmailLogin login);
 
-    @GET("listar/{username}")
+    @GET("api/usuario/listar/{username}")
     Call<ApiResponse> listarUsuarioPorUsername(@Path("username") String username);
 
-    @POST("login")
+    @POST("api/auth/login")
     Call<LoginResponse> login(@Body UserLogin login);
 
-    @POST("adicionar")
+    @POST("api/usuario/adicionar")
     Call<ApiResponse> cadastrarUsuario(@Body Usuario usuario);
 
     @GET("listar/username/{email}")

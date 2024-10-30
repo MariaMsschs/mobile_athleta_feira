@@ -65,8 +65,7 @@ public class Login extends AppCompatActivity {
                 loginFireUseCase.loginFirebase(email, senha);
                 loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
                     @Override
-                    public void onLoginSuccess(Usuario usuario, String token) {
-                        Log.d("LOGIN", "Login bem-sucedido para o usuário: " + usuario.getNome());
+                    public void onLoginSuccess() {
                         binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
                         startActivity(home);
                         finish();

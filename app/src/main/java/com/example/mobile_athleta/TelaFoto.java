@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
+import com.example.mobile_athleta.UseCase.CadastrarUsuarioFireUseCase;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
 import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
 import com.example.mobile_athleta.UseCase.LoginFireUseCase;
@@ -22,7 +23,9 @@ import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaFotoBinding;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
+import com.example.mobile_athleta.service.UserLogin;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class TelaFoto extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -31,6 +34,7 @@ public class TelaFoto extends AppCompatActivity {
     private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
     private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
     private CadastrarUsuarioUseCase cadastrarUsuarioUseCase = new CadastrarUsuarioUseCase();
+    private CadastrarUsuarioFireUseCase cadastrarUsuarioFireUseCase = new CadastrarUsuarioFireUseCase();
 
     private ListarUsuarioUseCase listarUsuarioUseCase = new ListarUsuarioUseCase();
     private LoginUseCase loginUseCase = new LoginUseCase();
@@ -79,17 +83,15 @@ public class TelaFoto extends AppCompatActivity {
 
         binding.botaoCadastro.setOnClickListener(v -> {
             binding.frameLayoutFoto.setVisibility(ProgressBar.VISIBLE);
-            Bundle bundle = getIntent().getExtras();
-            cadastrarUsuario(bundle);
 
+            Bundle bundle = getIntent().getExtras();
+            String username = bundle.getString("username");
             String email = bundle.getString("email");
             String senha = bundle.getString("senha");
 
-            loginFireUseCase.loginFirebase(email, senha);
-            Intent home = new Intent(TelaFoto.this, TelaHome.class);
-            binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-            startActivity(home);
-            finish();
+            cadastrarUsuarioFireUseCase.salvarLoginFirebase(username, email,
+                    senha, this);
+            cadastrarUsuario(bundle);
         });
     }
 
@@ -102,7 +104,29 @@ public class TelaFoto extends AppCompatActivity {
                 bundle.getString("senha"), data,
                 bundle.getString("username"), caminho);
 
-        cadastrarUsuarioUseCase.cadastrarUsuario(usuario);
+        UserLogin userLogin = new UserLogin(usuario.getUsername(), usuario.getSenha());
+
+        cadastrarUsuarioUseCase.cadastrarUsuario(usuario, () -> {
+
+            loginFireUseCase.loginFirebase(usuario.getEmail(), usuario.getSenha());
+            loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
+
+                @Override
+                public void onLoginSuccess() {
+                    Intent home = new Intent(TelaFoto.this, TelaHome.class);
+                    binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
+                    startActivity(home);
+                    finish();
+                }
+
+                @Override
+                public void onLoginFailure(String errorMessage) {
+                    binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
+                    Log.e("LOGIN", "Falha no login: " + errorMessage);
+                    FirebaseAuth.getInstance().signOut();
+                }
+            });
+        });
     }
 
     @Override

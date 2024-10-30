@@ -22,6 +22,11 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
     private List<Produto> produtoList;
     private OnItemClickListener onItemClickListener;
 
+    public void setListaFiltrada(List<Produto> produtosList) {
+        this.produtoList = produtosList;
+        notifyDataSetChanged();
+    }
+
     public interface OnItemClickListener {
         void onItemClick(Produto produto);
     }

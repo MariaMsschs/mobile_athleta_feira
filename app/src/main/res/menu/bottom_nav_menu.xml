@@ -12,9 +12,9 @@
         android:title="Anuncios" />
 
     <item
-        android:id="@+id/forum"
+        android:id="@+id/social"
         android:icon="@drawable/rede"
-        android:title="Forum" />
+        android:title="Social" />
 
     <item
         android:id="@+id/notificacoes"

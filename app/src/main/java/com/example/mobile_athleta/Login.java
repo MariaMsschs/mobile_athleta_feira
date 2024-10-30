@@ -66,6 +66,7 @@ public class Login extends AppCompatActivity {
                 loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
                     @Override
                     public void onLoginSuccess() {
+                        Log.d("LOGIN SUCCESS", "SUCESSO");
                         binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
                         startActivity(home);
                         finish();

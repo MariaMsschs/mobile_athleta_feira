@@ -10,6 +10,7 @@ import com.example.mobile_athleta.fragments.AnuncioFragment;
 import com.example.mobile_athleta.fragments.HomeFragment;
 import com.example.mobile_athleta.fragments.NotificacaoFragment;
 import com.example.mobile_athleta.fragments.PerfilFragment;
+import com.example.mobile_athleta.fragments.SocialFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TelaHome extends AppCompatActivity {
@@ -28,34 +29,35 @@ public class TelaHome extends AppCompatActivity {
             carregarFragment(new HomeFragment());
         }
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
 
-                if (item.getItemId() == R.id.perfil) {
-                    selectedFragment = new PerfilFragment();
-                }
-
-                if (item.getItemId() == R.id.home) {
-                    selectedFragment = new HomeFragment();
-                }
-
-                if (item.getItemId() == R.id.anuncios) {
-                    selectedFragment = new AnuncioFragment();
-                }
-
-                if(item.getItemId() == R.id.notificacoes){
-                    selectedFragment = new NotificacaoFragment();
-                }
-
-                if (selectedFragment != null) {
-                    carregarFragment(selectedFragment);
-                    return true;
-                }
-
-                return false;
+            if (item.getItemId() == R.id.perfil) {
+                selectedFragment = new PerfilFragment();
             }
+
+            if (item.getItemId() == R.id.home) {
+                selectedFragment = new HomeFragment();
+            }
+
+            if (item.getItemId() == R.id.anuncios) {
+                selectedFragment = new AnuncioFragment();
+            }
+
+            if(item.getItemId() == R.id.notificacoes){
+                selectedFragment = new NotificacaoFragment();
+            }
+
+            if(item.getItemId() == R.id.social){
+                selectedFragment = new SocialFragment();
+            }
+
+            if (selectedFragment != null) {
+                carregarFragment(selectedFragment);
+                return true;
+            }
+
+            return false;
         });
     }
 

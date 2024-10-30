@@ -23,7 +23,7 @@ public class LoginUseCase {
             .build();
 
     public interface LoginCallback {
-        void onLoginSuccess(Usuario usuario, String token);
+        void onLoginSuccess();
         void onLoginFailure(String errorMessage);
     }
 
@@ -52,7 +52,7 @@ public class LoginUseCase {
 
                         Log.d("LOGIN SUCCESS", loginResponse.toString());
 
-                        callback.onLoginSuccess(usuario, token);
+                        callback.onLoginSuccess();
                     } else {
                         String errorMessage = "Resposta vazia do servidor.";
                         Log.e("LOGIN ERROR", errorMessage);

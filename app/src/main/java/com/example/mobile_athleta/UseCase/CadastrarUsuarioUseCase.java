@@ -19,7 +19,11 @@ public class CadastrarUsuarioUseCase {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    public void cadastrarUsuario(Usuario usuario){
+    public interface CadastroCallback {
+        void onCadastroSuccess();
+    }
+
+    public void cadastrarUsuario(Usuario usuario, CadastroCallback callback) {
         AthletaService service = retrofit.create(AthletaService.class);
         Call<ApiResponse> call = service.cadastrarUsuario(usuario);
         call.enqueue(new Callback<ApiResponse>() {
@@ -27,6 +31,9 @@ public class CadastrarUsuarioUseCase {
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.d("SUCESSO CADASTRO", response.body().toString());
+
+                    callback.onCadastroSuccess();
+
                 } else {
                     Log.e("ERRO CADASTRO", "Response is not successful or body is null. Code: " + response.code() + ", Message: " + response.message());
                 }

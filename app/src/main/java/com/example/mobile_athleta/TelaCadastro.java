@@ -1,25 +1,15 @@
 package com.example.mobile_athleta;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
-import com.example.mobile_athleta.UseCase.MandarEmailUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import com.example.mobile_athleta.models.Usuario;
 
 public class TelaCadastro extends AppCompatActivity {
     private ActivityTelaCadastroBinding binding;
@@ -32,8 +22,6 @@ public class TelaCadastro extends AppCompatActivity {
     private FrameLayout frameLayout;
 
     private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
-
-    private MandarEmailUseCase mandarEmailUseCase = new MandarEmailUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +66,6 @@ public class TelaCadastro extends AppCompatActivity {
                     bundle.putString("username", usernameEdit.getText().toString());
                     bundle.putString("dataNasc", dataNascimentoEdit.getText().toString());
 
-                    mandarEmailUseCase.mandarEmail(emailEdit.getText().toString(),this);
-
-                    salvarLoginFirebase(usernameEdit.getText().toString(), emailEdit.getText().toString(),
-                            senhaEdit.getText().toString());
-
                     frameLayout.setVisibility(ProgressBar.GONE);
                     Intent foto = new Intent(this, TelaFoto.class);
                     foto.putExtras(bundle);
@@ -90,15 +73,6 @@ public class TelaCadastro extends AppCompatActivity {
                     finish();
                 }
             });
-    }
-    private void salvarLoginFirebase(String username, String email, String senha) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener( task -> {
-            if (task.isSuccessful()) {
-                getSharedPreferences("login", MODE_PRIVATE).edit().putString("username", username).apply();
-                Log.d("CADASTRO FIRE", "Sucesso");
-            }
-        });
     }
 
     public void checkAllFields() {

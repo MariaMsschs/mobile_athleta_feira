@@ -1,22 +1,27 @@
 package com.example.mobile_athleta;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
+import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
+import com.example.mobile_athleta.UseCase.LoginFireUseCase;
+import com.example.mobile_athleta.UseCase.LoginUseCase;
 import com.example.mobile_athleta.databinding.ActivityLoginBinding;
+import com.example.mobile_athleta.models.Usuario;
+import com.example.mobile_athleta.service.UserLogin;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class Login extends AppCompatActivity {
     private ActivityLoginBinding binding;
+
+    private ListarUsuarioUseCase listarUsuarioUseCase = new ListarUsuarioUseCase();
+    private LoginUseCase loginUseCase = new LoginUseCase();
+    private LoginFireUseCase loginFireUseCase = new LoginFireUseCase();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,7 @@ public class Login extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         binding.frameLayoutLogin.setVisibility(View.GONE);
 
+
         if(auth.getCurrentUser() != null){
             auth.getCurrentUser().getEmail();
             Intent home = new Intent(Login.this, TelaHome.class);
@@ -38,7 +44,7 @@ public class Login extends AppCompatActivity {
         binding.esqueciSenha.setOnClickListener(v -> {
             Intent recuperar = new Intent(this, TelaRecuperarSenha.class);
             startActivity(recuperar);
-
+            finish();
         });
 
         binding.botaoCadastrese.setOnClickListener(v -> {
@@ -48,32 +54,33 @@ public class Login extends AppCompatActivity {
         });
 
         binding.botaoLogin.setOnClickListener(v -> {
+            binding.frameLayoutLogin.setVisibility(ProgressBar.VISIBLE);
+
             String email = ((EditText)findViewById(R.id.email)).getText().toString();
             String senha = ((EditText)findViewById(R.id.cad_senha)).getText().toString();
-            binding.frameLayoutLogin.setVisibility(ProgressBar.VISIBLE);
-            auth.signInWithEmailAndPassword(email, senha)
-                    .addOnCompleteListener( task -> {
-                        String msg="Você esqueceu de preencher algum dado";
-                        if (task.isSuccessful()) {
-                            Intent home = new Intent(Login.this, TelaHome.class);
-                            binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-                            Toast.makeText(this, getSharedPreferences("login", MODE_PRIVATE).getString("username", ""), Toast.LENGTH_SHORT).show();
-                            startActivity(home);
-                            finish();
-                        }else{
-                            try{
-                                throw task.getException();
-                            }catch (FirebaseAuthInvalidUserException e){
-                                msg = "Usuário não encontrado";
-                            }catch (FirebaseAuthInvalidCredentialsException e) {
-                                msg = "Senha invalida";
-                            }catch (Exception e){
-                                Log.e("ERRO",e.getMessage());
-                            }
-                            binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-                            Toast.makeText(Login.this, msg, Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            Intent home = new Intent(this, TelaHome.class);
+
+            listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
+                UserLogin userLogin = new UserLogin(username, senha);
+                loginFireUseCase.loginFirebase(email, senha);
+                loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
+                    @Override
+                    public void onLoginSuccess() {
+                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                        startActivity(home);
+                        finish();
+                    }
+
+                    @Override
+                    public void onLoginFailure(String errorMessage) {
+                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                        Log.e("LOGIN", "Falha no login: " + errorMessage);
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                });
+            });
         });
+
     }
+
 }

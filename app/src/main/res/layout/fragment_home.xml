@@ -9,11 +9,12 @@
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="720dp"
+        android:layout_height="wrap_content"
         android:background="@color/white">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center_horizontal"
@@ -24,7 +25,6 @@
                 android:id="@+id/saudacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Bem vindo de volta!"
                 android:textColor="@color/light_orange"
@@ -34,7 +34,6 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Talvez você goste de:"
@@ -42,16 +41,16 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cards_recycler"
-                android:layout_width="wrap_content"
-                android:layout_height="143dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/card_cards" />
 
             <TextView
                 android:id="@+id/destaque"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Posts em destaque:"
@@ -59,19 +58,23 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_posts"
-                android:layout_width="393dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/card_post" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_forum"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_marginLeft="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/card_comunidade" />
+
         </LinearLayout>
+
     </ScrollView>
 
 </FrameLayout>

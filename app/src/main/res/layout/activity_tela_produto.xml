@@ -7,146 +7,181 @@
     android:background="#F4F4F4"
     tools:context=".TelaProduto">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="147dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_athleta" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="312dp"
-        android:layout_height="372dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:backgroundTint="#00FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.19"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/seta_volta" />
-
-    <TextView
-        android:id="@+id/titulo_produto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Luva de baseball"
-        android:textColor="@color/gray"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.259"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
-
-    <TextView
-        android:id="@+id/titulo_anunciante"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Anunciante:"
-        android:textColor="@color/orange"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo_produto" />
-
-    <TextView
-        android:id="@+id/anunciante"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="208dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="pessoa"
-        android:textColor="@color/light_orange"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo_produto" />
-
-    <TextView
-        android:id="@+id/titulo_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Descrição"
-        android:textColor="@color/gray"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo_anunciante" />
-
-    <TextView
-        android:id="@+id/descricao_produto"
-        android:layout_width="296dp"
-        android:layout_height="108dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto"
-        android:text="Esta luva é da marca Gold Sports, tem a medida de 10,5 inch. Foi usada por 2 anos, muito bem conservada e com apenas um arranho. Por mais informações entrar em contato."
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.417"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titulo_desc" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:background="#f4f4f4"
-        app:itemIconTint="@color/gray"
-        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/botao_anuncio"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="114dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/button_design"
-        android:fontFamily="@font/roboto_bold"
-        android:text="Chat"
-        android:textAllCaps="false"
-        android:textColor="#F4F4F4"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.831"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descricao_produto" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/simbolo_real"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="R$"
-        android:textColor="@color/gray"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="788dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/seta_produto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/seta_volta" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="147dp"
+                    android:layout_height="37dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/logo_athleta" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="55dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/titulo_produto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Luva de baseball"
+                android:textColor="@color/gray"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.259"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+            <TextView
+                android:id="@+id/titulo_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Descrição"
+                android:textColor="@color/gray"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.152"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <TextView
+                android:id="@+id/descricao_produto"
+                android:layout_width="296dp"
+                android:layout_height="108dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Esta luva é da marca Gold Sports, tem a medida de 10,5 inch. Foi usada por 2 anos, muito bem conservada e com apenas um arranho. Por mais informações entrar em contato."
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.417"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/titulo_desc" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="205dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/titulo_anunciante"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Anunciante:"
+                    android:textColor="@color/orange"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/anunciante"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="pessoa"
+                    android:textColor="@color/light_orange"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/simbolo_real"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="R$"
+                    android:textColor="@color/gray"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/preco_produto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="32dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="109.90"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/botao_anuncio"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="90dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/button_design"
+                    android:fontFamily="@font/roboto_bold"
+                    android:paddingLeft="18dp"
+                    android:paddingTop="7dp"
+                    android:paddingRight="18dp"
+                    android:paddingBottom="7dp"
+                    android:text="Conversar com o anunciante"
+                    android:textAllCaps="false"
+                    android:textColor="#F4F4F4"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

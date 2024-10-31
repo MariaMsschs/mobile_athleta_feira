@@ -56,17 +56,19 @@
 
         <View
             android:id="@+id/indicator"
-            android:layout_width="135dp"
+            android:layout_width="0dp"
             android:layout_height="4dp"
             android:layout_gravity="start"
             android:layout_marginTop="-4dp"
-            android:background="@color/orange" />
+            android:background="@drawable/indicator_background" />
+
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frame_conteudo_social"
         android:layout_width="match_parent"
-        android:layout_height="698dp"
-        android:layout_marginTop="52dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp">
     </FrameLayout>
+
 </FrameLayout>

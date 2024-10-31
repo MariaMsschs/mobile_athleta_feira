@@ -2,6 +2,7 @@ package com.example.mobile_athleta.fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.adapter.ForumAdapter;
@@ -43,7 +46,10 @@ public class ForumSocial extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    private RecyclerView recyclerViewForum;
+    private SearchView searchView;
+    private TextView textViewNoResults;
+    private ImageView imageNoResults;
     private ForumAdapter forumAdapter;
     private List<Forum> forumList;
 
@@ -52,7 +58,10 @@ public class ForumSocial extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_forum_social, container, false);
 
-        RecyclerView recyclerViewForum = view.findViewById(R.id.recycler_forum_social);
+        recyclerViewForum = view.findViewById(R.id.recycler_forum_social);
+        searchView = view.findViewById(R.id.searchView);
+        textViewNoResults = view.findViewById(R.id.textViewNoResults);
+        imageNoResults = view.findViewById(R.id.erro_rosto_triste);
 
         forumList = new ArrayList<>();
 
@@ -64,6 +73,40 @@ public class ForumSocial extends Fragment {
         forumAdapter = new ForumAdapter(forumList);
         recyclerViewForum.setAdapter(forumAdapter);
 
+        searchView.setQueryHint("Buscar fóruns");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return false;
+            }
+        });
+
         return view;
+    }
+
+    private void filterList(String text) {
+        List<Forum> listaFiltrada = new ArrayList<>();
+        for (Forum forum : forumList) {
+            if (forum.getNome().toLowerCase().contains(text.toLowerCase())) {
+                listaFiltrada.add(forum);
+            }
+        }
+
+        if (listaFiltrada.isEmpty()) {
+            textViewNoResults.setVisibility(View.VISIBLE);
+            imageNoResults.setVisibility(View.VISIBLE);
+            recyclerViewForum.setVisibility(View.GONE);
+        } else {
+            textViewNoResults.setVisibility(View.GONE);
+            imageNoResults.setVisibility(View.GONE);
+            recyclerViewForum.setVisibility(View.VISIBLE);
+            forumAdapter.setListaFiltrada(listaFiltrada);
+        }
     }
 }

@@ -52,6 +52,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="Adicionar"
+        android:clickable="true"
         android:src="@drawable/adicionar"
         app:backgroundTint="@color/orange"
         app:elevation="4dp"/>

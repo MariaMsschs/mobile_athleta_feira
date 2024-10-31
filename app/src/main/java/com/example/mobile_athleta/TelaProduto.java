@@ -23,7 +23,7 @@ public class TelaProduto extends AppCompatActivity {
 
         int produtoId = getIntent().getIntExtra("produtoId", -1);
 
-        binding.setaProduto.setOnClickListener(view -> {
+        binding.setaVoltar.setOnClickListener(view -> {
             finish();
         });
 

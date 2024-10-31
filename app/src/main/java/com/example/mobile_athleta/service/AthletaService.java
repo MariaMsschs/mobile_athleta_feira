@@ -1,7 +1,10 @@
 package com.example.mobile_athleta.service;
 
+import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -34,8 +37,11 @@ public interface AthletaService {
     @POST("api/usuario/adicionar")
     Call<ApiResponse> cadastrarUsuario(@Body Usuario usuario);
 
-    @GET("listar/username/{email}")
+    @GET("api/usuario/listar/username/{email}")
     Call<Usuario> listarUsuarioPorEmail(@Path("email") String email);
+
+    @GET("api/anuncio/listar")
+    Call<AnuncioResponse> listarAnuncios(@Header("Authorization") String token);
 
     @POST("set/{email}")
     Call<RedisResponse> mandarEmail(@Path("email") String email);

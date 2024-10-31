@@ -56,8 +56,8 @@ public class Login extends AppCompatActivity {
         binding.botaoLogin.setOnClickListener(v -> {
             binding.frameLayoutLogin.setVisibility(ProgressBar.VISIBLE);
 
-            String email = ((EditText)findViewById(R.id.email)).getText().toString();
-            String senha = ((EditText)findViewById(R.id.cad_senha)).getText().toString();
+            String email = ((EditText) findViewById(R.id.email)).getText().toString();
+            String senha = ((EditText) findViewById(R.id.cad_senha)).getText().toString();
             Intent home = new Intent(this, TelaHome.class);
 
             listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
@@ -66,7 +66,6 @@ public class Login extends AppCompatActivity {
                 loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
                     @Override
                     public void onLoginSuccess() {
-                        Log.d("LOGIN SUCCESS", "SUCESSO");
                         binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
                         startActivity(home);
                         finish();
@@ -75,13 +74,10 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onLoginFailure(String errorMessage) {
                         binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-                        Log.e("LOGIN", "Falha no login: " + errorMessage);
                         FirebaseAuth.getInstance().signOut();
                     }
                 });
             });
         });
-
     }
-
 }

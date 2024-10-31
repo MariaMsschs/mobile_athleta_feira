@@ -1,39 +1,36 @@
 package com.example.mobile_athleta.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.mobile_athleta.R;
-import com.example.mobile_athleta.models.Produto;
+import com.example.mobile_athleta.models.Anuncio;
+import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioViewHolder> {
 
-    private List<Produto> produtoList;
+    private List<Anuncio> anuncioList;
     private OnItemClickListener onItemClickListener;
 
-    public void setListaFiltrada(List<Produto> produtosList) {
-        this.produtoList = produtosList;
+    public void setListaFiltrada(List<Anuncio> anuncioList) {
+        this.anuncioList = anuncioList;
         notifyDataSetChanged();
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Produto produto);
+        void onItemClick(Anuncio anuncio);
     }
 
 
-    public AnuncioAdapter(List<Produto> produtoList, OnItemClickListener onItemClickListener) {
-        this.produtoList = produtoList;
+    public AnuncioAdapter(List<Anuncio> anuncioList, OnItemClickListener onItemClickListener) {
+        this.anuncioList = anuncioList;
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -46,18 +43,20 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
 
     @Override
     public void onBindViewHolder(@NonNull AnuncioAdapter.AnuncioViewHolder holder, int position) {
-        Produto produto = produtoList.get(position);
-        holder.bind(produto, onItemClickListener);
+        Anuncio anuncio = anuncioList.get(position);
+        holder.bind(anuncio, onItemClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return produtoList.size();
+        return anuncioList.size();
     }
 
     public static class AnuncioViewHolder extends RecyclerView.ViewHolder {
         private ImageView imagem_produto;
         private TextView titulo_anuncio, anunciante, preco;
+
+        FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
 
         public AnuncioViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,19 +66,15 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
             preco = itemView.findViewById(R.id.preco);
         }
 
-        public void bind(final Produto produto, final OnItemClickListener listener) {
-            Picasso.get().load(produto.getImage()).into(imagem_produto);
-            titulo_anuncio.setText(produto.getTitle());
-            anunciante.setText(produto.getDescription());
-            String valor = "R$" + String.valueOf(produto.getPrice());
+        public void bind(final Anuncio anuncio, final OnItemClickListener listener) {
+            fotoFirebaseImpl.recuperarImagem(imagem_produto, anuncio.getImagem());
+            Picasso.get().load(anuncio.getImagem()).into(imagem_produto);
+            titulo_anuncio.setText(anuncio.getNome());
+            anunciante.setText(anuncio.getDescricao());
+            String valor = "R$" + String.valueOf(anuncio.getPreco());
             preco.setText(valor);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(produto);
-                }
-            });
+            itemView.setOnClickListener(v -> listener.onItemClick(anuncio));
         }
     }
 }

@@ -60,31 +60,24 @@ public class Login extends AppCompatActivity {
             String senha = ((EditText) findViewById(R.id.cad_senha)).getText().toString();
             Intent home = new Intent(this, TelaHome.class);
 
-            Log.d("EMAIL", email);
             listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
-                Log.d("USERNAME", username);
-            });
+                UserLogin userLogin = new UserLogin(username, senha);
+                loginFireUseCase.loginFirebase(email, senha);
+                loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
+                    @Override
+                    public void onLoginSuccess() {
+                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                        startActivity(home);
+                        finish();
+                    }
 
-//            listarUsuarioUseCase.listarUsuarioPorEmail(email, this, username -> {
-//                UserLogin userLogin = new UserLogin(username, senha);
-//                loginFireUseCase.loginFirebase(email, senha);
-//                loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
-//                    @Override
-//                    public void onLoginSuccess() {
-//                        Log.d("LOGIN SUCCESS", "SUCESSO");
-//                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-//                        startActivity(home);
-//                        finish();
-//                    }
-//
-//                    @Override
-//                    public void onLoginFailure(String errorMessage) {
-//                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
-//                        Log.e("LOGIN", "Falha no login: " + errorMessage);
-//                        FirebaseAuth.getInstance().signOut();
-//                    }
-//                });
-//            });
+                    @Override
+                    public void onLoginFailure(String errorMessage) {
+                        binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                });
+            });
         });
     }
 }

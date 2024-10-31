@@ -32,7 +32,9 @@ public interface AthletaService {
     @POST("api/usuario/adicionar")
     Call<ApiResponse> cadastrarUsuario(@Body Usuario usuario);
 
-    @GET("listar/username/{email}")
+    @GET("api/usuario/listar/username/{email}")
     Call<Usuario> listarUsuarioPorEmail(@Path("email") String email);
 
+//    @GET("api/anuncio/listar")
+//    Call<Anuncio> listarAnuncios();
 }

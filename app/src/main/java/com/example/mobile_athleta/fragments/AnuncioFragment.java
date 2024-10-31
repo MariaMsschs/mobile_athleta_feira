@@ -24,6 +24,7 @@ import com.example.mobile_athleta.TelaProduto;
 import com.example.mobile_athleta.adapter.AnuncioAdapter;
 import com.example.mobile_athleta.adapter.EsporteCardAdapter;
 import com.example.mobile_athleta.adapter.ForumAdapter;
+import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Esporte;
 import com.example.mobile_athleta.models.Produto;
 
@@ -34,7 +35,7 @@ public class AnuncioFragment extends Fragment {
 
     private RecyclerView recyclerViewAnuncios;
     private AnuncioAdapter anuncioAdapter;
-    private List<Produto> produtoList;
+    private List<Anuncio> anuncioList;
     private SearchView searchView;
     private TextView textViewNoResults;
     private ImageView imageNoResults;
@@ -65,23 +66,17 @@ public class AnuncioFragment extends Fragment {
         });
 
         // Inicialização da lista de produtos
-        produtoList = new ArrayList<>();
-        produtoList.add(new Produto(1, "Luva de Baseball", "possivel anunciante", 70, "https://www.designi.com.br/images/preview/10073442.jpg"));
-        produtoList.add(new Produto(3, "Luva de Baseball", "possivel anunciante", 70, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
-        produtoList.add(new Produto(2, "coisas", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
-        produtoList.add(new Produto(4, "raquete", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
-        produtoList.add(new Produto(5, "Luva de Baseball", "possivel anunciante", 70, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
-        produtoList.add(new Produto(6, "raquete", "blaba", 50, "https://lastfm.freetls.fastly.net/i/u/avatar170s/a3db53601b2b5a80e288e0f91f1cec7e"));
+        anuncioList = new ArrayList<>();
+        anuncioList.add(new Anuncio(32.00, "Raquete de tênis usada por 2 anos", "Raquete de tênis", 1));
+        anuncioList.add(new Anuncio(89.00, "óculos de natação rosa com glitter", "óculos de natação", 1));
+        anuncioList.add(new Anuncio(10.00, "Bolinha de ping pong laranja", "bolinhas de ping pong", 10));
 
         recyclerViewAnuncios.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        anuncioAdapter = new AnuncioAdapter(produtoList, new AnuncioAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Produto produto) {
-                Intent intent = new Intent(getContext(), TelaProduto.class);
-                intent.putExtra("produtoId", produto.getId());
-                startActivity(intent);
-            }
+        anuncioAdapter = new AnuncioAdapter(anuncioList, (AnuncioAdapter.OnItemClickListener) anuncio -> {
+            Intent intent = new Intent(getContext(), TelaProduto.class);
+            intent.putExtra("anuncioId", anuncio.getIdAnuncio());
+            startActivity(intent);
         });
 
         recyclerViewAnuncios.setAdapter(anuncioAdapter);
@@ -90,9 +85,9 @@ public class AnuncioFragment extends Fragment {
     }
 
     private void filterList(String text) {
-        List<Produto> listaFiltrada = new ArrayList<>();
-        for (Produto p : produtoList) {
-            if (p.getTitle().toLowerCase().contains(text.toLowerCase())) {
+        List<Anuncio> listaFiltrada = new ArrayList<>();
+        for (Anuncio p : anuncioList) {
+            if (p.getNome().toLowerCase().contains(text.toLowerCase())) {
                 listaFiltrada.add(p);
             }
         }

@@ -22,8 +22,13 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
 
     private List<Evento> eventoList;
 
-        public EventoAdapter(List<Evento> eventoList) {
+    public EventoAdapter(List<Evento> eventoList) {
         this.eventoList = eventoList;
+    }
+
+    public void setListaFiltrada(List<Evento> eventoList) {
+        this.eventoList = eventoList;
+        notifyDataSetChanged();
     }
 
     @NonNull

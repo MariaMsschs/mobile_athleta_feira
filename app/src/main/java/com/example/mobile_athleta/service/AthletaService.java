@@ -1,10 +1,12 @@
 package com.example.mobile_athleta.service;
 
+import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
 
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
@@ -35,4 +37,9 @@ public interface AthletaService {
     @GET("listar/username/{email}")
     Call<Usuario> listarUsuarioPorEmail(@Path("email") String email);
 
+    @POST("set/{email}")
+    Call<RedisResponse> mandarEmail(@Path("email") String email);
+
+    @DELETE("delete/{key}/{codigo}")
+    Call<RedisResponse> deletarEmail(@Path("key") String key, @Path("codigo") String codigo);
 }

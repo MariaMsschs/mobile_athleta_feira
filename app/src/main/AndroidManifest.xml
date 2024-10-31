@@ -31,10 +31,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TelaSocial"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".TelaAlterarSenha"
             android:exported="false"
             android:screenOrientation="portrait" />

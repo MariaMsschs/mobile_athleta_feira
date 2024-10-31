@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+
+import com.example.mobile_athleta.UseCase.MandarEmailUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +24,7 @@ public class TelaCadastro extends AppCompatActivity {
     private FrameLayout frameLayout;
 
     private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
+    private MandarEmailUseCase mandarEmailUseCase = new MandarEmailUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,8 @@ public class TelaCadastro extends AppCompatActivity {
                     bundle.putString("dataNasc", dataNascimentoEdit.getText().toString());
 
                     frameLayout.setVisibility(ProgressBar.GONE);
-                    Intent foto = new Intent(this, TelaFoto.class);
+                    mandarEmailUseCase.mandarEmail(emailEdit.getText().toString(),this);
+                    Intent foto = new Intent(this, TelaVerificacao.class);
                     foto.putExtras(bundle);
                     startActivity(foto);
                     finish();

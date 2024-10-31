@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 
+import com.example.mobile_athleta.UseCase.MandarEmailUseCase;
+import com.example.mobile_athleta.UseCase.VerificarOTPUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaVerificacaoBinding;
 
 public class TelaVerificacao extends AppCompatActivity {
     private ActivityTelaVerificacaoBinding binding;
 
+    private VerificarOTPUseCase verificarOTPUseCase = new VerificarOTPUseCase();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +24,9 @@ public class TelaVerificacao extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.botaoVoltarVerificacao.setOnClickListener(view -> {
+            Bundle bundle = getIntent().getExtras();
             Intent intent = new Intent(TelaVerificacao.this, TelaCadastro.class);
+            intent.putExtras(bundle);
             startActivity(intent);
             finish();
         });
@@ -33,7 +39,23 @@ public class TelaVerificacao extends AppCompatActivity {
     public void verificar(EditText codigoVerificacao) {
         checkField();
         if(binding.codigoVerificacao.getError() == null) {
-            // chamada da api
+            Bundle bundle = getIntent().getExtras();
+            Log.d("key", getSharedPreferences("key", MODE_PRIVATE).getString("key", ""));
+            verificarOTPUseCase.verificar(getSharedPreferences("key", MODE_PRIVATE).getString("key", ""),
+                    codigoVerificacao.getText().toString(), this, new VerificarOTPUseCase.VerificarCallback() {
+                        @Override
+                        public void onVerificarSuccess() {
+                            Intent intent = new Intent(TelaVerificacao.this, TelaFoto.class);
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onVerificarFailure(String errorMessage) {
+                            binding.codigoVerificacao.setError("Código inválido");
+                        }
+                    });
         }
     }
 

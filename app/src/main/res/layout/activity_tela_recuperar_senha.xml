@@ -8,7 +8,7 @@
 
     <FrameLayout
         android:id="@+id/frameLayout2"
-        android:layout_width="408dp"
+        android:layout_width="match_parent"
         android:layout_height="96dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -17,15 +17,12 @@
 
         <ImageView
             android:id="@+id/logo_athleta"
-            android:layout_width="147dp"
-            android:layout_height="37dp"
-            android:layout_marginLeft="140dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.598"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_athleta" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
+            app:srcCompat="@drawable/athleta_logo_pequena" />
 
         <ImageButton
             android:id="@+id/botao_voltar"
@@ -43,7 +40,9 @@
 
     <TextView
         android:id="@+id/titulo_recuperar"
-        android:layout_width="328dp"
+        android:layout_width="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_height="62dp"
         android:layout_marginTop="36dp"
         android:fontFamily="@font/roboto_medium"
@@ -72,8 +71,10 @@
 
     <EditText
         android:id="@+id/email_recuperar"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/input_design"
         android:ems="10"
@@ -90,8 +91,10 @@
     <Button
         android:id="@+id/botao_recuperar"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="64dp"
         android:background="@drawable/button_design"
         android:fontFamily="@font/roboto_bold"

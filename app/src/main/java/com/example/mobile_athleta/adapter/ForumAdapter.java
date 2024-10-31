@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Forum;
 import com.squareup.picasso.Picasso;
@@ -23,6 +22,11 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
 
     public ForumAdapter(List<Forum> forumList) {
         this.forumList = forumList;
+    }
+
+    public void setListaFiltrada(List<Forum> forumList) {
+        this.forumList = forumList;
+        notifyDataSetChanged();
     }
 
     @NonNull

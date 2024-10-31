@@ -21,11 +21,7 @@ public class TelaConfiguracao extends AppCompatActivity {
         ActivityTelaConfiguracaoBinding binding = ActivityTelaConfiguracaoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.botaoVoltar.setOnClickListener(v -> {
-            Intent perfil = new Intent(this, PerfilFragment.class);
-            startActivity(perfil);
-            finish();
-        });
+        binding.botaoVoltar.setOnClickListener(v -> finish());
 
         binding.logout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();

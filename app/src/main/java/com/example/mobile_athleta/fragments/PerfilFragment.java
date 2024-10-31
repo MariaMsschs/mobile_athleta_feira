@@ -58,7 +58,7 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_perfil, container, false);
+        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
         nome = view.findViewById(R.id.nome_perfil);
         username = view.findViewById(R.id.username_perfil);
@@ -77,7 +77,6 @@ public class PerfilFragment extends Fragment {
             Log.d("IMAGEM!", "Caminho da imagem não encontrado");
         }
 
-
         if (savedInstanceState == null) {
             carregarFragment(new PostPerfil());
         }
@@ -87,35 +86,48 @@ public class PerfilFragment extends Fragment {
         tabEventos = view.findViewById(R.id.tab_eventos);
         View indicator = view.findViewById(R.id.indicator);
 
+        tabPosts.post(() -> {
+            int width = tabPosts.getWidth();
+            ViewGroup.LayoutParams params = indicator.getLayoutParams();
+            params.width = width;
+            indicator.setLayoutParams(params);
+        });
+
         tabPosts.setOnClickListener(v -> {
-            indicator.animate().x(tabPosts.getX()).setDuration(200);
+            animateIndicator(indicator, tabPosts);
             resetTabColors();
             tabPosts.setTextColor(getResources().getColor(R.color.black));
             carregarFragment(new PostPerfil());
         });
 
         tabForuns.setOnClickListener(v -> {
-            indicator.animate().x(tabForuns.getX()).setDuration(200);
+            animateIndicator(indicator, tabForuns);
             resetTabColors();
             tabForuns.setTextColor(getResources().getColor(R.color.black));
             carregarFragment(new ForumPerfil());
         });
 
         tabEventos.setOnClickListener(v -> {
-            indicator.animate().x(tabEventos.getX()).setDuration(200);
+            animateIndicator(indicator, tabEventos);
             resetTabColors();
             tabEventos.setTextColor(getResources().getColor(R.color.black));
             carregarFragment(new EventoPerfil());
         });
 
         config = view.findViewById(R.id.configuracao);
-
         config.setOnClickListener(v -> {
             Intent configuracao = new Intent(getActivity(), TelaConfiguracao.class);
             startActivity(configuracao);
-            getActivity();
         });
+
         return view;
+    }
+
+    private void animateIndicator(View indicator, TextView tab) {
+        indicator.animate().x(tab.getX()).setDuration(250);
+        ViewGroup.LayoutParams params = indicator.getLayoutParams();
+        params.width = tab.getWidth();
+        indicator.setLayoutParams(params);
     }
 
     private void resetTabColors() {

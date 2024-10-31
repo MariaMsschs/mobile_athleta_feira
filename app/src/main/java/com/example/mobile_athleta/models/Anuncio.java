@@ -2,9 +2,10 @@ package com.example.mobile_athleta.models;
 
 public class Anuncio {
     private Long idAnuncio;
-    private double preco;
-    private String descricao;
     private String nome;
+    private String descricao;
+    private String imagem;
+    private double preco;
     private int quant;
     private Long idUsuario;
     private Long idEstado;
@@ -12,9 +13,17 @@ public class Anuncio {
     private Anuncio(){
     }
 
-    public Anuncio(double preco, String descricao, String nome, int quant){
+    public Anuncio( String nome, String descricao, double preco, int quant){
         this.preco = preco;
         this.descricao = descricao;
+        this.nome = nome;
+        this.quant = quant;
+    }
+
+    public Anuncio( String nome, String descricao, String imagem, double preco, int quant){
+        this.preco = preco;
+        this.descricao = descricao;
+        this.imagem = imagem;
         this.nome = nome;
         this.quant = quant;
     }
@@ -31,6 +40,10 @@ public class Anuncio {
         return descricao;
     }
 
+    public String getImagem() {
+        return imagem;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -45,5 +58,9 @@ public class Anuncio {
 
     public Long getIdEstado() {
         return idEstado;
+    }
+
+    public Anuncio getAnuncio() {
+        return this;
     }
 }

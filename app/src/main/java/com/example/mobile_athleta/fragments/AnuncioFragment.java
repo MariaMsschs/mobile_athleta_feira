@@ -1,33 +1,26 @@
 package com.example.mobile_athleta.fragments;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
+import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Intent;
+import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaProduto;
+import com.example.mobile_athleta.UseCase.ListarAnunciosUseCase;
+import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
 import com.example.mobile_athleta.adapter.AnuncioAdapter;
-import com.example.mobile_athleta.adapter.EsporteCardAdapter;
-import com.example.mobile_athleta.adapter.ForumAdapter;
 import com.example.mobile_athleta.models.Anuncio;
-import com.example.mobile_athleta.models.Esporte;
-import com.example.mobile_athleta.models.Produto;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +32,7 @@ public class AnuncioFragment extends Fragment {
     private SearchView searchView;
     private TextView textViewNoResults;
     private ImageView imageNoResults;
+    private ListarAnunciosUseCase listarAnunciosUseCase = new ListarAnunciosUseCase();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,21 +59,28 @@ public class AnuncioFragment extends Fragment {
             }
         });
 
-        // Inicialização da lista de produtos
         anuncioList = new ArrayList<>();
-        anuncioList.add(new Anuncio(32.00, "Raquete de tênis usada por 2 anos", "Raquete de tênis", 1));
-        anuncioList.add(new Anuncio(89.00, "óculos de natação rosa com glitter", "óculos de natação", 1));
-        anuncioList.add(new Anuncio(10.00, "Bolinha de ping pong laranja", "bolinhas de ping pong", 10));
 
-        recyclerViewAnuncios.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        String token = getContext().getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
 
-        anuncioAdapter = new AnuncioAdapter(anuncioList, (AnuncioAdapter.OnItemClickListener) anuncio -> {
-            Intent intent = new Intent(getContext(), TelaProduto.class);
-            intent.putExtra("anuncioId", anuncio.getIdAnuncio());
-            startActivity(intent);
+        listarAnunciosUseCase.listarAnuncios(token, anuncios ->  {
+            anuncioList = anuncios;
+
+            if(anuncioList.isEmpty()) {
+                Log.d("Vazia", anuncios.get(0).toString());
+            }
+            else{
+                recyclerViewAnuncios.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+                anuncioAdapter = new AnuncioAdapter(anuncioList, anuncio -> {
+                    Intent intent = new Intent(getContext(), TelaProduto.class);
+                    intent.putExtra("anuncioId", anuncio.getIdAnuncio());
+                    startActivity(intent);
+                });
+
+                recyclerViewAnuncios.setAdapter(anuncioAdapter);
+            }
         });
-
-        recyclerViewAnuncios.setAdapter(anuncioAdapter);
 
         return view;
     }

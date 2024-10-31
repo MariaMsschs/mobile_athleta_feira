@@ -1,6 +1,9 @@
 package com.example.mobile_athleta.service;
 
+import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Usuario;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -35,6 +38,6 @@ public interface AthletaService {
     @GET("api/usuario/listar/username/{email}")
     Call<Usuario> listarUsuarioPorEmail(@Path("email") String email);
 
-//    @GET("api/anuncio/listar")
-//    Call<Anuncio> listarAnuncios();
+    @GET("api/anuncio/listar")
+    Call<AnuncioResponse> listarAnuncios(@Header("Authorization") String token);
 }

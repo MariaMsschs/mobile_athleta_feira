@@ -56,13 +56,18 @@ public class FotoFirebaseImpl implements FotoFirebase {
 
     @Override
     public void recuperarImagem(ImageView imageView, String caminho){
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(caminho);
-        storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
-            Picasso.get()
-                    .load(uri)
-                    .into(imageView);
-        }).addOnFailureListener(exception -> {
-           Log.d("ERRO RECUPERAR IMAGEM", exception.getMessage());
-        });
+        if(caminho != null){
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(caminho);
+            storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                Picasso.get()
+                        .load(uri)
+                        .into(imageView);
+            }).addOnFailureListener(exception -> {
+                Log.d("ERRO RECUPERAR IMAGEM", exception.getMessage());
+            });
+        }
+        else{
+            Log.d("ERRO RECUPERAR IMAGEM", "Caminho vazio");
+        }
     }
 }

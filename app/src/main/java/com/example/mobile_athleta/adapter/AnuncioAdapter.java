@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Anuncio;
-import com.example.mobile_athleta.models.Produto;
+import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -56,16 +56,19 @@ public class AnuncioAdapter extends RecyclerView.Adapter<AnuncioAdapter.AnuncioV
         private ImageView imagem_produto;
         private TextView titulo_anuncio, anunciante, preco;
 
+        FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
+
         public AnuncioViewHolder(@NonNull View itemView) {
             super(itemView);
-//            imagem_produto = itemView.findViewById(R.id.imagem_produto_anuncio);
+            imagem_produto = itemView.findViewById(R.id.imagem_produto_anuncio);
             titulo_anuncio = itemView.findViewById(R.id.titulo_anuncio);
             anunciante = itemView.findViewById(R.id.autor_anuncio);
             preco = itemView.findViewById(R.id.preco);
         }
 
         public void bind(final Anuncio anuncio, final OnItemClickListener listener) {
-//            Picasso.get().load(anuncio.getImage()).into(imagem_produto);
+            fotoFirebaseImpl.recuperarImagem(imagem_produto, anuncio.getImagem());
+            Picasso.get().load(anuncio.getImagem()).into(imagem_produto);
             titulo_anuncio.setText(anuncio.getNome());
             anunciante.setText(anuncio.getDescricao());
             String valor = "R$" + String.valueOf(anuncio.getPreco());

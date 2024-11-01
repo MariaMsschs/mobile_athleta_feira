@@ -3,15 +3,12 @@ package com.example.mobile_athleta;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-
 import com.example.mobile_athleta.UseCase.MandarEmailUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class TelaCadastro extends AppCompatActivity {
     private ActivityTelaCadastroBinding binding;

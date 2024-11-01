@@ -13,14 +13,7 @@ public class Anuncio {
     private Anuncio(){
     }
 
-    public Anuncio( String nome, String descricao, double preco, int quant){
-        this.preco = preco;
-        this.descricao = descricao;
-        this.nome = nome;
-        this.quant = quant;
-    }
-
-    public Anuncio( String nome, String descricao, String imagem, double preco, int quant){
+    public Anuncio(String nome, String descricao, double preco, int quant, String imagem){
         this.preco = preco;
         this.descricao = descricao;
         this.imagem = imagem;

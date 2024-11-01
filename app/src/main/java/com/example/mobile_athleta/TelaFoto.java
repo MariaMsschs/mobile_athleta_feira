@@ -28,8 +28,9 @@ import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class TelaFoto extends AppCompatActivity {
-    static final int REQUEST_IMAGE_CAPTURE = 1;
     private ActivityTelaFotoBinding binding;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri imageUri;
     private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
     private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
@@ -81,7 +82,7 @@ public class TelaFoto extends AppCompatActivity {
             });
         });
 
-        binding.botaoCadastro.setOnClickListener(v -> {
+        binding.cadastroUsuario.setOnClickListener(v -> {
             binding.frameLayoutFoto.setVisibility(ProgressBar.VISIBLE);
 
             Bundle bundle = getIntent().getExtras();
@@ -141,8 +142,8 @@ public class TelaFoto extends AppCompatActivity {
                         .circleCrop()
                         .into(binding.camera);
 
-                binding.botaoCadastro.setBackgroundResource(R.drawable.button_design);
-                binding.botaoCadastro.setTextColor(getResources().getColor(R.color.white));
+                binding.cadastroUsuario.setBackgroundResource(R.drawable.button_design);
+                binding.cadastroUsuario.setTextColor(getResources().getColor(R.color.white));
                 fotoFirebaseImpl.uploadImage(imageUri, this);
             }
         }
@@ -156,8 +157,8 @@ public class TelaFoto extends AppCompatActivity {
                             .load(imageUri)
                             .circleCrop()
                             .into(binding.camera);
-                    binding.botaoCadastro.setBackgroundResource(R.drawable.button_design);
-                    binding.botaoCadastro.setTextColor(getResources().getColor(R.color.white));
+                    binding.cadastroUsuario.setBackgroundResource(R.drawable.button_design);
+                    binding.cadastroUsuario.setTextColor(getResources().getColor(R.color.white));
 
                     fotoFirebaseImpl.uploadImage(imageUri, this);
                 }

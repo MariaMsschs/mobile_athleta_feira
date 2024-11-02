@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Mobile_athleta"
         tools:targetApi="31">
         <activity
+            android:name=".TelaCadastroAnuncio"
+            android:exported="false" />
+        <activity
+            android:name=".TelaCadastrarForum"
+            android:exported="false" />
+        <activity
             android:name=".TelaAreaRestrita"
             android:exported="false" />
         <activity
@@ -29,7 +35,7 @@
         <activity
             android:name=".TelaInfosConta"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TelaAlterarSenha"
             android:exported="false"
@@ -86,7 +92,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

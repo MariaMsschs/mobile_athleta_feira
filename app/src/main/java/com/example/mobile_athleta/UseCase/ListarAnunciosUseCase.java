@@ -26,7 +26,6 @@ public class ListarAnunciosUseCase {
                 if(response.isSuccessful() && response.body() != null) {
                     Log.d("LISTAR ANUNCIOS SUCCESS", response.body().toString());
                     List<Anuncio> anuncios = response.body().getAnuncios();
-
                     callback.onAnunciosRetornados(anuncios);
                 }
                 else{

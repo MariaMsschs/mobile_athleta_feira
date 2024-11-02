@@ -48,4 +48,7 @@ public interface AthletaService {
 
     @DELETE("delete/{key}/{codigo}")
     Call<RedisResponse> deletarEmail(@Path("key") String key, @Path("codigo") String codigo);
+
+    @POST("api/anuncio/inserir")
+    Call<ApiResponse> inserirAnuncio(@Header("Authorization") String token, @Body Anuncio anuncio);
 }

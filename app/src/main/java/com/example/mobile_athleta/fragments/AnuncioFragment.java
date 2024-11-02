@@ -13,9 +13,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaCadastroAnuncio;
 import com.example.mobile_athleta.TelaProduto;
 import com.example.mobile_athleta.UseCase.ListarAnunciosUseCase;
 import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
@@ -32,6 +35,8 @@ public class AnuncioFragment extends Fragment {
     private SearchView searchView;
     private TextView textViewNoResults;
     private ImageView imageNoResults;
+
+    private ImageButton adicionarAnuncio;
     private ListarAnunciosUseCase listarAnunciosUseCase = new ListarAnunciosUseCase();
 
     @Override
@@ -42,6 +47,7 @@ public class AnuncioFragment extends Fragment {
         recyclerViewAnuncios = view.findViewById(R.id.recycler_anuncios);
         textViewNoResults = view.findViewById(R.id.textViewNoResults);
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
+        adicionarAnuncio = view.findViewById(R.id.adicionar_anuncio);
 
         searchView = view.findViewById(R.id.searchView);
         searchView.clearFocus();
@@ -66,20 +72,18 @@ public class AnuncioFragment extends Fragment {
         listarAnunciosUseCase.listarAnuncios(token, anuncios ->  {
             anuncioList = anuncios;
 
-            if(anuncioList.isEmpty()) {
-                Log.d("Vazia", anuncios.get(0).toString());
-            }
-            else{
-                recyclerViewAnuncios.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            recyclerViewAnuncios.setLayoutManager(new GridLayoutManager(getContext(), 2));
+            anuncioAdapter = new AnuncioAdapter(anuncioList, anuncio -> {
+                Intent produto = new Intent(getContext(), TelaProduto.class);
+                produto.putExtra("anuncioId", anuncio.getIdAnuncio());
+                startActivity(produto);
+            });
+            recyclerViewAnuncios.setAdapter(anuncioAdapter);
+        });
 
-                anuncioAdapter = new AnuncioAdapter(anuncioList, anuncio -> {
-                    Intent intent = new Intent(getContext(), TelaProduto.class);
-                    intent.putExtra("anuncioId", anuncio.getIdAnuncio());
-                    startActivity(intent);
-                });
-
-                recyclerViewAnuncios.setAdapter(anuncioAdapter);
-            }
+        adicionarAnuncio.setOnClickListener(v -> {
+            Intent cadastro = new Intent(getContext(), TelaCadastroAnuncio.class);
+            startActivity(cadastro);
         });
 
         return view;

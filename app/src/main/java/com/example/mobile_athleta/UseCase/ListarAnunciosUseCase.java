@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.service.AnuncioResponse;
 import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.RetrofitClient;
+import com.example.mobile_athleta.service.RetrofitClientSql;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class ListarAnunciosUseCase {
         void onAnunciosRetornados(List<Anuncio> anuncios);
     }
     public void listarAnuncios(String token, ListarAnunciosCallBack callback) {
-        AthletaService service = RetrofitClient.getAthletaService();
+        AthletaService service = RetrofitClientSql.getAthletaService();
         Call<AnuncioResponse> call = service.listarAnuncios(token);
 
         call.enqueue(new Callback<AnuncioResponse>() {
@@ -26,7 +26,6 @@ public class ListarAnunciosUseCase {
                 if(response.isSuccessful() && response.body() != null) {
                     Log.d("LISTAR ANUNCIOS SUCCESS", response.body().toString());
                     List<Anuncio> anuncios = response.body().getAnuncios();
-
                     callback.onAnunciosRetornados(anuncios);
                 }
                 else{

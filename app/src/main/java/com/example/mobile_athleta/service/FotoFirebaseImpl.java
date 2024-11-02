@@ -48,7 +48,7 @@ public class FotoFirebaseImpl implements FotoFirebase {
         String username = context.getSharedPreferences("login", context.MODE_PRIVATE).getString("username","");
         String caminho = ("users/" + username +"/"+ System.currentTimeMillis());
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(caminho);
-        context.getSharedPreferences("fotoPerfil", context.MODE_PRIVATE).edit().putString("caminho_imagem", caminho).apply();
+        context.getSharedPreferences("foto", context.MODE_PRIVATE).edit().putString("caminho_imagem", caminho).apply();
         storageReference.putFile(imagem).addOnSuccessListener(taskSnapshot -> {
             Log.d("SUCESSO IMAGE UPLOAD", "Imagem enviada");
         });

@@ -5,18 +5,15 @@ import android.util.Log;
 import com.example.mobile_athleta.service.ApiResponse;
 import com.example.mobile_athleta.service.AthletaService;
 import com.example.mobile_athleta.service.EmailLogin;
-import com.example.mobile_athleta.service.RetrofitClient;
-import com.example.mobile_athleta.service.UserLogin;
+import com.example.mobile_athleta.service.RetrofitClientSql;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AlterarSenhaUseCase {
 
     public void alterarSenha(String token, EmailLogin login){
-        AthletaService service = RetrofitClient.getAthletaService();
+        AthletaService service = RetrofitClientSql.getAthletaService();
         Call<ApiResponse> call = service.alterarSenha(token, login);
         call.enqueue(new Callback<ApiResponse>() {
             @Override

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.adapter.EsporteCardAdapter;
@@ -79,13 +80,15 @@ public class HomeFragment extends Fragment {
 
         postList = new ArrayList<>();
 
-        postList.add(new Post(1, "post2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/7dcd4fabfd9e48fc81a5fda66e2274bd", "User2", "https://lastfm.freetls.fastly.net/i/u/500x500/b00527c6ae0cd1d4c9bf3706b130ad56.jpg"));
-        postList.add(new Post(2, "post3", "https://lastfm.freetls.fastly.net/i/u/avatar170s/7dcd4fabfd9e48fc81a5fda66e2274bd", "User2", "https://lastfm.freetls.fastly.net/i/u/500x500/b00527c6ae0cd1d4c9bf3706b130ad56.jpg"));
-        postList.add(new Post(3, "post1", "https://lastfm.freetls.fastly.net/i/u/avatar170s/7dcd4fabfd9e48fc81a5fda66e2274bd", "User2","https://lastfm.freetls.fastly.net/i/u/500x500/b00527c6ae0cd1d4c9bf3706b130ad56.jpg"));
 
 
         recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        postAdapter = new PostAdapter(postList);
+        postAdapter = new PostAdapter(postList, new PostAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Post post) {
+            }
+        });
+
         recyclerViewPosts.setAdapter(postAdapter);
 
         recyclerViewForum = view.findViewById(R.id.recycler_forum);

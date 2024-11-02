@@ -5,9 +5,8 @@ import android.util.Log;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.ApiResponse;
 import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.RetrofitClient;
+import com.example.mobile_athleta.service.RetrofitClientSql;
 import com.google.gson.Gson;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -16,9 +15,10 @@ public class CadastrarUsuarioUseCase {
         void onCadastroSuccess();
     }
 
-    public void cadastrarUsuario(Usuario usuario, CadastroCallBack callback) {
-        AthletaService service = RetrofitClient.getAthletaService();
+    public void cadastrarUsuario(Usuario usuario, CadastroCallback callback) {
+        AthletaService service = RetrofitClientSql.getAthletaService();
         Call<ApiResponse> call = service.cadastrarUsuario(usuario);
+      
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {

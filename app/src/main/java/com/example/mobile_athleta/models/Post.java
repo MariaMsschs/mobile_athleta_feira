@@ -1,22 +1,39 @@
 package com.example.mobile_athleta.models;
 
+import java.util.Date;
+import java.util.List;
+
 public class Post {
-    private int id;
+    private String id;
     private String legenda;
     private String imagem;
-    private String usuario;
+    private String username;
+    private String userFoto;
+    private List<String> curtidas;
+    private List<String> compartilhamento;
+    private String usuarioId;
+    private Date data;
+    private boolean liked;
 
-    private String usuario_perfil;
+    // getters e setters
 
-    public Post(int id, String legenda, String imagem, String usuario, String usuario_perfil) {
+
+    public Post() {}
+
+    public Post(String id, String legenda, String imagem, String username, String userFoto, List<String> curtidas, List<String> compartilhamento, String usuarioId, Date data, boolean liked) {
         this.id = id;
         this.legenda = legenda;
         this.imagem = imagem;
-        this.usuario = usuario;
-        this.usuario_perfil = usuario_perfil;
+        this.username = username;
+        this.userFoto = userFoto;
+        this.curtidas = curtidas;
+        this.compartilhamento = compartilhamento;
+        this.usuarioId = usuarioId;
+        this.data = data;
+        this.liked = liked;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -28,11 +45,34 @@ public class Post {
         return imagem;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getUsername() {
+        return username;
     }
 
-    public String getUsuarioPerfil(){
-        return usuario_perfil;
+    public String getUserFoto() {
+        return userFoto;
+    }
+
+    public List<String> getCurtidas() {
+        return curtidas;
+    }
+
+    public List<String> getCompartilhamento() {
+        return compartilhamento;
+    }
+
+    public String getUsuarioId() {
+        return usuarioId;
+    }
+
+    public Date getData() {
+        return data;
+    }
+    public boolean isLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
     }
 }

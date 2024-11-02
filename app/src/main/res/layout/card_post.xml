@@ -20,11 +20,11 @@
             android:id="@+id/legenda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto"
             android:text="Legenda!!!"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/frameLayoutLogin" />
 
@@ -36,37 +36,42 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.469"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/seguir"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="95dp"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/roboto_medium"
-                android:text="+seguir"
-                android:textColor="@color/orange" />
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
-            <TextView
-                android:id="@+id/usuario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="45dp"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Usuario" />
+                <ImageButton
+                    android:id="@+id/foto_perfil"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/foto_perfil_design"
+                    android:clipToOutline="true"
+                    android:scaleType="centerCrop" />
 
-            <ImageButton
-                android:id="@+id/foto_perfil"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/foto_perfil_design"
-                android:clipToOutline="true"
-                android:scaleType="centerCrop" />
+                <TextView
+                    android:id="@+id/usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Usuario"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:id="@+id/seguir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_marginStart="8dp"
+                    android:text="+seguir"
+                    android:textColor="@color/orange"
+                    android:gravity="center" />
+            </LinearLayout>
 
         </FrameLayout>
 
@@ -76,6 +81,7 @@
             android:layout_height="0dp"
             android:layout_margin="12dp"
             android:clipToOutline="true"
+            android:visibility="gone"
             android:background="@drawable/post_design"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1.1"
@@ -84,7 +90,7 @@
             app:layout_constraintTop_toBottomOf="@+id/legenda" />
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginStart="12dp"
@@ -92,36 +98,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagem_post">
 
-            <ImageButton
-                android:id="@+id/compartilhar"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/compartilhar" />
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
-            <ImageButton
-                android:id="@+id/infos"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="105dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/infos" />
+                <ImageButton
+                    android:id="@+id/curtir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/like" />
+                <ImageButton
+                    android:id="@+id/comentar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/comment" />
 
-            <ImageButton
-                android:id="@+id/curtir"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/like" />
+                <ImageButton
+                    android:id="@+id/compartilhar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/compartilhar" />
 
-            <ImageButton
-                android:id="@+id/comentar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/comment" />
+                <ImageButton
+                    android:id="@+id/infos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/infos" />
+
+
+
+
+            </LinearLayout>
+
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

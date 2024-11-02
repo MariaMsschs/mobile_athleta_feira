@@ -19,9 +19,6 @@
             android:name=".TelaCadastroAnuncio"
             android:exported="false" />
         <activity
-            android:name=".TelaCadastrarForum"
-            android:exported="false" />
-        <activity
             android:name=".TelaAreaRestrita"
             android:exported="false" />
         <activity

@@ -4,22 +4,25 @@ import com.example.mobile_athleta.models.Anuncio;
 
 import java.util.List;
 
-public class AnuncioResponse {
-
+public class ListarAnuncioResponse {
     private boolean responseSucessfull;
     private String description;
-    private List<Anuncio> object;
+    private Anuncio anuncio;
     private String aditionalInformation;
 
-    public AnuncioResponse(boolean responseSucessfull, String description, List<Anuncio> object, String aditionalInformation) {
+    public ListarAnuncioResponse(boolean responseSucessfull, String description, Anuncio anuncio, String aditionalInformation) {
         this.responseSucessfull = responseSucessfull;
         this.description = description;
-        this.object = object;
+        this.anuncio = anuncio;
         this.aditionalInformation = aditionalInformation;
     }
 
-    public List<Anuncio> getAnuncios() {
-        return object;
+    public Anuncio getAnuncio() {
+        return anuncio;
+    }
+
+    public String getDescription(){
+        return description;
     }
 }
 

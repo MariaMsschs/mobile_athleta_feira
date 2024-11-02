@@ -1,5 +1,6 @@
 package com.example.mobile_athleta.service;
 
+import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Comentario;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
@@ -12,7 +13,6 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;

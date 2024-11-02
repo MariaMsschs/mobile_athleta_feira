@@ -1,5 +1,6 @@
 package com.example.mobile_athleta.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.UseCase.ListarForumPorNomeUseCase;
 import com.example.mobile_athleta.adapter.ForumAdapter;
 import com.example.mobile_athleta.models.Forum;
 
@@ -52,6 +54,7 @@ public class ForumSocial extends Fragment {
     private ImageView imageNoResults;
     private ForumAdapter forumAdapter;
     private List<Forum> forumList;
+    private ListarForumPorNomeUseCase listarForumPorNomeUseCase = new ListarForumPorNomeUseCase();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,9 +77,24 @@ public class ForumSocial extends Fragment {
         recyclerViewForum.setAdapter(forumAdapter);
 
         searchView.setQueryHint("Buscar fóruns");
+        String token = view.getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                listarForumPorNomeUseCase.verificarForuns(token, query, new ListarForumPorNomeUseCase.VerificarCallback() {
+                    @Override
+                    public void onVerificarSuccess(List<Forum> foruns, String message) {
+                        forumAdapter.setListaFiltrada(foruns);
+                        textViewNoResults.setVisibility(View.GONE);
+                        imageNoResults.setVisibility(View.GONE);
+                        recyclerViewForum.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onVerificarFailure(String errorMessage) {
+
+                    }
+                });
                 return false;
             }
 

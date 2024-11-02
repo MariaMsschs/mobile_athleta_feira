@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.InserirAnuncioUseCase;
@@ -92,8 +93,11 @@ public class TelaCadastroAnuncio extends AppCompatActivity {
 
         binding.cadastroAnuncio.setOnClickListener(v -> {
             checkAllFields();
+            Long idEstado = getSharedPreferences("anuncio", MODE_PRIVATE).getLong("idEstado", 0L);
+
+
             if(nomeEdit.getError() == null && descricaoEdit.getError() == null && precoEdit.getError() == null
-                    && quantEdit.getError() == null) {}
+                    && quantEdit.getError() == null && idEstado > 0) {
 
                 binding.frameLayoutAnuncio.setVisibility(ProgressBar.VISIBLE);
 
@@ -103,17 +107,13 @@ public class TelaCadastroAnuncio extends AppCompatActivity {
                 int quant = Integer.parseInt(binding.quantidadeAnuncio.getText().toString());
                 String imagem = getSharedPreferences("foto", MODE_PRIVATE).getString("caminho_imagem", "");
                 Long idUsuario = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
-                Long idEstado = getSharedPreferences("anuncio", MODE_PRIVATE).getLong("idEstado", 0L);
 
-                Log.d("nome", nome);
-                Log.d("descricao", descricao);
-                Log.d("PRECO", String.valueOf(preco));
-                Log.d("QUANT", String.valueOf(quant));
-                Log.d("IMAGEM", imagem);
-                Log.d("ID USUARIO", idUsuario.toString());
-                Log.d("ID ESTADO", idEstado.toString());
                 Anuncio anuncio = new Anuncio(nome, descricao, preco, quant, imagem, idUsuario, idEstado);
                 cadastrarAnuncio(anuncio);
+            }
+            else{
+                Toast.makeText(this, "Existe um campo vazio!", Toast.LENGTH_SHORT).show();
+            }
         });
 
     }
@@ -125,74 +125,75 @@ public class TelaCadastroAnuncio extends AppCompatActivity {
             inserirAnuncioUseCase.inserirAnuncio(token, anuncio, new InserirAnuncioUseCase.InserirAnuncioCallBack() {
                 @Override
                 public void onInserirAnuncioSuccess() {
-//                LayoutInflater inflater = getLayoutInflater();
-//                View dialogView = inflater.inflate(R.layout.alterado_dialog, null);
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
-//                builder.setView(dialogView);
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//                View botao_alterado = dialogView.findViewById(R.id.botao_alterado);
-//                botao_alterado.setOnClickListener(v -> {
-//                    Intent config = new Intent(getBaseContext(), TelaConfiguracao.class);
-//                    startActivity(config);
-//                    finish();
-//                    dialog.dismiss();
-//                });
-                    finish();
+                    getSharedPreferences("foto", MODE_PRIVATE).edit().remove("caminho_imagem").apply();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.anuncio_inserido_dialog, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TelaCadastroAnuncio.this);
+                    builder.setView(dialogView);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    View botao_alterado = dialogView.findViewById(R.id.botao_inserido);
+                    botao_alterado.setOnClickListener(v -> {
+                        finish();
+                        dialog.dismiss();
+                    });
                 }
 
                 @Override
                 public void onInserirAnuncioFailure(){
-//                LayoutInflater inflater = getLayoutInflater();
-//                View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getBaseContext());
-//                builder.setView(dialogView);
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//                View botao_alterado = dialogView.findViewById(R.id.botao_erro_alterar);
-//                botao_alterado.setOnClickListener(v -> {
-//                    Intent config = new Intent(getBaseContext(), TelaConfiguracao.class);
-//                    startActivity(config);
-//                    finish();
-//                    dialog.dismiss();
-//                });
-
-                    Log.d("FALHOU INSERIR ANUNCIO", "FALHO");
+                    getSharedPreferences("foto", MODE_PRIVATE).edit().remove("caminho_imagem").apply();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.anuncio_erro_dialog, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TelaCadastroAnuncio.this);
+                    builder.setView(dialogView);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    View botao_alterado = dialogView.findViewById(R.id.botao_erro_inserir);
+                    botao_alterado.setOnClickListener(v -> {
+                        finish();
+                        dialog.dismiss();
+                    });
                 }
             });
         }
         else{
-            Log.d("IMAGEM VAZIA", "SUA BOBONA");
+            Log.d("FALHA AO INSERIR", "Imagem vazia");
         }
 
     }
 
-    public void estado(Spinner spinner){
+    public void estado(Spinner spinner) {
         Map<String, Integer> estadoMap = new HashMap<>();
 
-        String[] estados = {"Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal",
-                "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul",
-                "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí",
-                "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia",
-                "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
+        String[] estados = {"Selecione um estado", "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará",
+                "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso",
+                "Mato Grosso do Sul", "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco",
+                "Piauí", "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul",
+                "Rondônia", "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, estados);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        for (int i = 0; i < estados.length; i++) {
-            estadoMap.put(estados[i], i + 1);
+        for (int i = 1; i < estados.length; i++) {
+            estadoMap.put(estados[i], i);
         }
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {3
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String estadoSelecionado = parent.getItemAtPosition(position).toString();
-                int numero = estadoMap.get(estadoSelecionado);
-                Long numeroEstado = (long) numero;
 
-                getSharedPreferences("anuncio", MODE_PRIVATE).edit().putLong("idEstado", numeroEstado).apply();
+                if (!estadoSelecionado.equals("Selecione um estado")) {
+                    int numero = estadoMap.get(estadoSelecionado);
+                    Long numeroEstado = (long) numero;
 
-                Log.d("Estado", "Estado: " + estadoSelecionado + ", Número: " + numero);
+                    getSharedPreferences("anuncio", MODE_PRIVATE).edit().putLong("idEstado", numeroEstado).apply();
+                    Log.d("Estado", "Estado: " + estadoSelecionado + ", Número: " + numero);
+                } else {
+                    Log.d("Estado", "Nenhum estado selecionado");
+                    getSharedPreferences("anuncio", MODE_PRIVATE).edit().putLong("idEstado", 0).apply();
+                }
             }
 
             @Override

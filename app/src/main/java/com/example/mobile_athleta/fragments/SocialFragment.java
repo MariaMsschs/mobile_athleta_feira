@@ -55,28 +55,42 @@ public class SocialFragment extends Fragment {
         tabEventos = view.findViewById(R.id.tab_eventos);
         View indicator = view.findViewById(R.id.indicator);
 
+        tabParaVoce.post(() -> {
+            int width = tabParaVoce.getWidth();
+            ViewGroup.LayoutParams params = indicator.getLayoutParams();
+            params.width = width;
+            indicator.setLayoutParams(params);
+        });
+
         tabParaVoce.setOnClickListener(v -> {
-            indicator.animate().x(tabParaVoce.getX()).setDuration(200);
+            animateIndicator(indicator, tabParaVoce);
             resetTabColors();
             tabParaVoce.setTextColor(getResources().getColor(R.color.black));
             carregarFragment(new PostSocial());
         });
 
         tabForuns.setOnClickListener(v -> {
-            indicator.animate().x(tabForuns.getX()).setDuration(200);
+            animateIndicator(indicator, tabForuns);
             resetTabColors();
             tabForuns.setTextColor(getResources().getColor(R.color.black));
             carregarFragment(new ForumSocial());
         });
 
         tabEventos.setOnClickListener(v -> {
-            indicator.animate().x(tabEventos.getX()).setDuration(200);
+            animateIndicator(indicator, tabEventos);
             resetTabColors();
             tabEventos.setTextColor(getResources().getColor(R.color.black));
             carregarFragment(new EventoSocial());
         });
 
         return view;
+    }
+
+    private void animateIndicator(View indicator, TextView tab) {
+        indicator.animate().x(tab.getX()).setDuration(250);
+        ViewGroup.LayoutParams params = indicator.getLayoutParams();
+        params.width = tab.getWidth();
+        indicator.setLayoutParams(params);
     }
 
     private void resetTabColors() {

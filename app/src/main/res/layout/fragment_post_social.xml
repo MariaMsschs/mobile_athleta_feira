@@ -26,4 +26,64 @@
         android:src="@drawable/lapis"
         app:backgroundTint="@color/orange" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/erro_rosto_triste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/erro_rosto_triste"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewNoResults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/roboto"
+            android:text="Ops! Parece que não possuimos postagens!"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLoadMore"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="CARREGAR MAIS"
+        android:background="@drawable/button_design"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:id="@+id/frameLayoutSocial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#70F4F4F4"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBarSocial"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/orange" />
+    </FrameLayout>
+
 </FrameLayout>

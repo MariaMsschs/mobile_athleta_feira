@@ -2,8 +2,9 @@ package com.example.mobile_athleta.service;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-public class RetrofitClient {
-    private static final String BASE_URL = "https://api-sql-gbb8.onrender.com/";
+
+public class RetrofitClientMongo {
+    private static final String BASE_URL = "https://api-mongo-aktc.onrender.com";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {
@@ -18,5 +19,4 @@ public class RetrofitClient {
     public static AthletaService getAthletaService() {
         return getRetrofitInstance().create(AthletaService.class);
     }
-
 }

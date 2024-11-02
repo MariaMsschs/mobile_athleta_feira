@@ -1,13 +1,13 @@
 package com.example.mobile_athleta.service;
 
-import com.example.mobile_athleta.models.Anuncio;
+import com.example.mobile_athleta.models.Comentario;
+import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -48,4 +48,23 @@ public interface AthletaService {
 
     @DELETE("delete/{key}/{codigo}")
     Call<RedisResponse> deletarEmail(@Path("key") String key, @Path("codigo") String codigo);
+
+    @GET("api/postagem/listar")
+    Call<List<Post>> listarPostagens(
+            @Query("pagina") int pagina,
+            @Query("tamanho") int tamanho
+    );
+    @GET("api/postagem/listarPorId")
+    Call<List<Post>> listarPostagemPorId(
+            @Query("pagina") int pagina,
+            @Query("tamanho") int tamanho,
+            @Query("id") int id
+    );
+
+    @POST("api/postagem/like/{id}/{username}")
+    Call<Post> interacaoCurtida(@Path("id") String id, @Path("username") String username);
+
+    @GET("api/comentario/listar/{idPost}")
+    Call<List<Comentario>> listarComentarios(@Path("idPost") String idPost);
+
 }

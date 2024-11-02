@@ -22,8 +22,8 @@ public class TelaHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_home);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomviewnav);
+
 
         if (savedInstanceState == null) {
             carregarFragment(new HomeFragment());

@@ -52,28 +52,28 @@ public class TelaCadastro extends AppCompatActivity {
             validacaoCadastroImpl.definirData(dataNascimentoEdit, this);
         });
 
-            binding.botaoCadastro.setOnClickListener(v -> {
-                checkAllFields();
-                if(emailEdit.getError() == null && nomeEdit.getError() == null && senhaEdit.getError() == null
-                        && usernameEdit.getError() == null && dataNascimentoEdit.getError() == null) {
+        binding.cadastroAnuncio.setOnClickListener(v -> {
+            checkAllFields();
+            if(emailEdit.getError() == null && nomeEdit.getError() == null && senhaEdit.getError() == null
+                    && usernameEdit.getError() == null && dataNascimentoEdit.getError() == null) {
 
-                    frameLayout.setVisibility(ProgressBar.VISIBLE);
+                frameLayout.setVisibility(ProgressBar.VISIBLE);
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("nome", nomeEdit.getText().toString());
-                    bundle.putString("email", emailEdit.getText().toString());
-                    bundle.putString("senha", senhaEdit.getText().toString());
-                    bundle.putString("username", usernameEdit.getText().toString());
-                    bundle.putString("dataNasc", dataNascimentoEdit.getText().toString());
+                Bundle bundle = new Bundle();
+                bundle.putString("nome", nomeEdit.getText().toString());
+                bundle.putString("email", emailEdit.getText().toString());
+                bundle.putString("senha", senhaEdit.getText().toString());
+                bundle.putString("username", usernameEdit.getText().toString());
+                bundle.putString("dataNasc", dataNascimentoEdit.getText().toString());
 
-                    frameLayout.setVisibility(ProgressBar.GONE);
-                    mandarEmailUseCase.mandarEmail(emailEdit.getText().toString(),this);
-                    Intent foto = new Intent(this, TelaVerificacao.class);
-                    foto.putExtras(bundle);
-                    startActivity(foto);
-                    finish();
-                }
-            });
+                frameLayout.setVisibility(ProgressBar.GONE);
+                mandarEmailUseCase.mandarEmail(emailEdit.getText().toString(),this);
+                Intent foto = new Intent(this, TelaVerificacao.class);
+                foto.putExtras(bundle);
+                startActivity(foto);
+                finish();
+            }
+        });
     }
 
     public void checkAllFields() {

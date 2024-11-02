@@ -4,7 +4,7 @@ public class Anuncio {
     private Long idAnuncio;
     private String nome;
     private String descricao;
-    private String imagem;
+    private String img;
     private double preco;
     private int quant;
     private Long idUsuario;
@@ -13,12 +13,14 @@ public class Anuncio {
     private Anuncio(){
     }
 
-    public Anuncio(String nome, String descricao, double preco, int quant, String imagem){
-        this.preco = preco;
-        this.descricao = descricao;
-        this.imagem = imagem;
+    public Anuncio(String nome, String descricao, double preco, int quant, String img, Long idUsuario, Long idEstado){
         this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
         this.quant = quant;
+        this.img = img;
+        this.idUsuario = idUsuario;
+        this.idEstado = idEstado;
     }
 
     public Long getIdAnuncio() {
@@ -34,7 +36,7 @@ public class Anuncio {
     }
 
     public String getImagem() {
-        return imagem;
+        return img;
     }
 
     public String getNome() {

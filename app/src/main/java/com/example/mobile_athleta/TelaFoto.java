@@ -99,7 +99,7 @@ public class TelaFoto extends AppCompatActivity {
     private void cadastrarUsuario(Bundle bundle){
         String data =  validacaoCadastroImpl.converterDataCadastro(bundle.getString("dataNasc"));
 
-        String caminho = getSharedPreferences("fotoPerfil", MODE_PRIVATE).getString("caminho_imagem","");
+        String caminho = getSharedPreferences("foto", MODE_PRIVATE).getString("caminho_imagem","");
 
         Usuario usuario = new Usuario(bundle.getString("nome"), bundle.getString("email"),
                 bundle.getString("senha"), data,

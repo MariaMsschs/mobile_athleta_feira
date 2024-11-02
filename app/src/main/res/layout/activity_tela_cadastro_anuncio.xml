@@ -100,7 +100,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@drawable/input_design"
                 android:ems="10"
-                android:inputType="text"
+                android:inputType="number"
                 android:padding="10dp"
                 android:textColor="#626161"
                 android:textCursorDrawable="@drawable/cursor_design"
@@ -126,8 +126,8 @@
                 android:layout_marginTop="1dp"
                 android:background="@drawable/input_design"
                 android:ems="10"
-                android:text="R$"
-                android:inputType="text"
+                android:text=""
+                android:inputType="numberDecimal"
                 android:padding="10dp"
                 android:textColor="#626161"
                 android:textCursorDrawable="@drawable/cursor_design"
@@ -160,6 +160,28 @@
                 android:textSize="14sp"/>
 
             <TextView
+                android:id="@+id/titulo_estado_anuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Estado:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/estado_anuncio"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:padding="10dp" />
+
+
+            <TextView
                 android:id="@+id/titulo_imagem_anuncio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -177,6 +199,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginTop="1dp"
+                android:clipToOutline="true"
                 android:background="@drawable/inserir_foto" />
 
             <Button

@@ -54,6 +54,7 @@ public interface AthletaService {
             @Query("pagina") int pagina,
             @Query("tamanho") int tamanho
     );
+  
     @GET("api/postagem/listarPorId")
     Call<List<Post>> listarPostagemPorId(
             @Query("pagina") int pagina,
@@ -67,4 +68,6 @@ public interface AthletaService {
     @GET("api/comentario/listar/{idPost}")
     Call<List<Comentario>> listarComentarios(@Path("idPost") String idPost);
 
+    @POST("api/anuncio/inserir")
+    Call<ApiResponse> inserirAnuncio(@Header("Authorization") String token, @Body Anuncio anuncio);
 }

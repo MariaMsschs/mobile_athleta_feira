@@ -8,6 +8,8 @@ import com.example.mobile_athleta.service.AthletaService;
 import com.example.mobile_athleta.service.LoginResponse;
 import com.example.mobile_athleta.service.RetrofitClientSql;
 import com.example.mobile_athleta.service.UserLogin;
+import com.google.gson.Gson;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +45,7 @@ public class LoginUseCase {
                         editor.putString("token", token);
                         editor.apply();
 
-                        Log.d("LOGIN SUCCESS", loginResponse.toString());
+                        Log.d("LOGIN SUCCESS", new Gson().toJson(login));
 
                         callback.onLoginSuccess();
                     } else {

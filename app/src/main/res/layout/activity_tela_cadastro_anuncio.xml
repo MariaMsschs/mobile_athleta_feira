@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    tools:context=".TelaCadastroAnuncio">
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logo_athleta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
+            app:srcCompat="@drawable/athleta_logo_pequena" />
+
+        <ImageButton
+            android:id="@+id/botao_voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/logo_athleta"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/seta_volta" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_nome_anuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Nome do Produto:"
+                android:textColor="#626161"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/nome_anuncio"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/titulo_quantidade_anuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Quantidade:"
+                android:textColor="#626161"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/quantidade_anuncio"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/titulo_preco_anuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Preço do Produto:"
+                android:textColor="#626161"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/preco_anuncio"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:text=""
+                android:inputType="numberDecimal"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/titulo_descricao_anuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Descrição do produto:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/descricao_anuncio"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/titulo_estado_anuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Estado:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/estado_anuncio"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:padding="10dp" />
+
+
+            <TextView
+                android:id="@+id/titulo_imagem_anuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Imagem do produto:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <ImageButton
+                android:id="@+id/imagem_anuncio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/post_design"
+                android:src="@drawable/inserir_foto" />
+
+            <Button
+                android:id="@+id/cadastro_anuncio"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/gray_button_design"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Adicionar produto"
+                android:textColor="@color/gray"
+                android:textAllCaps="false"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/frameLayoutAnuncio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#70F4F4F4"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBarAnuncio"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/orange" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,7 @@ import com.example.mobile_athleta.models.Comentario;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
-import com.google.android.gms.common.api.Api;
-
+import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -15,6 +14,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface AthletaService {
 

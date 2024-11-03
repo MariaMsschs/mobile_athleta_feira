@@ -18,15 +18,18 @@
         <activity
             android:name=".TelaComentarios"
             android:exported="false"
-            android:theme="@style/TransparentActivityTheme"/>
+            android:theme="@style/TransparentActivityTheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TelaCadastroAnuncio"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TelaAreaRestrita"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".TelaItem"
+            android:name=".SplashScreen"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -74,7 +77,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".TelaItem"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

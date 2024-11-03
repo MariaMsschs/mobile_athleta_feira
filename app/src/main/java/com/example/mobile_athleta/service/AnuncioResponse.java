@@ -21,9 +21,5 @@ public class AnuncioResponse {
     public List<Anuncio> getAnuncios() {
         return object;
     }
-
-    public void setAnuncios(List<Anuncio> anuncios) {
-        this.object = anuncios;
-    }
 }
 

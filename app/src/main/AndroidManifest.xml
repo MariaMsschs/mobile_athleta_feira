@@ -21,7 +21,7 @@
             android:theme="@style/TransparentActivityTheme"/>
         <activity
             android:name=".TelaCadastroAnuncio"
-            android:exported="false" /> />
+            android:exported="false" />
         <activity
             android:name=".TelaAreaRestrita"
             android:exported="false" />

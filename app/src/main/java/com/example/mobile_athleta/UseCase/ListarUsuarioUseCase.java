@@ -4,13 +4,11 @@ import android.content.Context;
 import android.util.Log;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.RetrofitClient;
+import com.example.mobile_athleta.service.RetrofitClientSql;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListarUsuarioUseCase {
     public interface ListarUsuarioCallBack {
@@ -18,7 +16,7 @@ public class ListarUsuarioUseCase {
     }
 
     public void listarUsuarioPorEmail(String email, Context context, ListarUsuarioCallBack callback) {
-        AthletaService service = RetrofitClient.getAthletaService();
+        AthletaService service = RetrofitClientSql.getAthletaService();
         Call<Usuario> call = service.listarUsuarioPorEmail(email);
 
         call.enqueue(new Callback<Usuario>() {

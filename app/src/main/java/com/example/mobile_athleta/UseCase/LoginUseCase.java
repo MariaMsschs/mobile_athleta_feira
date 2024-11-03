@@ -6,15 +6,13 @@ import android.util.Log;
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.AthletaService;
 import com.example.mobile_athleta.service.LoginResponse;
-import com.example.mobile_athleta.service.RetrofitClient;
+import com.example.mobile_athleta.service.RetrofitClientSql;
 import com.example.mobile_athleta.service.UserLogin;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginUseCase {
 
@@ -25,7 +23,7 @@ public class LoginUseCase {
     }
 
     public void login(UserLogin login, Context context, LoginCallback callback) {
-        AthletaService service = RetrofitClient.getAthletaService();
+        AthletaService service = RetrofitClientSql.getAthletaService();
         Call<LoginResponse> call = service.login(login);
 
         call.enqueue(new Callback<LoginResponse>() {

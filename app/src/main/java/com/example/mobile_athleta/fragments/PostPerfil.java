@@ -1,70 +1,154 @@
 package com.example.mobile_athleta.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.UseCase.ListarPostagensPorIdUseCase;
 import com.example.mobile_athleta.adapter.PostAdapter;
 import com.example.mobile_athleta.models.Post;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PostPerfil extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public PostPerfil() {
-    }
-    public static PostPerfil newInstance(String param1, String param2) {
-        PostPerfil fragment = new PostPerfil();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    private RecyclerView recyclerViewPost;
+    private TextView textViewNoResults;
+    private ImageView imageNoResults;
     private PostAdapter postAdapter;
     private List<Post> postList;
+    private Button btnLoadMore;
+    private ListarPostagensPorIdUseCase listarPostagensPorIdUseCase = new ListarPostagensPorIdUseCase();
+    int pagina = 0;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_post_perfil, container, false);
 
-        RecyclerView recyclerViewPost = view.findViewById(R.id.recycler_post_perfil);
+        recyclerViewPost = view.findViewById(R.id.recycler_post_perfil);
+        textViewNoResults = view.findViewById(R.id.textViewNoResults);
+        imageNoResults = view.findViewById(R.id.erro_rosto_triste);
+        btnLoadMore = view.findViewById(R.id.btnLoadMore);
+
 
         postList = new ArrayList<>();
+        postAdapter = new PostAdapter(postList, new PostAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Post post) {
+            }
+        });
 
-        postList.add(new Post(1, "post2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/41049b383497d46303be8310be34fd96", "User2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/295a03bef4538a8704d1689e0d8ed3b9"));
-        postList.add(new Post(2, "post3", "https://lastfm.freetls.fastly.net/i/u/avatar170s/071a740e92bb4d4498f9f12f94f90c2f", "User2","https://lastfm.freetls.fastly.net/i/u/avatar170s/295a03bef4538a8704d1689e0d8ed3b9"));
-        postList.add(new Post(3, "post1", "https://lastfm.freetls.fastly.net/i/u/avatar170s/47df7c610398db3abd32691b05d24ed7", "User2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/295a03bef4538a8704d1689e0d8ed3b9"));
-
-        recyclerViewPost.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        postAdapter = new PostAdapter(postList);
+        recyclerViewPost.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPost.setAdapter(postAdapter);
 
+        recyclerViewPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager != null && layoutManager.findLastVisibleItemPosition() == postList.size() - 1) {
+                    btnLoadMore.setVisibility(View.VISIBLE);
+                } else {
+                    btnLoadMore.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
+        Long id = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0L);
+        String username = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("username", "");
+
+        listarPostagensPorIdUseCase.listarPostagensPorId(id, new ListarPostagensPorIdUseCase.VerificarCallback() {
+            @Override
+            public void onVerificarSuccess(List<Post> postList, List<Post> liked) {
+                if (postList.isEmpty()) {
+                    textViewNoResults.setVisibility(View.VISIBLE);
+                    imageNoResults.setVisibility(View.VISIBLE);
+                } else {
+                    textViewNoResults.setVisibility(View.GONE);
+                    imageNoResults.setVisibility(View.GONE);
+                    postAdapter.updatePostList(postList);
+
+                    for (Post post : postList) {
+                        boolean isLiked = liked.contains(post);
+                        postAdapter.curtir(post, isLiked);
+                    }
+                    mudarPagina();
+                }
+            }
+            @Override
+            public void onVerificarFailure(String errorMessage) {
+                textViewNoResults.setVisibility(View.VISIBLE);
+                imageNoResults.setVisibility(View.VISIBLE);
+                textViewNoResults.setText("Erro: " + errorMessage);
+            }
+        }, pagina,15,username);
+
+        btnLoadMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnLoadMore.setClickable(false);
+                listarPostagensPorIdUseCase.listarPostagensPorId(id, new ListarPostagensPorIdUseCase.VerificarCallback() {
+                    @Override
+                    public void onVerificarSuccess(List<Post> postList,List<Post> liked) {
+                        if (postList.isEmpty()) {
+                            checkSeVazio();
+                        } else {
+                            textViewNoResults.setVisibility(View.GONE);
+                            imageNoResults.setVisibility(View.GONE);
+                            btnLoadMore.setVisibility(View.GONE);
+                            postAdapter.updatePostList(postList);
+                            btnLoadMore.setClickable(true);
+                            mudarPagina();
+                            for (Post post : postList) {
+                                boolean isLiked = liked.contains(post);
+                                postAdapter.curtir(post, isLiked);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onVerificarFailure(String errorMessage) {
+                        textViewNoResults.setVisibility(View.VISIBLE);
+                        imageNoResults.setVisibility(View.VISIBLE);
+                        btnLoadMore.setVisibility(View.GONE);
+                        textViewNoResults.setText("Erro: " + errorMessage);
+                    }
+                }, pagina,15,username);
+            }
+        });
         return view;
+    }
+
+    public void mudarPagina() {
+        int numero = pagina + 1;
+        getContext().getSharedPreferences("posts", Context.MODE_PRIVATE).edit().putInt("pagina", numero).apply();
+        pagina = numero;
+    }
+
+    private void checkSeVazio() {
+        if (postList.isEmpty()) {
+            textViewNoResults.setVisibility(View.VISIBLE);
+            imageNoResults.setVisibility(View.VISIBLE);
+            btnLoadMore.setClickable(true);
+        } else {
+            textViewNoResults.setVisibility(View.GONE);
+            imageNoResults.setVisibility(View.GONE);
+            btnLoadMore.setVisibility(View.GONE);
+            btnLoadMore.setClickable(true);
+            Toast.makeText(getContext(), "Não possuimos mais postagens", Toast.LENGTH_SHORT).show();
+        }
     }
 }

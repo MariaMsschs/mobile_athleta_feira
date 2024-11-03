@@ -3,14 +3,14 @@ package com.example.mobile_athleta.UseCase;
 import android.util.Log;
 import com.example.mobile_athleta.service.ApiResponse;
 import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.RetrofitClient;
+import com.example.mobile_athleta.service.RetrofitClientSql;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class ListarUsuarioPorUsernameUsecase {
 
     public void listarUsuarioPorUsername(String username){
-        AthletaService service = RetrofitClient.getAthletaService();
+        AthletaService service = RetrofitClientSql.getAthletaService();
         Call<ApiResponse> call = service.listarUsuarioPorUsername(username);
 
         call.enqueue(new Callback<ApiResponse>() {

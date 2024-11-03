@@ -1,6 +1,8 @@
 package com.example.mobile_athleta.service;
 
 import com.example.mobile_athleta.models.Anuncio;
+import com.example.mobile_athleta.models.Comentario;
+import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
 import com.google.android.gms.common.api.Api;
@@ -45,6 +47,25 @@ public interface AthletaService {
 
     @DELETE("delete/{key}/{codigo}")
     Call<RedisResponse> deletarEmail(@Path("key") String key, @Path("codigo") String codigo);
+
+    @GET("api/postagem/listar")
+    Call<List<Post>> listarPostagens(
+            @Query("pagina") int pagina,
+            @Query("tamanho") int tamanho
+    );
+  
+    @GET("api/postagem/listarPorId")
+    Call<List<Post>> listarPostagemPorId(
+            @Query("pagina") int pagina,
+            @Query("tamanho") int tamanho,
+            @Query("id") int id
+    );
+
+    @POST("api/postagem/like/{id}/{username}")
+    Call<Post> interacaoCurtida(@Path("id") String id, @Path("username") String username);
+
+    @GET("api/comentario/listar/{idPost}")
+    Call<List<Comentario>> listarComentarios(@Path("idPost") String idPost);
 
     @POST("api/anuncio/inserir")
     Call<ApiResponse> inserirAnuncio(@Header("Authorization") String token, @Body Anuncio anuncio);

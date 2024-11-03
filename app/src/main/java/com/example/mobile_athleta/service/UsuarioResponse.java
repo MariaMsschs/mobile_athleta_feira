@@ -7,13 +7,13 @@ import java.util.List;
 public class UsuarioResponse {
     private boolean responseSucessfull;
     private String description;
-    private Usuario usuario;
+    private List<Usuario> object;
     private String aditionalInformation;
 
-    public UsuarioResponse(boolean responseSucessfull, String description, Usuario usuario, String aditionalInformation) {
+    public UsuarioResponse(boolean responseSucessfull, String description, List<Usuario> object, String aditionalInformation) {
         this.responseSucessfull = responseSucessfull;
         this.description = description;
-        this.usuario = usuario;
+        this.object = object;
         this.aditionalInformation = aditionalInformation;
     }
 
@@ -25,8 +25,8 @@ public class UsuarioResponse {
         return description;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public List<Usuario> getUsuario() {
+        return object;
     }
 
     public String getAditionalInformation() {

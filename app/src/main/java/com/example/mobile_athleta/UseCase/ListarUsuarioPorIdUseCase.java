@@ -25,9 +25,9 @@ public class ListarUsuarioPorIdUseCase {
             @Override
             public void onResponse(Call<UsuarioResponse> call, Response<UsuarioResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d("SUCESSO listarUsuarioPorId", new Gson().toJson(response));
+                    Log.d("SUCESSO listarUsuarioPorId", response.body().toString());
 
-                    Usuario usuario = response.body().getUsuario();
+                    Usuario usuario = response.body().getUsuario().get(0);
 
                     callback.onUsuarioRetrieved(usuario);
                 }

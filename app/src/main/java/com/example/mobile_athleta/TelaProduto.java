@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.mobile_athleta.UseCase.ListarAnuncioPorIdUseCase;
 import com.example.mobile_athleta.UseCase.ListarUsuarioPorIdUseCase;
@@ -45,7 +46,7 @@ public class TelaProduto extends AppCompatActivity {
             }
         });
 
-        Long anuncioId = getIntent().getLongExtra("produtoId", 0L);
+        Long anuncioId = getIntent().getLongExtra("anuncioId", -1);
         String token = getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
         listarAnuncioPorId(token, anuncioId);
     }

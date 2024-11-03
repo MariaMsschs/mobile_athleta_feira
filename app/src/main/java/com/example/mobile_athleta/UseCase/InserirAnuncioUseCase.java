@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.service.ApiResponse;
 import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.RetrofitClient;
+import com.example.mobile_athleta.service.RetrofitClientSql;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -19,7 +19,7 @@ public class InserirAnuncioUseCase {
     }
 
     public void inserirAnuncio(String token, Anuncio anuncio, InserirAnuncioCallBack callback){
-        AthletaService service = RetrofitClient.getAthletaService();
+        AthletaService service = RetrofitClientSql.getAthletaService();
         Call<ApiResponse> call = service.inserirAnuncio(token, anuncio);
 
         call.enqueue(new Callback<ApiResponse>() {

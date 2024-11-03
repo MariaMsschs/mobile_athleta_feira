@@ -15,7 +15,7 @@ public class CadastrarUsuarioUseCase {
         void onCadastroSuccess();
     }
 
-    public void cadastrarUsuario(Usuario usuario, CadastroCallback callback) {
+    public void cadastrarUsuario(Usuario usuario, CadastroCallBack callback) {
         AthletaService service = RetrofitClientSql.getAthletaService();
         Call<ApiResponse> call = service.cadastrarUsuario(usuario);
       

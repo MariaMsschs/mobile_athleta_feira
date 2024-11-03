@@ -2,10 +2,12 @@ package com.example.mobile_athleta.service;
 
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Comentario;
+import com.example.mobile_athleta.models.Esporte;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
-import com.google.android.gms.common.api.Api;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,6 +17,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface AthletaService {
 
@@ -70,9 +73,9 @@ public interface AthletaService {
     @POST("api/anuncio/inserir")
     Call<ApiResponse> inserirAnuncio(@Header("Authorization") String token, @Body Anuncio anuncio);
 
-    @GET("api/anuncio/listar/{id}")
-    Call<AnuncioResponse> listarAnuncioPorId(@Header("Authorization") String token, @Path("id") Long anuncioId);
-
     @GET("api/usuario/listarporid/{id}")
     Call<UsuarioResponse> listarUsuarioPorId(@Header("Authorization") String token, @Path("id") Long usuarioId);
+
+    @GET("api/esporte/listar")
+    Call<EsporteResponse> listarEsportes(@Header("Authorization") String token);
 }

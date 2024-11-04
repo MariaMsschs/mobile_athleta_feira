@@ -1,8 +1,6 @@
 package com.example.mobile_athleta.UseCase;
 
-import android.content.Context;
 import android.util.Log;
-
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.service.AnuncioResponse;
 import com.example.mobile_athleta.service.AthletaService;
@@ -17,7 +15,7 @@ public class ListarAnunciosUseCase {
     public interface ListarAnunciosCallBack {
         void onAnunciosRetornados(List<Anuncio> anuncios);
     }
-    public void listarAnuncios(String token, Context context, ListarAnunciosCallBack callback) {
+    public void listarAnuncios(String token, ListarAnunciosCallBack callback) {
         AthletaService service = RetrofitClientSql.getAthletaService();
         Call<AnuncioResponse> call = service.listarAnuncios(token);
 

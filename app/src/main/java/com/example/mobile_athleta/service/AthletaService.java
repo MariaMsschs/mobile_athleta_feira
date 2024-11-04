@@ -76,6 +76,12 @@ public interface AthletaService {
     @GET("api/usuario/listarporid/{id}")
     Call<UsuarioResponse> listarUsuarioPorId(@Header("Authorization") String token, @Path("id") Long usuarioId);
 
+    @GET("api/anuncio/listar/{id}")
+    Call<AnuncioResponse> listarAnuncioPorId(@Header("Authorization") String token, @Path("id") Long anuncioId);
+
     @GET("api/esporte/listar")
     Call<EsporteResponse> listarEsportes(@Header("Authorization") String token);
+
+    @GET("api/esporte/listar/{id}")
+    Call<EsporteResponse> listarEsportePorId(@Header("Authorization") String token, @Path("id") Long idEsporte);
 }

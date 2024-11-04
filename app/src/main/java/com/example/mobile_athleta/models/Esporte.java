@@ -19,6 +19,9 @@ public class Esporte {
 //        this.img = img;
 //    }
 
+    public Long getIdEsporte(){
+        return idEsporte;
+    }
     public String getNome() {
         return nome;
     }

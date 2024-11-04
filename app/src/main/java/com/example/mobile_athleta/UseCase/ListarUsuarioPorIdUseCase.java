@@ -4,10 +4,8 @@ import android.util.Log;
 
 import com.example.mobile_athleta.models.Usuario;
 import com.example.mobile_athleta.service.AthletaService;
-import com.example.mobile_athleta.service.RetrofitClient;
+import com.example.mobile_athleta.service.RetrofitClientSql;
 import com.example.mobile_athleta.service.UsuarioResponse;
-import com.google.gson.Gson;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,7 +16,7 @@ public class ListarUsuarioPorIdUseCase {
     }
 
     public void listarUsuarioPorId(String token, Long usuarioId, ListarUsuarioPorIdCallBack callback) {
-        AthletaService service = RetrofitClient.getAthletaService();
+        AthletaService service = RetrofitClientSql.getAthletaService();
         Call<UsuarioResponse> call = service.listarUsuarioPorId(token, usuarioId);
 
         call.enqueue(new Callback<UsuarioResponse>() {

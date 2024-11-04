@@ -1,21 +1,28 @@
 package com.example.mobile_athleta.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
+//import com.example.mobile_athleta.UseCase.ListarForumPorNomeUseCase;
+import com.example.mobile_athleta.TelaForum;
 import com.example.mobile_athleta.UseCase.ListarForumPorNomeUseCase;
+import com.example.mobile_athleta.UseCase.ListarForunsUseCase;
 import com.example.mobile_athleta.adapter.ForumAdapter;
 import com.example.mobile_athleta.models.Forum;
 
@@ -54,7 +61,10 @@ public class ForumSocial extends Fragment {
     private ImageView imageNoResults;
     private ForumAdapter forumAdapter;
     private List<Forum> forumList;
+    private ListarForunsUseCase listarForunsUseCase = new ListarForunsUseCase();
     private ListarForumPorNomeUseCase listarForumPorNomeUseCase = new ListarForumPorNomeUseCase();
+    private Button btnLoadMore;
+    int pagina =0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,66 +75,133 @@ public class ForumSocial extends Fragment {
         searchView = view.findViewById(R.id.searchView);
         textViewNoResults = view.findViewById(R.id.textViewNoResults);
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
+        btnLoadMore = view.findViewById(R.id.btnLoadMore);
 
         forumList = new ArrayList<>();
 
-        forumList.add(new Forum(1, "PingPros", "Comunidade de ping pong.", "user2","https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", 0));
-        forumList.add(new Forum(2, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", "https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", 0));
-        forumList.add(new Forum(3, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", 0));
-
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        forumAdapter = new ForumAdapter(forumList);
+        forumAdapter = new ForumAdapter(forumList, new ForumAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Forum forum) {
+                Intent intent = new Intent(getContext(), TelaForum.class);
+                intent.putExtra("forum", forum.getNome());
+                startActivity(intent);
+            }
+        });
         recyclerViewForum.setAdapter(forumAdapter);
+        recyclerViewForum.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager != null && layoutManager.findLastVisibleItemPosition() == forumList.size() - 1) {
+                    btnLoadMore.setVisibility(View.VISIBLE);
+                } else {
+                    btnLoadMore.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
 
         searchView.setQueryHint("Buscar fóruns");
         String token = view.getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                listarForumPorNomeUseCase.verificarForuns(token, query, new ListarForumPorNomeUseCase.VerificarCallback() {
+                listarForumPorNomeUseCase.listarForumPorNome(token, query, new ListarForumPorNomeUseCase.ListarCallback() {
                     @Override
-                    public void onVerificarSuccess(List<Forum> foruns, String message) {
-                        forumAdapter.setListaFiltrada(foruns);
+                    public void onListarSuccess(List<Forum> forum) {
                         textViewNoResults.setVisibility(View.GONE);
                         imageNoResults.setVisibility(View.GONE);
                         recyclerViewForum.setVisibility(View.VISIBLE);
+                        forumAdapter.setListaFiltrada(forum);
                     }
 
                     @Override
-                    public void onVerificarFailure(String errorMessage) {
-
+                    public void onListarFailure(String errorMessage) {
+                        recyclerViewForum.setVisibility(View.GONE);
+                        textViewNoResults.setVisibility(View.VISIBLE);
+                        imageNoResults.setVisibility(View.VISIBLE);
                     }
                 });
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
+                if (newText.isEmpty()) {
+                    listarForunsUseCase.listarForuns(token, new ListarForunsUseCase.ListarForunsCallback() {
+                        @Override
+                        public void onListarForunsSuccess(List<Forum> forumList) {
+                            textViewNoResults.setVisibility(View.GONE);
+                            imageNoResults.setVisibility(View.GONE);
+                            recyclerViewForum.setVisibility(View.VISIBLE);
+                            forumAdapter.setListaFiltrada(forumList);
+                        }
+
+                        @Override
+                        public void onListarForunsFailure(String errorMessage) {
+                            recyclerViewForum.setVisibility(View.GONE);
+                            textViewNoResults.setVisibility(View.VISIBLE);
+                            imageNoResults.setVisibility(View.VISIBLE);
+                        }
+                    },pagina,15);
+                }
                 return false;
             }
         });
 
+        listarForunsUseCase.listarForuns(token, new ListarForunsUseCase.ListarForunsCallback() {
+            @Override
+            public void onListarForunsSuccess(List<Forum> forumList) {
+                textViewNoResults.setVisibility(View.GONE);
+                imageNoResults.setVisibility(View.GONE);
+                recyclerViewForum.setVisibility(View.VISIBLE);
+                forumAdapter.setListaFiltrada(forumList);
+                mudarPagina();
+            }
+
+            @Override
+            public void onListarForunsFailure(String errorMessage) {
+                recyclerViewForum.setVisibility(View.GONE);
+                textViewNoResults.setVisibility(View.VISIBLE);
+                imageNoResults.setVisibility(View.VISIBLE);
+            }
+        },pagina,15);
+
+        btnLoadMore.setOnClickListener(v -> {
+            btnLoadMore.setClickable(false);
+            listarForunsUseCase.listarForuns(token, new ListarForunsUseCase.ListarForunsCallback() {
+                @Override
+                public void onListarForunsSuccess(List<Forum> forumList) {
+                    textViewNoResults.setVisibility(View.GONE);
+                    imageNoResults.setVisibility(View.GONE);
+                    recyclerViewForum.setVisibility(View.VISIBLE);
+                    btnLoadMore.setVisibility(View.GONE);
+                    forumAdapter.setListaFiltrada(forumList);
+                    btnLoadMore.setClickable(true);
+                    mudarPagina();
+                }
+
+                @Override
+                public void onListarForunsFailure(String errorMessage) {
+                    recyclerViewForum.setVisibility(View.GONE);
+                    textViewNoResults.setVisibility(View.VISIBLE);
+                    imageNoResults.setVisibility(View.VISIBLE);
+                    btnLoadMore.setVisibility(View.GONE);
+                    btnLoadMore.setClickable(true);
+                }
+            },pagina,15);
+        });
+
+
         return view;
     }
 
-    private void filterList(String text) {
-        List<Forum> listaFiltrada = new ArrayList<>();
-        for (Forum forum : forumList) {
-            if (forum.getNome().toLowerCase().contains(text.toLowerCase())) {
-                listaFiltrada.add(forum);
-            }
-        }
-
-        if (listaFiltrada.isEmpty()) {
-            textViewNoResults.setVisibility(View.VISIBLE);
-            imageNoResults.setVisibility(View.VISIBLE);
-            recyclerViewForum.setVisibility(View.GONE);
-        } else {
-            textViewNoResults.setVisibility(View.GONE);
-            imageNoResults.setVisibility(View.GONE);
-            recyclerViewForum.setVisibility(View.VISIBLE);
-            forumAdapter.setListaFiltrada(listaFiltrada);
-        }
+    public void mudarPagina() {
+        int numero = pagina + 1;
+        pagina = numero;
     }
 }

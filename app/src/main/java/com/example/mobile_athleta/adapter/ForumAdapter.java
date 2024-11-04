@@ -19,13 +19,21 @@ import java.util.List;
 public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHolder> {
 
     private List<Forum> forumList;
-
-    public ForumAdapter(List<Forum> forumList) {
-        this.forumList = forumList;
+    private OnItemClickListener onItemClickListener;
+    public interface OnItemClickListener {
+        void onItemClick(Forum forum);
     }
 
-    public void setListaFiltrada(List<Forum> forumList) {
+    public ForumAdapter(List<Forum> forumList, OnItemClickListener onItemClickListener){
         this.forumList = forumList;
+        this.onItemClickListener = onItemClickListener;
+    }
+
+
+
+    public void setListaFiltrada(List<Forum> forumList) {
+        this.forumList.clear();
+        this.forumList.addAll(forumList);
         notifyDataSetChanged();
     }
 
@@ -39,7 +47,7 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
     @Override
     public void onBindViewHolder(@NonNull ForumAdapter.ForumViewHolder holder, int position) {
         Forum forum = forumList.get(position);
-        holder.bind(forum);
+        holder.bind(forum, onItemClickListener);
     }
 
     @Override
@@ -62,15 +70,21 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
             context = itemView.getContext();
         }
 
-        public void bind(Forum forum) {
+        public void bind(Forum forum, final OnItemClickListener onItemClickListener) {
             String imagemUrl = forum.getImagem_perfil();
-//            Glide.with(itemView.getContext()).load(imagemUrl).into(imagem_perfil);
             Picasso.get()
                     .load(imagemUrl)
                     .into(imagem_perfil);
             forum_titulo.setText(forum.getNome());
             forum_descricao.setText(forum.getDescricao());
             forum_seguidores.setText(String.valueOf(forum.getSeguidores()));
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClickListener.onItemClick(forum);
+                }
+            });
         }
     }
 }

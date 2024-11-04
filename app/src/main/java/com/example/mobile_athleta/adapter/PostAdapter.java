@@ -21,7 +21,10 @@ import com.example.mobile_athleta.UseCase.CurtidaUseCase;
 import com.example.mobile_athleta.UseCase.ListarComentariosUseCase;
 import com.example.mobile_athleta.models.Comentario;
 import com.example.mobile_athleta.models.Post;
+import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
@@ -29,11 +32,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     private List<Post> postList;
     private OnItemClickListener onItemClickListener;
     private CurtidaUseCase curtidaUseCase = new CurtidaUseCase();
+    FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
 
     ImageButton curtida;
 
     public PostAdapter(List<Post> postList, OnItemClickListener onItemClickListener) {
-        this.postList = postList;
+        this.postList = postList != null ? postList : new ArrayList<>();
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -119,7 +123,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private ImageView usuarioPerfil, imagem;
         private TextView usuarioNome, legenda;
         private ImageButton curtir,comentar;
-
+        FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
         private Context context;
 
         public PostViewHolder(@NonNull View itemView) {
@@ -137,14 +141,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             usuarioNome.setText(post.getUsername());
             legenda.setText(post.getLegenda());
 
-            String imagemPostUrl = post.getImagem();
+            fotoFirebaseImpl.recuperarImagem(imagem, post.getImagem());
             Picasso.get()
-                    .load(imagemPostUrl)
+                    .load(post.getImagem())
                     .into(imagem);
 
-            String imagemPerfilUrl = post.getUserFoto();
+            fotoFirebaseImpl.recuperarImagem(usuarioPerfil, post.getUserFoto());
             Picasso.get()
-                    .load(imagemPerfilUrl)
+                    .load(post.getUserFoto())
                     .into(usuarioPerfil);
 
             curtir.setOnClickListener(new View.OnClickListener() {

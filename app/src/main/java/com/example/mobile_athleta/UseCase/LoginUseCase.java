@@ -42,6 +42,7 @@ public class LoginUseCase {
                         editor.putString("data_nascimento", usuario.getDtNasc());
                         editor.putString("caminho", usuario.getFotoPerfil());
                         editor.putString("senha", login.getSenha());
+                        editor.putString("username", usuario.getUsername());
                         editor.putString("token", token);
                         editor.apply();
 

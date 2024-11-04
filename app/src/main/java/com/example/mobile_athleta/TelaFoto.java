@@ -114,9 +114,9 @@ public class TelaFoto extends AppCompatActivity {
 
                 @Override
                 public void onLoginSuccess() {
-                    Intent home = new Intent(TelaFoto.this, TelaHome.class);
+                    Intent intro = new Intent(TelaFoto.this, TelaItem.class);
                     binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-                    startActivity(home);
+                    startActivity(intro);
                     finish();
                 }
 

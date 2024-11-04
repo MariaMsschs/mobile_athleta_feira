@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-
 import com.example.mobile_athleta.UseCase.ListarAnuncioPorIdUseCase;
 import com.example.mobile_athleta.UseCase.ListarUsuarioPorIdUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaProdutoBinding;

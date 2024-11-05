@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f4f4f4"
-    tools:context=".TelaCadastroVendedor">
+    tools:context=".TelaPagamento">
 
     <FrameLayout
         android:id="@+id/frameLayout2"
@@ -55,18 +55,18 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titulo_cpf"
+                android:id="@+id/titulo_numero_cartao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto"
-                android:text="CPF:"
+                android:text="Número do cartão:"
                 android:textColor="#626161"
                 android:textSize="12sp"/>
 
             <EditText
-                android:id="@+id/cpf"
+                android:id="@+id/numero_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
@@ -76,49 +76,24 @@
                 android:ems="10"
                 android:inputType="number"
                 android:padding="10dp"
+                android:maxLength="19"
                 android:textColor="#626161"
                 android:textCursorDrawable="@drawable/cursor_design"
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/titulo_telefone"
+                android:id="@+id/titulo_titular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto"
-                android:text="Telefone:"
+                android:text="Titular:"
                 android:textColor="#626161"
                 android:textSize="12sp"/>
 
             <EditText
-                android:id="@+id/telefone"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="1dp"
-                android:background="@drawable/input_design"
-                android:ems="10"
-                android:inputType="number"
-                android:padding="10dp"
-                android:textColor="#626161"
-                android:textCursorDrawable="@drawable/cursor_design"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/endereco_titulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/roboto"
-                android:text="Endereco:"
-                android:textColor="#626161"
-                android:textSize="12sp"/>
-
-            <EditText
-                android:id="@+id/endereco"
+                android:id="@+id/titular_cartao"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
@@ -132,108 +107,104 @@
                 android:textCursorDrawable="@drawable/cursor_design"
                 android:textSize="14sp"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/titulo_validade"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Validade:"
+                android:textColor="@color/gray"
+                android:textSize="12sp"/>
 
-                <TextView
-                    android:id="@+id/titulo_cep"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="CEP:"
-                    android:textColor="#626161"
-                    android:textSize="12sp"/>
-
-                <EditText
-                    android:id="@+id/cep"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@drawable/input_design"
-                    android:ems="10"
-                    android:text=""
-                    android:inputType="number"
-                    android:padding="10dp"
-                    android:textColor="#626161"
-                    android:textCursorDrawable="@drawable/cursor_design"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/titulo_numero"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Número do endereço:"
-                    android:textColor="#626161"
-                    android:textSize="12sp" />
-
-                <EditText
-                    android:id="@+id/numero"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginTop="1dp"
-                    android:background="@drawable/input_design"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:padding="10dp"
-                    android:textColor="#626161"
-                    android:textCursorDrawable="@drawable/cursor_design"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+            <EditText
+                android:id="@+id/validade_cartao"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:padding="10dp"
+                android:textColor="@color/gray"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"
+                android:inputType="number"
+                android:textColorHint="@color/light_gray"
+                android:hint="MM/AA"
+                android:maxLength="5" />
 
             <TextView
-                android:id="@+id/titulo_imagem"
+                android:id="@+id/titulo_cvv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/roboto"
-                android:text="Foto do seu rosto:"
+                android:text="CVV:"
                 android:textColor="#626161"
                 android:textSize="12sp" />
 
-            <ImageButton
-                android:id="@+id/imagem_rosto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <EditText
+                android:id="@+id/cvv"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginTop="1dp"
-                android:clipToOutline="true"
-                android:scaleType="centerCrop"
-                android:background="@drawable/post_design"
-                android:src="@drawable/inserir_foto" />
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:maxLength="3"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/titulo_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Total:"
+                android:textColor="@color/orange"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="R$ 10,00"
+                android:textColor="@color/gray"
+                android:textSize="20sp" />
+
 
             <Button
-                android:id="@+id/cadastro_vendedor"
+                android:id="@+id/pagamento"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
                 android:layout_marginTop="52dp"
+                android:layout_marginEnd="30dp"
                 android:layout_marginBottom="50dp"
-                android:background="@drawable/gray_button_design"
+                android:background="@drawable/button_design"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Realizar cadastro"
-                android:textColor="@color/gray"
+                android:text="Finalizar pagamento"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
     </ScrollView>
 
     <FrameLayout
-        android:id="@+id/frameLayoutAnuncio"
+        android:id="@+id/frameLayoutPagamento"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#70F4F4F4"
@@ -241,7 +212,7 @@
         android:visibility="gone">
 
         <ProgressBar
-            android:id="@+id/progressBarAnuncio"
+            android:id="@+id/progressBarPagamento"
             style="?android:attr/progressBarStyle"
             android:layout_width="120dp"
             android:layout_height="120dp"

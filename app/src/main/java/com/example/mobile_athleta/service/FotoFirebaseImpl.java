@@ -87,7 +87,7 @@ public class FotoFirebaseImpl implements FotoFirebase {
         StorageReference fotoRef = storage.getReference().child(caminhoFoto);
 
         fotoRef.delete().addOnSuccessListener(aVoid -> {
-            Log.d("FirebaseStorage", "Foto deletada com sucesso.");
+            Log.d("FirebaseStorage", "Foto deletada com sucesso: " + caminhoFoto);
         }).addOnFailureListener(exception -> {
             Log.e("FirebaseStorage", "Erro ao deletar foto: " + exception.getMessage());
         });

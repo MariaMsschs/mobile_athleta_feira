@@ -2,8 +2,6 @@ package com.example.mobile_athleta.service;
 
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Comentario;
-import com.example.mobile_athleta.models.Forum;
-import com.example.mobile_athleta.models.Esporte;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
@@ -106,6 +104,6 @@ public interface AthletaService {
     @GET("api/vendedor/existe/{id}")
     Call<Boolean> checarVendedor(@Header("Authorization") String token, @Path("id") Long idUsuario);
 
-//    @GET("api/vendedor/listar/telefone/{id}")
-//    Call<Vendedor> listarTelefonePorId(@Header("Authorization") String token, @Path("id") Long id);
+    @GET("api/vendedor/listar/telefone/{id}")
+    Call<Vendedor> listarTelefonePorId(@Header("Authorization") String token, @Path("id") Long id);
 }

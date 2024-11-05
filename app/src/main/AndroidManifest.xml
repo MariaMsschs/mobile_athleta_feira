@@ -17,6 +17,12 @@
         android:theme="@style/Theme.Mobile_athleta"
         tools:targetApi="31">
         <activity
+            android:name=".TelaPagamento"
+            android:exported="false" />
+        <activity
+            android:name=".TelaCadastroVendedor"
+            android:exported="false" />
+        <activity
             android:name=".TelaForum"
             android:exported="false" />
         <activity
@@ -42,16 +48,16 @@
         <activity
             android:name=".TelaComentarios"
             android:exported="false"
-            android:theme="@style/TransparentActivityTheme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/TransparentActivityTheme" />
         <activity
             android:name=".TelaCadastroAnuncio"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TelaAreaRestrita"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TelaItem"
             android:exported="false"

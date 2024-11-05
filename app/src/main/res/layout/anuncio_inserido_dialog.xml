@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imagem_athleta"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
         app:srcCompat="@drawable/athleta_corrida" />
@@ -22,7 +22,7 @@
         android:layout_height="65dp"
         android:layout_marginTop="35dp"
         android:fontFamily="@font/roboto_medium"
-        android:text="Anuncio inserido com sucesso!"
+        android:text="Pagamento finalizado com sucesso!"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp" />

@@ -7,6 +7,7 @@ import com.example.mobile_athleta.models.Esporte;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
+import com.example.mobile_athleta.models.Vendedor;
 
 import java.util.List;
 
@@ -98,4 +99,10 @@ public interface AthletaService {
 
     @GET("api/esporte/listar/{id}")
     Call<EsporteResponse> listarEsportePorId(@Header("Authorization") String token, @Path("id") Long idEsporte);
+
+    @POST("api/vendedor/adicionar")
+    Call<ApiResponse> cadastrarVendedor(@Header("Authorization") String token, @Body Vendedor vendedor);
+
+    @GET("api/vendedor/existe/{id}")
+    Call<Boolean> checarVendedor(@Header("Authorization") String token, @Path("id") Long idUsuario);
 }

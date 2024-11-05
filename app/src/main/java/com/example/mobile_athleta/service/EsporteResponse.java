@@ -1,25 +1,22 @@
 package com.example.mobile_athleta.service;
 
-import com.example.mobile_athleta.models.Anuncio;
-
+import com.example.mobile_athleta.models.Esporte;
 import java.util.List;
 
-public class AnuncioResponse {
-
+public class EsporteResponse {
     private boolean responseSucessfull;
     private String description;
-    private List<Anuncio> object;
+    private List<Esporte> object;
     private String aditionalInformation;
 
-    public AnuncioResponse(boolean responseSucessfull, String description, List<Anuncio> object, String aditionalInformation) {
+    public EsporteResponse(boolean responseSucessfull, String description, List<Esporte> object, String aditionalInformation) {
         this.responseSucessfull = responseSucessfull;
         this.description = description;
         this.object = object;
         this.aditionalInformation = aditionalInformation;
     }
 
-    public List<Anuncio> getAnuncios() {
+    public List<Esporte> getEsportes() {
         return object;
     }
 }
-

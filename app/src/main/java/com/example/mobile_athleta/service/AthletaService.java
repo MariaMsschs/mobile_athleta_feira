@@ -3,6 +3,7 @@ package com.example.mobile_athleta.service;
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Comentario;
 import com.example.mobile_athleta.models.Forum;
+import com.example.mobile_athleta.models.Esporte;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
@@ -20,6 +21,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AthletaService {
+
     @PUT("api/usuario/atualizar/{id}")
     Call<ApiResponse> atualizarUsuario(
             @Header("Authorization") String token,
@@ -85,4 +87,15 @@ public interface AthletaService {
     Call<ForumResponse> listarForuns(@Header("Authorization") String token,
                                      @Query("pagina") int pagina,
                                      @Query("tamanho") int tamanho);
+    @GET("api/usuario/listarporid/{id}")
+    Call<UsuarioResponse> listarUsuarioPorId(@Header("Authorization") String token, @Path("id") Long usuarioId);
+
+    @GET("api/anuncio/listar/{id}")
+    Call<AnuncioResponse> listarAnuncioPorId(@Header("Authorization") String token, @Path("id") Long anuncioId);
+
+    @GET("api/esporte/listar")
+    Call<EsporteResponse> listarEsportes(@Header("Authorization") String token);
+
+    @GET("api/esporte/listar/{id}")
+    Call<EsporteResponse> listarEsportePorId(@Header("Authorization") String token, @Path("id") Long idEsporte);
 }

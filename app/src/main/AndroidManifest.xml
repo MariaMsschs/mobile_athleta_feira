@@ -36,6 +36,22 @@
             android:name=".TelaAreaRestrita"
             android:exported="false"
             android:screenOrientation="portrait" />
+      <activity
+            android:name=".TelaEsporte"
+            android:exported="false" />
+        <activity
+            android:name=".TelaComentarios"
+            android:exported="false"
+            android:theme="@style/TransparentActivityTheme"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TelaCadastroAnuncio"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".TelaAreaRestrita"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".TelaItem"
             android:exported="false"

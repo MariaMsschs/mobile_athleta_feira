@@ -2,6 +2,7 @@ package com.example.mobile_athleta.service;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
@@ -11,6 +12,9 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import com.squareup.picasso.Picasso;
 
 public class FotoFirebaseImpl implements FotoFirebase {
@@ -70,8 +74,10 @@ public class FotoFirebaseImpl implements FotoFirebase {
         if(caminho != null){
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(caminho);
             storageReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                int rotateImage = getCameraPhotoOrientation(imageView.getContext(), uri, caminho);
                 Picasso.get()
                         .load(uri)
+                        .transform(new RotateTransformation(rotateImage))
                         .into(imageView);
             }).addOnFailureListener(exception -> {
                 Log.d("ERRO RECUPERAR IMAGEM", exception.getMessage());
@@ -80,5 +86,61 @@ public class FotoFirebaseImpl implements FotoFirebase {
         else{
             Log.d("ERRO RECUPERAR IMAGEM", "Caminho vazio");
         }
+    }
+
+    public File createFileFromUri(Context context, Uri uri) throws Exception {
+        // Cria um arquivo temporário no diretório cache
+        File file = new File(context.getCacheDir(), "temp_image_" + System.currentTimeMillis() + ".jpg");
+
+        try (InputStream inputStream = context.getContentResolver().openInputStream(uri);
+             OutputStream outputStream = new FileOutputStream(file)) {
+
+            // Lê os dados da Uri e escreve no arquivo
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Erro ao criar arquivo a partir da URI", e);
+        }
+
+        return file;
+    }
+
+    public int getCameraPhotoOrientation(Context context, Uri imageUri,
+                                         String imagePath) {
+        int rotate = 0;
+        try {
+            context.getContentResolver().notifyChange(imageUri, null);
+            File imageFile = new File(imagePath);
+            if (!imageFile.exists()) {
+                Log.e("RotateImage", "Arquivo de imagem não encontrado: " + imagePath);
+                return rotate;
+            }
+            ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
+            int orientation = exif.getAttributeInt(
+                    ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL);
+
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    rotate = 270;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    rotate = 180;
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    rotate = 90;
+                    break;
+            }
+
+            Log.i("RotateImage", "Exif orientation: " + orientation);
+            Log.i("RotateImage", "Rotate value: " + rotate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rotate;
     }
 }

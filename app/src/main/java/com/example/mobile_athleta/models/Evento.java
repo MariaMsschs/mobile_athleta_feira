@@ -15,12 +15,13 @@ public class Evento {
 
     private int organizador;
 
-    public Evento(int idEvento, String nome, String descricao, String dtEvento, String img) {
+    public Evento(int idEvento, String nome, String descricao, String dtEvento, String img, int organizador) {
         this.idEvento = idEvento;
         this.nome = nome;
         this.descricao = descricao;
         this.dtEvento = dtEvento;
         this.img = img;
+        this.organizador = organizador;
     }
 
     public int getIdEvento() {

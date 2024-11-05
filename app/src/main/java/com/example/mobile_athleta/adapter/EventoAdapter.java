@@ -10,10 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Evento;
-import com.example.mobile_athleta.models.Post;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,9 +19,18 @@ import java.util.List;
 public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoViewHolder> {
 
     private List<Evento> eventoList;
+    private OnItemClickListener onItemClickListener;
 
-    public EventoAdapter(List<Evento> eventoList) {
+    public EventoAdapter(List<Evento> eventoList, OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
         this.eventoList = eventoList;
+
+    }
+
+    public void updatePostList(List<Evento> newEventoList) {
+        this.eventoList.clear();
+        this.eventoList.addAll(newEventoList);
+        notifyDataSetChanged();
     }
 
     public void setListaFiltrada(List<Evento> eventoList) {
@@ -31,6 +38,9 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
         notifyDataSetChanged();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Evento evento);
+    }
     @NonNull
     @Override
     public EventoAdapter.EventoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,7 +51,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
     @Override
     public void onBindViewHolder(@NonNull EventoAdapter.EventoViewHolder holder, int position) {
         Evento evento = eventoList.get(position);
-        holder.bind(evento);
+        holder.bind(evento, onItemClickListener);
     }
 
     @Override
@@ -63,7 +73,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
             evento_data = itemView.findViewById(R.id.titulo_data_evento);
             context = itemView.getContext();
         }
-        public void bind(Evento evento) {
+        public void bind(Evento evento, final OnItemClickListener onItemClickListener) {
             String imagemUrl = evento.getImg();
             Picasso.get()
                     .load(imagemUrl)

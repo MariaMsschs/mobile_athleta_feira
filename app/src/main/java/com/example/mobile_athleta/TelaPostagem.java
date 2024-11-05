@@ -168,15 +168,41 @@ public class TelaPostagem extends AppCompatActivity {
         }
     }
 
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            imageUri = Uri.fromFile(photoFile);
+//            int rotateImage = getCameraPhotoOrientation(this, imageUri, photoFile.getAbsolutePath());
+//            binding.imagemPost.setRotation(rotateImage);
+//            Picasso.get().load(imageUri).into(binding.imagemPost);
+//            fotoFirebaseImpl.uploadImage(imageUri, this);
+//        }
+//    }
 
     private final ActivityResultLauncher<Intent> resultLauncherCamera = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() == RESULT_OK) {
+                    int rotateImage = getCameraPhotoOrientation(this, imageUri, photoFile.getAbsolutePath());
+                    binding.imagemPost.setRotation(rotateImage);
                     Picasso.get().load(imageUri).into(binding.imagemPost);
                     fotoFirebaseImpl.uploadImage(imageUri, this);
                 }
             }
     );
+
+
+
+//    private final ActivityResultLauncher<Intent> resultLauncherCamera = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(), result -> {
+//                if (result.getResultCode() == RESULT_OK) {
+//                    int rotateImage = getCameraPhotoOrientation(this, imageUri, photoFile.getAbsolutePath());
+//                    binding.imagemPost.setRotation(rotateImage);
+//                    Picasso.get().load(imageUri).into(binding.imagemPost);
+//                    fotoFirebaseImpl.uploadImage(imageUri, this);
+//                }
+//            }
+//    );
 
 
     private final ActivityResultLauncher<Intent> resultLauncherGaleria = registerForActivityResult(

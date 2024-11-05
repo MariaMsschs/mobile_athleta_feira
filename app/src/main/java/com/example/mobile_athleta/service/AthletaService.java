@@ -106,4 +106,7 @@ public interface AthletaService {
 
     @GET("api/vendedor/listar/telefone/{id}")
     Call<Vendedor> listarTelefonePorId(@Header("Authorization") String token, @Path("id") Long id);
+
+    @DELETE("api/anuncio/excluir/{id}")
+    Call<ApiResponse> excluirAnuncio(@Header("Authorization") String token, @Path("id") Long idAnuncio);
 }

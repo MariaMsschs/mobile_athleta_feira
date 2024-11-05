@@ -64,7 +64,12 @@ public class ForumPerfil extends Fragment {
         forumList.add(new Forum(3, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", 0));
 
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        forumAdapter = new ForumAdapter(forumList);
+        forumAdapter = new ForumAdapter(forumList, new ForumAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Forum forum) {
+
+            }
+        });
         recyclerViewForum.setAdapter(forumAdapter);
 
         return view;

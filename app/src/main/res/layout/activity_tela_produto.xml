@@ -77,11 +77,43 @@
                 android:fontFamily="@font/roboto_bold"
                 android:text=""
                 android:textColor="@color/gray"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.259"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="205dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/titulo_anunciante"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Anunciante:"
+                    android:textColor="@color/orange"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/anunciante"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_medium"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/light_orange"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/titulo_desc"
@@ -102,49 +134,17 @@
                 android:id="@+id/descricao_produto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:textColor="@color/gray"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/roboto"
                 android:text=""
-                android:textSize="14sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.417"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titulo_desc" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="205dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/titulo_anunciante"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text="Anunciante:"
-                    android:textColor="@color/orange"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/anunciante"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/roboto_medium"
-                    android:text=""
-                    android:textColor="@color/light_orange"
-                    android:textSize="18sp"
-                    android:maxLines="1"
-                    android:ellipsize="end" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -157,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="25dp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="R$"
                     android:textColor="@color/gray"
@@ -168,8 +168,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="25dp"
                     android:layout_weight="1"
+                    android:textColor="@color/gray"
                     android:fontFamily="@font/roboto_bold"
                     android:text="109.90"
                     android:textSize="20sp" />
@@ -179,9 +180,9 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="148dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="30dp"
-                    android:layout_marginBottom="32dp"
+                    android:layout_marginBottom="25dp"
                     android:background="@drawable/button_design"
                     android:fontFamily="@font/roboto_bold"
                     android:paddingLeft="18dp"

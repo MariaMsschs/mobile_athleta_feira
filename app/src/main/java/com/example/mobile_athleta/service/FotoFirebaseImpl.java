@@ -81,4 +81,15 @@ public class FotoFirebaseImpl implements FotoFirebase {
             Log.d("ERRO RECUPERAR IMAGEM", "Caminho vazio");
         }
     }
+
+    public void deletarFoto(String caminhoFoto) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference fotoRef = storage.getReference().child(caminhoFoto);
+
+        fotoRef.delete().addOnSuccessListener(aVoid -> {
+            Log.d("FirebaseStorage", "Foto deletada com sucesso: " + caminhoFoto);
+        }).addOnFailureListener(exception -> {
+            Log.e("FirebaseStorage", "Erro ao deletar foto: " + exception.getMessage());
+        });
+    }
 }

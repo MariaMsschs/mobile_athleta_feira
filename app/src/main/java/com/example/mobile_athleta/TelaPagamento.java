@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.mobile_athleta.UseCase.InserirAnuncioUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;

@@ -1,7 +1,6 @@
 package com.example.mobile_athleta.UseCase;
 
 import android.util.Log;
-
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.service.AnuncioResponse;
 import com.example.mobile_athleta.service.AthletaService;

@@ -20,6 +20,9 @@ public class Forum {
         this.seguidores = seguidores;
     }
 
+    public Forum() {
+    }
+
     public int getId() {
         return id;
     }
@@ -46,5 +49,33 @@ public class Forum {
 
     public int getSeguidores() {
         return seguidores;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setImagem_perfil(String imagem_perfil) {
+        this.imagem_perfil = imagem_perfil;
+    }
+
+    public void setImagem_fundo(String imagem_fundo) {
+        this.imagem_fundo = imagem_fundo;
+    }
+
+    public void setSeguidores(int seguidores) {
+        this.seguidores = seguidores;
     }
 }

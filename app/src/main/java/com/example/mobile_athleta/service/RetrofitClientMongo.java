@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientMongo {
-    private static final String BASE_URL = "https://api-mongo-aktc.onrender.com";
+    private static final String BASE_URL = "https://api-mongo-dev.onrender.com";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {

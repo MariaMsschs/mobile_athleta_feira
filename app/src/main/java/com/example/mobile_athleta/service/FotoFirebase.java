@@ -10,5 +10,7 @@ public interface FotoFirebase {
 
     void uploadImage(Uri imagem, Context context);
 
+    void trocarFoto(Uri imagem, Context context);
+
     void recuperarImagem(ImageView imageView, String caminho);
 }

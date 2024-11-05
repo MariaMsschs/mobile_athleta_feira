@@ -1,6 +1,7 @@
 package com.example.mobile_athleta.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,9 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaPostagem;
 import com.example.mobile_athleta.UseCase.ListarPostagensUseCase;
 import com.example.mobile_athleta.adapter.PostAdapter;
 import com.example.mobile_athleta.models.Post;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +64,7 @@ public class PostSocial extends Fragment {
     private TextView textViewNoResults;
     private ImageView imageNoResults;
     private FrameLayout frameLayout;
+    private FloatingActionButton floatingActionButton;
     int pagina = 0;
 
     @Override
@@ -73,6 +77,7 @@ public class PostSocial extends Fragment {
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
         btnLoadMore = view.findViewById(R.id.btnLoadMore);
         frameLayout = view.findViewById(R.id.frameLayoutSocial);
+        floatingActionButton = view.findViewById(R.id.postar);
 
         frameLayout.setVisibility(ProgressBar.VISIBLE);
         postList = new ArrayList<>();
@@ -85,6 +90,7 @@ public class PostSocial extends Fragment {
 
             }
         });
+
         recyclerViewPost.setAdapter(postAdapter);
         recyclerViewPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -167,6 +173,15 @@ public class PostSocial extends Fragment {
                 }, pagina, 15, username);
             }
         });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), TelaPostagem.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 

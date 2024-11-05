@@ -122,14 +122,16 @@ public class TelaInfosConta extends AppCompatActivity{
 
                 String dataConvertida = validacaoCadastroImpl.converterDataCadastro(dataNascimento.getText().toString());
 
+                String caminhoNovo = getSharedPreferences("login", MODE_PRIVATE).getString("caminho","");
+
                 Usuario usuario = new Usuario(nome.getText().toString(), email.getText().toString(),
-                        dataConvertida, username.getText().toString(), caminhoAtual);
+                        dataConvertida, username.getText().toString(), caminhoNovo);
 
                 SharedPreferences.Editor editor = getSharedPreferences("login", MODE_PRIVATE).edit();
                 editor.putString("nome", nome.getText().toString());
                 editor.putString("email", email.getText().toString());
                 editor.putString("data_nascimento", dataNascimento.getText().toString());
-                editor.putString("caminho", caminhoAtual);
+                editor.putString("caminho", caminhoNovo);
                 editor.apply();
 
                 Long userId = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
@@ -218,7 +220,7 @@ public class TelaInfosConta extends AppCompatActivity{
                         .circleCrop()
                         .into(binding.camera);
 
-                fotoFirebaseImpl.uploadImage(imageUri, this);
+                fotoFirebaseImpl.trocarFoto(imageUri, this);
             }
         }
     }
@@ -231,7 +233,7 @@ public class TelaInfosConta extends AppCompatActivity{
                             .circleCrop()
                             .into(binding.camera);
 
-                    fotoFirebaseImpl.uploadImage(imageUri, this);
+                    fotoFirebaseImpl.trocarFoto(imageUri, this);
                 }
             }
     );

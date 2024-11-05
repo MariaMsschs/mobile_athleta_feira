@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,26 @@
             android:name=".TelaCadastroVendedor"
             android:exported="false" />
         <activity
+            android:name=".TelaForum"
+            android:exported="false" />
+        <activity
+            android:name=".TelaPostagem"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TelaComentarios"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/TransparentActivityTheme" />
+        <activity
+            android:name=".TelaCadastroAnuncio"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TelaAreaRestrita"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+      <activity
             android:name=".TelaEsporte"
             android:exported="false" />
         <activity

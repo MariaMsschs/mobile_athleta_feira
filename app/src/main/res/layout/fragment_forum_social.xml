@@ -68,4 +68,18 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnLoadMore"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="80dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="CARREGAR MAIS"
+        android:background="@drawable/button_design"
+        android:visibility="gone"/>
+
 </FrameLayout>

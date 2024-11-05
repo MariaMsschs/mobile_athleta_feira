@@ -14,13 +14,14 @@ public class Post {
     private String usuarioId;
     private Date data;
     private boolean liked;
+    private List<String> foruns;
 
     // getters e setters
 
 
     public Post() {}
 
-    public Post(String id, String legenda, String imagem, String username, String userFoto, List<String> curtidas, List<String> compartilhamento, String usuarioId, Date data, boolean liked) {
+    public Post(String id, String legenda, String imagem, String username, String userFoto, List<String> curtidas, List<String> compartilhamento, String usuarioId, Date data, boolean liked, List<String> foruns) {
         this.id = id;
         this.legenda = legenda;
         this.imagem = imagem;
@@ -31,6 +32,7 @@ public class Post {
         this.usuarioId = usuarioId;
         this.data = data;
         this.liked = liked;
+        this.foruns = foruns;
     }
 
     public String getId() {
@@ -68,11 +70,56 @@ public class Post {
     public Date getData() {
         return data;
     }
+
     public boolean isLiked() {
         return liked;
     }
 
+    public List<String> getForuns() {
+        return foruns;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setLegenda(String legenda) {
+        this.legenda = legenda;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setUserFoto(String userFoto) {
+        this.userFoto = userFoto;
+    }
+
+    public void setCurtidas(List<String> curtidas) {
+        this.curtidas = curtidas;
+    }
+
+    public void setCompartilhamento(List<String> compartilhamento) {
+        this.compartilhamento = compartilhamento;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public void setForuns(List<String> foruns) {
+        this.foruns = foruns;
     }
 }

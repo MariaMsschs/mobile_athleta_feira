@@ -46,7 +46,6 @@ public class TelaInfosConta extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_infos_conta);
 
         binding = ActivityTelaInfosContaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

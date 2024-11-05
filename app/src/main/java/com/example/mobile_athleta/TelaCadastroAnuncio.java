@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,11 +25,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.InserirAnuncioUseCase;
 import com.example.mobile_athleta.UseCase.ListarAnunciosUseCase;
-import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroAnuncioBinding;
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
-import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,8 +44,6 @@ public class TelaCadastroAnuncio extends AppCompatActivity {
     private EditText precoEdit;
 
     private FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
-    private InserirAnuncioUseCase inserirAnuncioUseCase = new InserirAnuncioUseCase();
-    private ListarAnunciosUseCase listarAnunciosUseCase = new ListarAnunciosUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,57 +105,24 @@ public class TelaCadastroAnuncio extends AppCompatActivity {
                 String imagem = getSharedPreferences("foto", MODE_PRIVATE).getString("caminho_imagem", "");
                 Long idUsuario = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
 
-                Anuncio anuncio = new Anuncio(nome, descricao, preco, quant, imagem, idUsuario, idEstado);
-                cadastrarAnuncio(anuncio);
+                Bundle bundle = new Bundle();
+
+                bundle.putString("nome", nome);
+                bundle.putString("descricao", descricao);
+                bundle.putDouble("preco", preco);
+                bundle.putInt("quant", quant);
+                bundle.putString("imagem", imagem);
+                bundle.putLong("idUsuario", idUsuario);
+                bundle.putLong("idEstado", idEstado);
+
+                Intent pagamento = new Intent(this, TelaPagamento.class);
+                pagamento.putExtras(bundle);
+                startActivity(pagamento);
             }
             else{
                 Toast.makeText(this, "Existe um campo vazio!", Toast.LENGTH_SHORT).show();
             }
         });
-
-    }
-
-    public void cadastrarAnuncio(Anuncio anuncio) {
-        String token = getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
-
-        if(anuncio.getImagem() != null){
-            inserirAnuncioUseCase.inserirAnuncio(token, anuncio, new InserirAnuncioUseCase.InserirAnuncioCallBack() {
-                @Override
-                public void onInserirAnuncioSuccess() {
-                    getSharedPreferences("foto", MODE_PRIVATE).edit().remove("caminho_imagem").apply();
-                    LayoutInflater inflater = getLayoutInflater();
-                    View dialogView = inflater.inflate(R.layout.anuncio_inserido_dialog, null);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(TelaCadastroAnuncio.this);
-                    builder.setView(dialogView);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    View botao_alterado = dialogView.findViewById(R.id.botao_inserido);
-                    botao_alterado.setOnClickListener(v -> {
-                        finish();
-                        dialog.dismiss();
-                    });
-                }
-
-                @Override
-                public void onInserirAnuncioFailure(){
-                    getSharedPreferences("foto", MODE_PRIVATE).edit().remove("caminho_imagem").apply();
-                    LayoutInflater inflater = getLayoutInflater();
-                    View dialogView = inflater.inflate(R.layout.anuncio_erro_dialog, null);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(TelaCadastroAnuncio.this);
-                    builder.setView(dialogView);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    View botao_alterado = dialogView.findViewById(R.id.botao_erro_inserir);
-                    botao_alterado.setOnClickListener(v -> {
-                        finish();
-                        dialog.dismiss();
-                    });
-                }
-            });
-        }
-        else{
-            Log.d("FALHA AO INSERIR", "Imagem vazia");
-        }
 
     }
 

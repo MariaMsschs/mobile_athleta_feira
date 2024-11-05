@@ -4,6 +4,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,9 +21,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaCadastroAnuncio;
+import com.example.mobile_athleta.TelaCadastroVendedor;
+import com.example.mobile_athleta.TelaConfiguracao;
 import com.example.mobile_athleta.TelaProduto;
+import com.example.mobile_athleta.UseCase.ChecarVendedorUseCase;
 import com.example.mobile_athleta.UseCase.ListarAnunciosUseCase;
-import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
 import com.example.mobile_athleta.adapter.AnuncioAdapter;
 import com.example.mobile_athleta.models.Anuncio;
 import java.util.ArrayList;
@@ -38,6 +42,7 @@ public class AnuncioFragment extends Fragment {
 
     private ImageButton adicionarAnuncio;
     private ListarAnunciosUseCase listarAnunciosUseCase = new ListarAnunciosUseCase();
+    private ChecarVendedorUseCase checarVendedorUseCase = new ChecarVendedorUseCase();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +73,7 @@ public class AnuncioFragment extends Fragment {
         anuncioList = new ArrayList<>();
 
         String token = getContext().getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
+        Long usuarioId = getContext().getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
 
         listarAnunciosUseCase.listarAnuncios(token, anuncios ->  {
             anuncioList = anuncios;
@@ -82,8 +88,25 @@ public class AnuncioFragment extends Fragment {
         });
 
         adicionarAnuncio.setOnClickListener(v -> {
-            Intent cadastro = new Intent(getContext(), TelaCadastroAnuncio.class);
-            startActivity(cadastro);
+            checarVendedorUseCase.checarVendedor(token, usuarioId, bol -> {
+                if(bol == true){
+                    Intent cadastroVendedor = new Intent(getContext(), TelaCadastroAnuncio.class);
+                    startActivity(cadastroVendedor);
+                }
+                else{
+                    View dialogView = inflater.inflate(R.layout.vendedor_dialog, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    View botao = dialogView.findViewById(R.id.botao_vendedor_dialog);
+                    builder.setView(dialogView);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    botao.setOnClickListener(v2 -> {
+                        Intent config = new Intent(getContext(), TelaCadastroVendedor.class);
+                        startActivity(config);
+                        dialog.dismiss();
+                    });
+                }
+            });
         });
 
         return view;

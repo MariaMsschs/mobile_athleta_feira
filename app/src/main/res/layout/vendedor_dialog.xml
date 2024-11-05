@@ -14,7 +14,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
-        app:srcCompat="@drawable/athleta_nado" />
+        app:srcCompat="@drawable/athleta_corrida" />
 
     <TextView
         android:id="@+id/text"
@@ -28,15 +28,15 @@
         android:textSize="16sp" />
 
     <Button
-        android:id="@+id/botao_alterado"
+        android:id="@+id/botao_vendedor_dialog"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="200dp"
         android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/white_button_design"
         android:fontFamily="@font/roboto_bold"
-        android:text="OK"
+        android:text="Vamos lá!"
         android:textAllCaps="false"
         android:textColor="@color/orange"
         android:textSize="14sp" />

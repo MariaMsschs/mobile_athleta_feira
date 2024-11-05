@@ -23,7 +23,7 @@ public class TelaProduto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_produto);
+
         binding = ActivityTelaProdutoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 

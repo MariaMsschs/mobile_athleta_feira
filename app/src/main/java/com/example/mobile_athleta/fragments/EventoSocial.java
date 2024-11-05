@@ -1,6 +1,7 @@
 package com.example.mobile_athleta.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaEvento;
 import com.example.mobile_athleta.UseCase.ListarEventosPorNomeUseCase;
 import com.example.mobile_athleta.UseCase.ListarEventosUseCase;
 import com.example.mobile_athleta.adapter.EventoAdapter;
@@ -62,7 +64,6 @@ public class EventoSocial extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -82,9 +83,16 @@ public class EventoSocial extends Fragment {
         eventoAdapter = new EventoAdapter(eventoList, new EventoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Evento evento) {
-
+                Intent intent = new Intent(getContext(), TelaEvento.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Nome", evento.getNome());
+                bundle.putSerializable("Descricao", evento.getDescricao());
+                bundle.putSerializable("Imagem", evento.getImg());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
+
         recyclerViewEvento.setAdapter(eventoAdapter);
         String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
 
@@ -101,6 +109,7 @@ public class EventoSocial extends Fragment {
             public void onListarEventosFailure(String errorMessage) {
                 recyclerViewEvento.setVisibility(View.GONE);
                 textViewNoResults.setVisibility(View.VISIBLE);
+                textViewNoResults.setText("Ops! Parece que não temos eventos disponíveis");
                 imageNoResults.setVisibility(View.VISIBLE);
             }
         },pagina,15);
@@ -132,7 +141,9 @@ public class EventoSocial extends Fragment {
 
                                 @Override
                                 public void onListarEventosFailure(String errorMessage) {
-
+                                    textViewNoResults.setVisibility(View.VISIBLE);
+                                    imageNoResults.setVisibility(View.VISIBLE);
+                                    textViewNoResults.setText("Ops! Parece que não temos eventos disponíveis");
                                 }
                             },pagina,15);
                         }

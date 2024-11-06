@@ -27,6 +27,6 @@ public class TelaEvento extends AppCompatActivity {
         binding.titulo.setText(nome);
         binding.descricao.setText(descricao);
 
-        fotoFirebaseImpl.recuperarImagem(this, img, binding.imageView2);
+        fotoFirebaseImpl.recuperarImagem(binding.imageView2, img );
     }
 }

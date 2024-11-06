@@ -3,6 +3,7 @@ package com.example.mobile_athleta.fragments;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,6 +80,20 @@ public class EventoPerfil extends Fragment {
             }
         });
         recyclerViewEvento.setAdapter(eventoAdapter);
+
+        recyclerViewEvento.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (layoutManager != null && layoutManager.findLastVisibleItemPosition() == eventoList.size() - 1) {
+                    btnMaisEventos.setVisibility(View.VISIBLE);
+                } else {
+                    btnMaisEventos.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
         String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
         Long id = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0);

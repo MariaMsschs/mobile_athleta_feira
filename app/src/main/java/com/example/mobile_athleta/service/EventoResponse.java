@@ -7,13 +7,13 @@ import java.util.List;
 public class EventoResponse {
     private boolean responseSucessfull;
     private String description;
-    private List<Evento> eventos;
+    private List<Evento> object;
     private String aditionalInformation;
 
     public EventoResponse(boolean responseSucessfull, String description, List<Evento> eventos, String aditionalInformation) {
         this.responseSucessfull = responseSucessfull;
         this.description = description;
-        this.eventos = eventos;
+        this.object = eventos;
         this.aditionalInformation = aditionalInformation;
     }
 
@@ -26,7 +26,7 @@ public class EventoResponse {
     }
 
     public List<Evento> getEventos() {
-        return eventos;
+        return object;
     }
 
     public String getAditionalInformation() {

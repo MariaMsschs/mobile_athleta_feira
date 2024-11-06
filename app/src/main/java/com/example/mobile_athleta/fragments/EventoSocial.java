@@ -154,7 +154,26 @@ public class EventoSocial extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
+                if(newText.isEmpty()){
+                    pagina = 0;
+                    listarEventosUseCase.listarEventos(token, new ListarEventosUseCase.ListarEventosCallback() {
+                        @Override
+                        public void onListarEventosSuccess(List<Evento> postList) {
+                            textViewNoResults.setVisibility(View.GONE);
+                            imageNoResults.setVisibility(View.GONE);
+                            eventoAdapter.updatePostList(postList);
+                            mudarPagina();
+                        }
+
+                        @Override
+                        public void onListarEventosFailure(String errorMessage) {
+                            recyclerViewEvento.setVisibility(View.GONE);
+                            textViewNoResults.setVisibility(View.VISIBLE);
+                            textViewNoResults.setText("Ops! Parece que não temos eventos disponíveis");
+                            imageNoResults.setVisibility(View.VISIBLE);
+                        }
+                    },pagina,15);
+                }
                 return false;
             }
         });

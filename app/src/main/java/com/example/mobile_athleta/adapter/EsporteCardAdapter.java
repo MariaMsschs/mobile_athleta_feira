@@ -1,6 +1,7 @@
 package com.example.mobile_athleta.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Esporte;
+import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -60,7 +62,7 @@ public class EsporteCardAdapter extends RecyclerView.Adapter<EsporteCardAdapter.
         private ImageView esporteImagem;
         private TextView esporteTitulo;
         private TextView esporteDescricao;
-        private TextView esportePratica;
+        FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
 
         public EsporteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,9 +74,7 @@ public class EsporteCardAdapter extends RecyclerView.Adapter<EsporteCardAdapter.
         public void bind(final Esporte esporte, final OnItemClickListener listener) {
             esporteTitulo.setText(esporte.getNome());
             esporteDescricao.setText(esporte.getDescricao());
-            Picasso.get()
-                    .load(R.drawable.baseball)
-                    .into(esporteImagem);
+            fotoFirebaseImpl.recuperarImagem(esporteImagem, esporte.getImagem());
 
             itemView.setOnClickListener(v -> listener.onItemClick(esporte));
         }

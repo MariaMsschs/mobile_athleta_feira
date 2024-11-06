@@ -93,6 +93,7 @@ public class AnuncioFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putString("tela", "anuncio");
                     Intent cadastroVendedor = new Intent(getContext(), TelaCadastroAnuncio.class);
+                    cadastroVendedor.putExtras(bundle);
                     startActivity(cadastroVendedor);
                 }
                 else{

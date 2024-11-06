@@ -59,7 +59,6 @@ public class TelaPagamento extends AppCompatActivity {
         String token = getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
 
         Bundle bundle = getIntent().getExtras();
-        Log.d("TELA!!!!!!!", bundle.getString("tela"));
 
         binding.pagamento.setOnClickListener(v -> {
             checkAllFields();
@@ -70,7 +69,6 @@ public class TelaPagamento extends AppCompatActivity {
                 String decisao = bundle.getString("tela");
 
                 if(decisao.equals("anuncio")){
-                    Log.d("oi", "oi");
                     Anuncio anuncio = new Anuncio(bundle.getString("nome"), bundle.getString("descricao"),
                             bundle.getDouble("preco"), bundle.getInt("quant"),
                             bundle.getString("imagem"), bundle.getLong("idUsuario"), bundle.getLong("idEstado"));
@@ -78,7 +76,6 @@ public class TelaPagamento extends AppCompatActivity {
                     cadastrarAnuncio(anuncio, token);
                 }
                 else if(decisao.equals("forum")){
-                    Log.d("oi", "forum");
                     Forum forum = new Forum(bundle.getString("nome"), bundle.getString("descricao"),
                             bundle.getString("imagemPerfil"), bundle.getString("imagemHeader"), bundle.getLong("idUsuario"));
 

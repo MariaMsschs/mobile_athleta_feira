@@ -5,19 +5,14 @@ public class Esporte {
     private String nome;
     private String descricao;
     private String comoPratica;
-    private String img;
+    private String imagem;
 
-    public Esporte(String nome, String descricao, String comoPratica) {
+    public Esporte(String nome, String descricao, String comoPratica, String imagem) {
         this.nome = nome;
         this.descricao = descricao;
         this.comoPratica = comoPratica;
+        this.imagem = imagem;
     }
-
-//    public Esporte(String nome, String descricao, String img) {
-//        this.nome = nome;
-//        this.descricao = descricao;
-//        this.img = img;
-//    }
 
     public Long getIdEsporte(){
         return idEsporte;
@@ -35,6 +30,6 @@ public class Esporte {
     }
 
     public String getImagem() {
-        return img;
+        return imagem;
     }
 }

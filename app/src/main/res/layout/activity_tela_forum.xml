@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
     tools:context=".TelaForum">
 
 
@@ -11,6 +13,8 @@
         android:id="@+id/frameLayoutImagem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,18 +23,36 @@
             android:id="@+id/forumImagemTras"
             android:layout_width="match_parent"
             android:layout_height="192dp"
-            tools:srcCompat="@color/orange"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:adjustViewBounds="true" />
+            tools:srcCompat="@color/orange" />
 
 
+        <Button
+            android:id="@+id/botao_excluir_forum"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="258dp"
+            android:layout_marginTop="135dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/gray_button_design"
+            android:fontFamily="@font/roboto_bold"
+            android:paddingLeft="18dp"
+            android:paddingTop="7dp"
+            android:paddingRight="18dp"
+            android:paddingBottom="7dp"
+            android:text="Excluir Forúm"
+            android:textAllCaps="false"
+            android:textColor="@color/orange"
+            android:textSize="12sp" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/forumImagemFrente"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="100dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="120dp"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/circleImageView"
             app:srcCompat="@drawable/foto_perfil_design" />
@@ -43,7 +65,9 @@
         android:id="@+id/recyclerViewForum"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="330dp"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,8 +77,10 @@
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="Fórum"
+            android:fontFamily="@font/roboto_bold"
             android:textSize="24sp" />
 
         <TextView
@@ -75,6 +101,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
+            android:fontFamily="@font/roboto"
             android:maxLines="2"
             android:text="Fórum"
             android:textSize="16sp" />
@@ -110,7 +137,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="60dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -122,21 +149,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
-            android:background="@drawable/erro_rosto_triste" />
+            android:background="@drawable/erro_rosto_triste"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textViewNoResults"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:fontFamily="@font/roboto"
             android:text="Ops! Parece que não possuimos postagens relacionadas a este fórum!"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <Button
@@ -151,10 +178,10 @@
         android:paddingEnd="16dp"
         android:text="CARREGAR MAIS"
         android:textColor="@color/white"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerViewForum"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewForum" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,15 @@ import retrofit2.http.Query;
 
 public interface AthletaService {
 
+    @POST("api/usuario/adicionar")
+    Call<ApiResponse> cadastrarUsuario(@Body Usuario usuario);
+
+    @GET("api/usuario/listar/{username}")
+    Call<ApiResponse> listarUsuarioPorUsername(@Path("username") String username);
+
+    @GET("api/usuario/listar/username/{email}")
+    Call<Usuario> listarUsuarioPorEmail(@Path("email") String email);
+
     @PUT("api/usuario/atualizar/{id}")
     Call<ApiResponse> atualizarUsuario(
             @Header("Authorization") String token,
@@ -31,26 +40,22 @@ public interface AthletaService {
     @PUT("api/usuario/mudarSenha")
     Call<ApiResponse> alterarSenha(@Header("Authorization") String token, @Body EmailLogin login);
 
-    @GET("api/usuario/listar/{username}")
-    Call<ApiResponse> listarUsuarioPorUsername(@Path("username") String username);
+    @POST("set/{email}")
+    Call<RedisResponse> mandarEmail(@Path("email") String email);
+    @DELETE("delete/{key}/{codigo}")
+    Call<RedisResponse> deletarEmail(@Path("key") String key, @Path("codigo") String codigo);
 
     @POST("api/auth/login")
     Call<LoginResponse> login(@Body UserLogin login);
 
-    @POST("api/usuario/adicionar")
-    Call<ApiResponse> cadastrarUsuario(@Body Usuario usuario);
-
-    @GET("api/usuario/listar/username/{email}")
-    Call<Usuario> listarUsuarioPorEmail(@Path("email") String email);
+    @POST("api/anuncio/inserir")
+    Call<ApiResponse> inserirAnuncio(@Header("Authorization") String token, @Body Anuncio anuncio);
 
     @GET("api/anuncio/listar")
     Call<AnuncioResponse> listarAnuncios(@Header("Authorization") String token);
 
-    @POST("set/{email}")
-    Call<RedisResponse> mandarEmail(@Path("email") String email);
-
-    @DELETE("delete/{key}/{codigo}")
-    Call<RedisResponse> deletarEmail(@Path("key") String key, @Path("codigo") String codigo);
+    @POST("api/postagem/adicionar")
+    Call<Post> inserirPostagem(@Body Post post);
 
     @GET("api/postagem/listar")
     Call<List<Post>> listarPostagens(
@@ -71,14 +76,9 @@ public interface AthletaService {
     @GET("api/comentario/listar/{idPost}")
     Call<List<Comentario>> listarComentarios(@Path("idPost") String idPost);
 
-    @POST("api/anuncio/inserir")
-    Call<ApiResponse> inserirAnuncio(@Header("Authorization") String token, @Body Anuncio anuncio);
 
     @GET("api/postagem/listar/{forum}")
     Call<List<Post>> listarPostagensPorForum(@Path("forum") String forum, @Query("pagina") int pagina, @Query("tamanho") int tamanho);
-
-    @POST("api/postagem/adicionar")
-    Call<Post> inseririrPostagem(@Body Post post);
 
     @GET("api/forum/listar/{nome}")
     Call<ForumResponse> listarForumPorNome(@Header("Authorization") String token, @Path("nome") String nome);
@@ -122,4 +122,11 @@ public interface AthletaService {
 
     @POST("api/forum/inserir")
     Call<ApiResponse> inserirForum(@Header("Authorization") String token, @Body Forum forum);
+
+    @DELETE("api/forum/excluir/{id}")
+    Call<ApiResponse> excluirForum(@Header("Authorization") String token, @Path("id") Long idForum);
+
+    @GET("api/forum/listar/id/{id}")
+    Call<ForumResponse> listarForumPorId(@Header("Authorization") String token, @Path("id") Long forumId);
+
 }

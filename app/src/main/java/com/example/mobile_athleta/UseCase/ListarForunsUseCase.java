@@ -1,7 +1,5 @@
 package com.example.mobile_athleta.UseCase;
 
-import android.content.Context;
-
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.service.AthletaService;
 import com.example.mobile_athleta.service.ForumResponse;

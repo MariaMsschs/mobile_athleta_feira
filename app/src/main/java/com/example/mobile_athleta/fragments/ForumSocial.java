@@ -9,6 +9,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +69,10 @@ public class ForumSocial extends Fragment {
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         forumAdapter = new ForumAdapter(forumList, forum -> {
             Intent intent = new Intent(getContext(), TelaForum.class);
-            intent.putExtra("forum", forum.getNome());
+            Bundle bundle = new Bundle();
+            bundle.putString("nome", forum.getNome());
+            bundle.putLong("idForum", forum.getId());
+            intent.putExtras(bundle);
             startActivity(intent);
         });
 

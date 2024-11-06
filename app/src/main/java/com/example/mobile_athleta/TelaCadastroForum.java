@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -74,8 +75,6 @@ public class TelaCadastroForum extends AppCompatActivity {
                 resultLauncherGaleria.launch(galeria);
                 dialog.dismiss();
             });
-
-            imagemPerfil = getSharedPreferences("foto", MODE_PRIVATE).getString("caminho_imagem", "");
         });
 
         binding.imagemHeaderForum.setOnClickListener(view -> {
@@ -103,8 +102,6 @@ public class TelaCadastroForum extends AppCompatActivity {
                 resultLauncherGaleria.launch(galeria);
                 dialog.dismiss();
             });
-
-            imagemHeader = getSharedPreferences("foto", MODE_PRIVATE).getString("caminho_imagem", "");
         });
 
         binding.cadastroForum.setOnClickListener(v -> {
@@ -117,6 +114,8 @@ public class TelaCadastroForum extends AppCompatActivity {
                 String nome = binding.nomeForum.getText().toString();
                 String descricao = binding.descricaoForum.getText().toString();
                 Long idUsuario = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
+                imagemHeader = getSharedPreferences("forum", MODE_PRIVATE).getString("header", "");
+                imagemPerfil = getSharedPreferences("forum", MODE_PRIVATE).getString("perfil", "");
 
                 Bundle bundle = new Bundle();
 
@@ -152,8 +151,11 @@ public class TelaCadastroForum extends AppCompatActivity {
                 if(imagemBinding == binding.imagemHeaderForum) {
                     binding.cadastroForum.setBackgroundResource(R.drawable.button_design);
                     binding.cadastroForum.setTextColor(getResources().getColor(R.color.white));
+                    fotoFirebaseImpl.uploadImageForum(imageUri, "header",this);
                 }
-                fotoFirebaseImpl.uploadImage(imageUri, this);
+                else{
+                    fotoFirebaseImpl.uploadImageForum(imageUri, "perfil",this);
+                }
             }
         }
     }
@@ -169,8 +171,11 @@ public class TelaCadastroForum extends AppCompatActivity {
                     if(imagemBinding == binding.imagemHeaderForum) {
                         binding.cadastroForum.setBackgroundResource(R.drawable.button_design);
                         binding.cadastroForum.setTextColor(getResources().getColor(R.color.white));
+                        fotoFirebaseImpl.uploadImageForum(imageUri, "header",this);
                     }
-                    fotoFirebaseImpl.uploadImage(imageUri, this);
+                    else{
+                        fotoFirebaseImpl.uploadImageForum(imageUri, "perfil",this);
+                    }
                 }
             }
     );

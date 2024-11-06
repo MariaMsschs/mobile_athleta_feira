@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Forum;
+import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -58,7 +59,7 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
     public static class ForumViewHolder extends RecyclerView.ViewHolder {
         private ImageView imagem_perfil;
         private TextView forum_titulo, forum_descricao, forum_seguidores;
-
+        FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
         private Context context;
 
         public ForumViewHolder(@NonNull View itemView) {
@@ -71,10 +72,7 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
         }
 
         public void bind(Forum forum, final OnItemClickListener onItemClickListener) {
-            String imagemUrl = forum.getImgForum();
-            Picasso.get()
-                    .load(imagemUrl)
-                    .into(imagem_perfil);
+            fotoFirebaseImpl.recuperarImagem(imagem_perfil, forum.getImgForum());
             forum_titulo.setText(forum.getNome());
             forum_descricao.setText(forum.getDescricao());
             forum_seguidores.setText(String.valueOf(forum.getSeguidores()));

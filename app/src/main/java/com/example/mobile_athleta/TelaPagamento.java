@@ -59,36 +59,33 @@ public class TelaPagamento extends AppCompatActivity {
         String token = getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
 
         Bundle bundle = getIntent().getExtras();
+        Log.d("TELA!!!!!!!", bundle.getString("tela"));
 
-        if(bundle.getString("tela") == "anuncio"){
-            Anuncio anuncio = new Anuncio(bundle.getString("nome"), bundle.getString("descricao"),
-                    bundle.getDouble("preco"), bundle.getInt("quant"),
-                    bundle.getString("imagem"), bundle.getLong("idUsuario"), bundle.getLong("idEstado"));
+        binding.pagamento.setOnClickListener(v -> {
+            checkAllFields();
+            if(numeroEdit.getError() == null && titularEdit.getError() == null && validadeEdit.getError() == null
+                    && cvvEdit.getError() == null) {
+                binding.frameLayoutPagamento.setVisibility(ProgressBar.VISIBLE);
 
-            binding.pagamento.setOnClickListener(v -> {
-                checkAllFields();
-                if(numeroEdit.getError() == null && titularEdit.getError() == null && validadeEdit.getError() == null
-                        && cvvEdit.getError() == null) {
-                    binding.frameLayoutPagamento.setVisibility(ProgressBar.VISIBLE);
+                String decisao = bundle.getString("tela");
+
+                if(decisao.equals("anuncio")){
+                    Log.d("oi", "oi");
+                    Anuncio anuncio = new Anuncio(bundle.getString("nome"), bundle.getString("descricao"),
+                            bundle.getDouble("preco"), bundle.getInt("quant"),
+                            bundle.getString("imagem"), bundle.getLong("idUsuario"), bundle.getLong("idEstado"));
+
                     cadastrarAnuncio(anuncio, token);
                 }
-            });
-        }
-        if(bundle.getString("tela") == "forum"){
+                else if(decisao.equals("forum")){
+                    Log.d("oi", "forum");
+                    Forum forum = new Forum(bundle.getString("nome"), bundle.getString("descricao"),
+                            bundle.getString("imagemPerfil"), bundle.getString("imagemHeader"), bundle.getLong("idUsuario"));
 
-            Forum forum = new Forum(bundle.getString("nome"), bundle.getString("descricao"),
-                    bundle.getString("imagemPerfil"), bundle.getString("imagemPerfil"), bundle.getLong("idUsuario"));
-
-            binding.pagamento.setOnClickListener(v -> {
-                checkAllFields();
-                if(numeroEdit.getError() == null && titularEdit.getError() == null && validadeEdit.getError() == null
-                        && cvvEdit.getError() == null) {
-                    binding.frameLayoutPagamento.setVisibility(ProgressBar.VISIBLE);
                     cadastrarForum(forum, token);
                 }
-            });
-        }
-
+            }
+        });
 
         validadeEdit.addTextChangedListener(new TextWatcher() {
             private String current = "";

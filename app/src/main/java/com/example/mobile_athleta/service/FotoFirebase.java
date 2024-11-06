@@ -10,7 +10,7 @@ public interface FotoFirebase {
 
     void uploadImage(Uri imagem, Context context);
 
-    void uploadImageEsporte(Uri imagem, String esporte, Context context);
+    void uploadImageForum(Uri imagem, String chave, Context context);
 
     void trocarFoto(Uri imagem, Context context);
 

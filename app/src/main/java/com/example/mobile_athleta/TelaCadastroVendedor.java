@@ -106,11 +106,11 @@ public class TelaCadastroVendedor extends AppCompatActivity {
                     public void onCadastroVendedorSuccess() {
                         Bundle bundle = new Bundle();
 
-                        if(bundle.getString("tela") == "anuncio") {
+                        if(bundle.getString("tela").equals("anuncio")) {
                             Intent novaTela = new Intent(TelaCadastroVendedor.this, TelaCadastroAnuncio.class);
                             startActivity(novaTela);
                         }
-                        if(bundle.getString("tela") == "forum") {
+                        if(bundle.getString("tela").equals("forum")) {
                             Intent novaTela = new Intent(TelaCadastroVendedor.this, TelaCadastroForum.class);
                             startActivity(novaTela);
                         }

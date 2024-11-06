@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f4f4f4"
-    tools:context=".TelaCadastroAnuncio">
+    tools:context=".TelaCadastroForum">
 
     <FrameLayout
         android:id="@+id/frameLayout2"
@@ -55,18 +55,18 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titulo_nome_anuncio"
+                android:id="@+id/titulo_nome_forum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto"
-                android:text="Nome do produto:"
+                android:text="Nome do forúm:"
                 android:textColor="#626161"
                 android:textSize="12sp"/>
 
             <EditText
-                android:id="@+id/nome_anuncio"
+                android:id="@+id/nome_forum"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
@@ -81,18 +81,18 @@
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/titulo_quantidade_anuncio"
+                android:id="@+id/titulo_descricao_forum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto"
-                android:text="Quantidade:"
+                android:text="Descrição do forúm:"
                 android:textColor="#626161"
                 android:textSize="12sp"/>
 
             <EditText
-                android:id="@+id/quantidade_anuncio"
+                android:id="@+id/descricao_forum"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
@@ -107,93 +107,41 @@
                 android:textSize="14sp"/>
 
             <TextView
-                android:id="@+id/titulo_preco_anuncio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/roboto"
-                android:text="Preço do produto:"
-                android:textColor="#626161"
-                android:textSize="12sp"/>
-
-            <EditText
-                android:id="@+id/preco_anuncio"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="1dp"
-                android:background="@drawable/input_design"
-                android:ems="10"
-                android:text=""
-                android:inputType="numberDecimal"
-                android:padding="10dp"
-                android:textColor="#626161"
-                android:textCursorDrawable="@drawable/cursor_design"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/titulo_descricao_anuncio"
+                android:id="@+id/titulo_perfil_forum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/roboto"
-                android:text="Descrição do produto:"
-                android:textColor="#626161"
-                android:textSize="12sp" />
-
-            <EditText
-                android:id="@+id/descricao_anuncio"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="1dp"
-                android:background="@drawable/input_design"
-                android:ems="10"
-                android:inputType="text"
-                android:padding="10dp"
-                android:textColor="#626161"
-                android:textCursorDrawable="@drawable/cursor_design"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/titulo_estado_anuncio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/roboto"
-                android:text="Estado:"
-                android:textColor="#626161"
-                android:textSize="12sp" />
-
-            <Spinner
-                android:id="@+id/estado_anuncio"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginTop="1dp"
-                android:background="@drawable/input_design"
-                android:padding="10dp" />
-
-
-            <TextView
-                android:id="@+id/titulo_imagem_anuncio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/roboto"
-                android:text="Imagem do produto:"
+                android:text="Imagem de perfil:"
                 android:textColor="#626161"
                 android:textSize="12sp" />
 
             <ImageButton
-                android:id="@+id/imagem_anuncio"
+                android:id="@+id/imagem_perfil_forum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/post_design"
+                android:src="@drawable/inserir_foto" />
+
+            <TextView
+                android:id="@+id/titulo_header_forum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Imagem da header:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <ImageButton
+                android:id="@+id/imagem_header_forum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -205,7 +153,7 @@
                 android:src="@drawable/inserir_foto" />
 
             <Button
-                android:id="@+id/cadastro_anuncio"
+                android:id="@+id/cadastro_forum"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
@@ -215,7 +163,7 @@
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/gray_button_design"
                 android:fontFamily="@font/roboto_bold"
-                android:text="Adicionar produto"
+                android:text="Criar forúm"
                 android:textColor="@color/gray"
                 android:textAllCaps="false"
                 android:textSize="14sp" />
@@ -223,7 +171,7 @@
     </ScrollView>
 
     <FrameLayout
-        android:id="@+id/frameLayoutAnuncio"
+        android:id="@+id/frameLayoutForum"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#70F4F4F4"
@@ -231,7 +179,7 @@
         android:visibility="gone">
 
         <ProgressBar
-            android:id="@+id/progressBarAnuncio"
+            android:id="@+id/progressBarForum"
             style="?android:attr/progressBarStyle"
             android:layout_width="120dp"
             android:layout_height="120dp"

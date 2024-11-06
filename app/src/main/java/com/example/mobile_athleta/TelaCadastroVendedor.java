@@ -101,17 +101,21 @@ public class TelaCadastroVendedor extends AppCompatActivity {
                 Vendedor vendedor = new Vendedor(idUsuario, cpfEdit.getText().toString(), enderecoEdit.getText().toString(),
                         cepEdit.getText().toString(), numero, foto, telefoneEdit.getText().toString());
 
-                Log.d("params", foto + " " + token);
-                Log.d("prama", String.valueOf(numero) + " " + String.valueOf(idUsuario));
-                Log.d("PARAME", cpfEdit.getText().toString() + " " + enderecoEdit.getText().toString());
-                Log.d("PARAMS", cepEdit.getText().toString() + " " + telefoneEdit.getText().toString());
-
                 cadastroVendedorUseCase.cadastrarVendedor(token, vendedor, new CadastroVendedorUseCase.CadastroVendedorCallBack() {
                     @Override
                     public void onCadastroVendedorSuccess() {
-                        Intent anuncio = new Intent(TelaCadastroVendedor.this, TelaCadastroAnuncio.class);
+                        Bundle bundle = new Bundle();
+
+                        if(bundle.getString("tela") == "anuncio") {
+                            Intent novaTela = new Intent(TelaCadastroVendedor.this, TelaCadastroAnuncio.class);
+                            startActivity(novaTela);
+                        }
+                        if(bundle.getString("tela") == "forum") {
+                            Intent novaTela = new Intent(TelaCadastroVendedor.this, TelaCadastroForum.class);
+                            startActivity(novaTela);
+                        }
+
                         frameLayout.setVisibility(ProgressBar.GONE);
-                        startActivity(anuncio);
                         finish();
                     }
 

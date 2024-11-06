@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Mobile_athleta"
         tools:targetApi="31">
         <activity
+            android:name=".TelaCadastroForum"
+            android:exported="false" />
+        <activity
             android:name=".TelaPagamento"
             android:exported="false" />
         <activity
@@ -42,7 +45,7 @@
             android:name=".TelaAreaRestrita"
             android:exported="false"
             android:screenOrientation="portrait" />
-      <activity
+        <activity
             android:name=".TelaEsporte"
             android:exported="false" />
         <activity
@@ -80,10 +83,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".TelaRecuperarSenha"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

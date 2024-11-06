@@ -2,6 +2,7 @@ package com.example.mobile_athleta.service;
 
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Comentario;
+import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
 import com.example.mobile_athleta.models.Usuario;
@@ -109,4 +110,7 @@ public interface AthletaService {
 
     @DELETE("api/anuncio/excluir/{id}")
     Call<ApiResponse> excluirAnuncio(@Header("Authorization") String token, @Path("id") Long idAnuncio);
+
+    @POST("api/forum/inserir")
+    Call<ApiResponse> inserirForum(@Header("Authorization") String token, @Body Forum forum);
 }

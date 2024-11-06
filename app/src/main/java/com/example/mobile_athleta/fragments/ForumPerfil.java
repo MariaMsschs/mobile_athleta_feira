@@ -59,9 +59,9 @@ public class ForumPerfil extends Fragment {
 
         forumList = new ArrayList<>();
 
-        forumList.add(new Forum(1, "PingPros", "Comunidade de ping pong.", "user2", "https://i.scdn.co/image/ab6761610000e5eb0522e98a6f0cf1ddbee9a74f", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", 0));
-        forumList.add(new Forum(2, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", "https://lastfm.freetls.fastly.net/i/u/avatar170s/41049b383497d46303be8310be34fd96", 0));
-        forumList.add(new Forum(3, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", 0));
+        forumList.add(new Forum(1, "PingPros", "Comunidade de ping pong.", "https://i.scdn.co/image/ab6761610000e5eb0522e98a6f0cf1ddbee9a74f", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", 61L,0));
+        forumList.add(new Forum(2, "PingPros", "Comunidade de ping pong.",  "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", "https://lastfm.freetls.fastly.net/i/u/avatar170s/41049b383497d46303be8310be34fd96",61L, 0));
+        forumList.add(new Forum(3, "PingPros", "Comunidade de ping pong.", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", "https://lastfm.freetls.fastly.net/i/u/ar0/bed47046a143ce2bb4d2fcb3530dacc9.jpg", 51L, 0));
 
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         forumAdapter = new ForumAdapter(forumList, new ForumAdapter.OnItemClickListener() {

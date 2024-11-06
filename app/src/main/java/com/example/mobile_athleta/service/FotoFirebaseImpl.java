@@ -55,6 +55,16 @@ public class FotoFirebaseImpl implements FotoFirebase {
     }
 
     @Override
+    public void uploadImageEsporte(Uri imagem, String esporte, Context context){
+        String caminho = ("esportes/" + esporte +"/"+ System.currentTimeMillis());
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(caminho);
+        context.getSharedPreferences("esporte", context.MODE_PRIVATE).edit().putString("caminho_foto", caminho).apply();
+        storageReference.putFile(imagem).addOnSuccessListener(taskSnapshot -> {
+            Log.d("SUCESSO IMAGE ESPORTE UPLOAD", "Imagem enviada");
+        });
+    }
+
+    @Override
     public void trocarFoto(Uri imagem, Context context){
         String username = context.getSharedPreferences("login", context.MODE_PRIVATE).getString("username","");
         String caminho = ("users/" + username +"/"+ System.currentTimeMillis());

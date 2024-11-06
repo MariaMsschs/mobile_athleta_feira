@@ -71,7 +71,7 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
         }
 
         public void bind(Forum forum, final OnItemClickListener onItemClickListener) {
-            String imagemUrl = forum.getImagem_perfil();
+            String imagemUrl = forum.getImgForum();
             Picasso.get()
                     .load(imagemUrl)
                     .into(imagem_perfil);

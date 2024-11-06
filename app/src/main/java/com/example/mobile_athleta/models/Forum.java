@@ -1,30 +1,38 @@
 package com.example.mobile_athleta.models;
 
 public class Forum {
-    private int id;
+    private int idForum;
     private String nome;
     private String descricao;
-    private String usuario;
-    private String imagem_perfil;
-    private String  imagem_fundo;
+    private String  imgFundo;
+    private Long usuarioResp;
+    private String imgForum;
     private int seguidores = 0;
 
 
-    public Forum(int id, String nome, String descricao, String usuario, String imagem_perfil, String imagem_fundo, int seguidores) {
-        this.id = id;
+    public Forum(int id, String nome, String descricao, String imagem_perfil, String imagem_fundo, Long usuarioResp, int seguidores) {
+        this.idForum = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.usuario = usuario;
-        this.imagem_perfil = imagem_perfil;
-        this.imagem_fundo = imagem_fundo;
+        this.imgFundo = imagem_fundo;
+        this.usuarioResp = usuarioResp;
+        this.imgForum = imagem_perfil;
         this.seguidores = seguidores;
+    }
+    public Forum(String nome, String descricao, String imagem_perfil, String imagem_fundo, Long usuarioResp) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.imgForum = imagem_perfil;
+        this.imgFundo = imagem_fundo;
+        this.usuarioResp = usuarioResp;
+        this.seguidores = 0;
     }
 
     public Forum() {
     }
 
     public int getId() {
-        return id;
+        return idForum;
     }
 
     public String getNome() {
@@ -35,47 +43,19 @@ public class Forum {
         return descricao;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public Long getUsuarioResp() {
+        return usuarioResp;
     }
 
-    public String getImagem_perfil() {
-        return imagem_perfil;
+    public String getImgForum() {
+        return imgForum;
     }
 
-    public String getImagem_fundo() {
-        return imagem_fundo;
+    public String getImgFundo() {
+        return imgFundo;
     }
 
     public int getSeguidores() {
         return seguidores;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public void setImagem_perfil(String imagem_perfil) {
-        this.imagem_perfil = imagem_perfil;
-    }
-
-    public void setImagem_fundo(String imagem_fundo) {
-        this.imagem_fundo = imagem_fundo;
-    }
-
-    public void setSeguidores(int seguidores) {
-        this.seguidores = seguidores;
     }
 }

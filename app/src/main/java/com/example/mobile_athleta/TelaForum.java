@@ -70,10 +70,10 @@ public class TelaForum extends AppCompatActivity {
                 binding.titulo.setText(forum.get(0).getNome());
                 binding.descricao.setText(forum.get(0).getDescricao());
                 Picasso.get()
-                        .load(forum.get(0).getImagem_perfil())
+                        .load(forum.get(0).getImgForum())
                         .into(binding.forumImagemFrente);
                 Picasso.get()
-                        .load(forum.get(0).getImagem_fundo())
+                        .load(forum.get(0).getImgFundo())
                         .into(binding.forumImagemTras);
             }
 

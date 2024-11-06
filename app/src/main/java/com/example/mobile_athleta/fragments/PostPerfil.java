@@ -48,6 +48,10 @@ public class PostPerfil extends Fragment {
             @Override
             public void onItemClick(Post post) {
             }
+            @Override
+            public void onFotoClick(Post post) {
+
+            }
         });
 
         recyclerViewPost.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -66,8 +70,7 @@ public class PostPerfil extends Fragment {
             }
         });
 
-        String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
-        Long id = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0L);
+        Long id = getContext().getSharedPreferences("perfil", Context.MODE_PRIVATE).getLong("idPerfil", 0L);
         String username = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("username", "");
 
         listarPostagensPorIdUseCase.listarPostagensPorId(id, new ListarPostagensPorIdUseCase.VerificarCallback() {

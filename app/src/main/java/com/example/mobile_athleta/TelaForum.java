@@ -63,8 +63,16 @@ public class TelaForum extends AppCompatActivity {
 
         listarForumPorId(token, forumId);
 
-        postAdapter = new PostAdapter(postList, post -> {
+        postAdapter = new PostAdapter(postList, new PostAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Post post) {
 
+            }
+
+            @Override
+            public void onFotoClick(Post post) {
+
+            }
         });
 
         binding.recyclerViewForum.setAdapter(postAdapter);

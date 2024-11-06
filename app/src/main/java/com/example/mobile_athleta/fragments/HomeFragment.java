@@ -74,8 +74,16 @@ public class HomeFragment extends Fragment {
         postList = new ArrayList<>();
 
         recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        postAdapter = new PostAdapter(postList, post -> {
+        postAdapter = new PostAdapter(postList, new PostAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Post post) {
 
+            }
+
+            @Override
+            public void onFotoClick(Post post) {
+
+            }
         });
 
         recyclerViewPosts.setAdapter(postAdapter);

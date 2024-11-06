@@ -26,7 +26,7 @@ public interface AthletaService {
     Call<ApiResponse> cadastrarUsuario(@Body Usuario usuario);
 
     @GET("api/usuario/listar/{username}")
-    Call<ApiResponse> listarUsuarioPorUsername(@Path("username") String username);
+    Call<UsuarioResponse> listarUsuarioPorUsername(@Header("Authorization") String token, @Path("username") String username);
 
     @GET("api/usuario/listar/username/{email}")
     Call<Usuario> listarUsuarioPorEmail(@Path("email") String email);

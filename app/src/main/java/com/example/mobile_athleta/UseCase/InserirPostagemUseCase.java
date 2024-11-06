@@ -17,7 +17,7 @@ public class InserirPostagemUseCase {
 
     public void inserir(Post post, InserirCallback callback) {
         AthletaService service = RetrofitClientMongo.getAthletaService();
-        Call<Post> call = service.inseririrPostagem(post);
+        Call<Post> call = service.inserirPostagem(post);
 
         call.enqueue(new Callback<Post>() {
             @Override

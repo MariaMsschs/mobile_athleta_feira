@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,15 +30,6 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-    }
-
     private ListarEsportesUseCase listarEsportesUseCase = new ListarEsportesUseCase();
     private RecyclerView recyclerViewCards, recyclerViewPosts, recyclerViewForum;
     private EsporteCardAdapter esporteAdapter;
@@ -49,26 +39,7 @@ public class HomeFragment extends Fragment {
     private List<Post> postList;
     private ListarPostagensUseCase listarPostagensUseCase = new ListarPostagensUseCase();
     private ListarForunsUseCase listarForunsUseCase = new ListarForunsUseCase();
-    private ImageView logo;
     private List<Forum> forumList;
-
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,12 +56,14 @@ public class HomeFragment extends Fragment {
         listarEsportesUseCase.listarEsportes(token, esportes ->  {
             esporteList = esportes;
 
+
             recyclerViewCards.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-                esporteAdapter = new EsporteCardAdapter(esporteList, esporte -> {
+            esporteAdapter = new EsporteCardAdapter(esporteList, esporte -> {
                 Intent infos = new Intent(getContext(), TelaEsporte.class);
                 infos.putExtra("esporteId", esporte.getIdEsporte());
                 startActivity(infos);
             });
+
             recyclerViewCards.setAdapter(esporteAdapter);
         });
 
@@ -100,13 +73,9 @@ public class HomeFragment extends Fragment {
 
         postList = new ArrayList<>();
 
-
-
         recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        postAdapter = new PostAdapter(postList, new PostAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Post post) {
-            }
+        postAdapter = new PostAdapter(postList, post -> {
+
         });
 
         recyclerViewPosts.setAdapter(postAdapter);
@@ -133,18 +102,19 @@ public class HomeFragment extends Fragment {
 
         }, 0, 5, username);
 
+        //foruns
         recyclerViewForum = view.findViewById(R.id.recycler_forum);
 
         forumList = new ArrayList<>();
 
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        forumAdapter = new ForumAdapter(forumList, new ForumAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Forum forum) {
-                Intent intent = new Intent(getContext(), TelaForum.class);
-                intent.putExtra("forum", forum.getNome());
-                startActivity(intent);
-            }
+        forumAdapter = new ForumAdapter(forumList, forum -> {
+            Intent intent = new Intent(getContext(), TelaForum.class);
+            Bundle bundle = new Bundle();
+            bundle.putLong("idForum", forum.getId());
+            bundle.putString("nome", forum.getNome());
+            intent.putExtras(bundle);
+            startActivity(intent);
         });
         recyclerViewForum.setAdapter(forumAdapter);
 

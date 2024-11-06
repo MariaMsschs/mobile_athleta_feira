@@ -105,8 +105,8 @@ public class PostSocial extends Fragment {
             }
         });
 
-        String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
-        Long id = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0L);
+//        String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
+//        Long id = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0L);
         String username = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("username", "");
 
         listarPostagensUseCase.listarPostagens(new ListarPostagensUseCase.VerificarCallback() {
@@ -126,7 +126,7 @@ public class PostSocial extends Fragment {
                         boolean isLiked = liked.contains(post);
                         postAdapter.curtir(post, isLiked);
                     }
-                    mudarPagina();
+//                    mudarPagina();
                 }
             }
             @Override
@@ -155,7 +155,7 @@ public class PostSocial extends Fragment {
                             btnLoadMore.setVisibility(View.GONE);
                             postAdapter.updatePostList(postList);
                             btnLoadMore.setClickable(true);
-                            mudarPagina();
+//                            mudarPagina();
                             for (Post post : postList) {
                                 boolean isLiked = liked.contains(post);
                                 postAdapter.curtir(post, isLiked);
@@ -184,7 +184,7 @@ public class PostSocial extends Fragment {
 
         return view;
     }
-
+  
     public void mudarPagina() {
         int numero = pagina + 1;
         pagina = numero;

@@ -34,26 +34,4 @@ public class ApiResponse {
     public String getAditionalInformation() {
         return aditionalInformation;
     }
-
-    public List<Forum> getForuns() {
-        List<Forum> foruns = new ArrayList<>();
-        for (Object obj : object) {
-            if (obj instanceof Map) {
-                Map<String, Object> map = (Map<String, Object>) obj;
-                Forum forum = new Forum();
-                forum.setId((Integer) map.get("id"));
-                forum.setNome((String) map.get("nome"));
-                forum.setDescricao((String) map.get("descricao"));
-                forum.setUsuario((String) map.get("usuario"));
-                forum.setImagem_perfil((String) map.get("imagem_perfil"));
-                forum.setImagem_fundo((String) map.get("imagem_fundo"));
-                forum.setSeguidores((map.get("seguidores") != null) ? (Integer) map.get("seguidores") : 0);
-
-                foruns.add(forum);
-            }
-        }
-        return foruns;
-    }
-
-
 }

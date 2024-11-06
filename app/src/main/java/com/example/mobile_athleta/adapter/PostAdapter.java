@@ -142,14 +142,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             legenda.setText(post.getLegenda());
 
             fotoFirebaseImpl.recuperarImagem(imagem, post.getImagem());
-            Picasso.get()
-                    .load(post.getImagem())
-                    .into(imagem);
 
             fotoFirebaseImpl.recuperarImagem(usuarioPerfil, post.getUserFoto());
-            Picasso.get()
-                    .load(post.getUserFoto())
-                    .into(usuarioPerfil);
 
             curtir.setOnClickListener(new View.OnClickListener() {
                 @Override

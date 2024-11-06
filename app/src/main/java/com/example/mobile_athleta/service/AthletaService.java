@@ -116,4 +116,6 @@ public interface AthletaService {
     @GET("api/evento/listar/organizador/{organizador}")
     Call<EventoResponse> listarEventosPorOrganizador(@Header("Authorization") String token, @Path("organizador") int organizador, @Query("pagina") int pagina, @Query("tamanho") int tamanho);
 
+    @DELETE("api/anuncio/excluir/{id}")
+    Call<ApiResponse> excluirAnuncio(@Header("Authorization") String token, @Path("id") Long idAnuncio);
 }

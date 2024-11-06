@@ -142,6 +142,7 @@ public class FotoFirebaseImpl implements FotoFirebase {
             e.printStackTrace();
         }
         return rotate;
+    }
       
     public void deletarFoto(String caminhoFoto) {
         FirebaseStorage storage = FirebaseStorage.getInstance();

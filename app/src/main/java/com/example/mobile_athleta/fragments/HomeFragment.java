@@ -2,18 +2,24 @@ package com.example.mobile_athleta.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaEsporte;
+import com.example.mobile_athleta.TelaForum;
 import com.example.mobile_athleta.UseCase.ListarEsportesUseCase;
+import com.example.mobile_athleta.UseCase.ListarForunsUseCase;
+import com.example.mobile_athleta.UseCase.ListarPostagensUseCase;
 import com.example.mobile_athleta.adapter.EsporteCardAdapter;
 import com.example.mobile_athleta.adapter.ForumAdapter;
 import com.example.mobile_athleta.adapter.PostAdapter;
@@ -41,7 +47,8 @@ public class HomeFragment extends Fragment {
     private ForumAdapter forumAdapter;
     private List<Esporte> esporteList;
     private List<Post> postList;
-
+    private ListarPostagensUseCase listarPostagensUseCase = new ListarPostagensUseCase();
+    private ListarForunsUseCase listarForunsUseCase = new ListarForunsUseCase();
     private ImageView logo;
     private List<Forum> forumList;
 
@@ -103,24 +110,54 @@ public class HomeFragment extends Fragment {
         });
 
         recyclerViewPosts.setAdapter(postAdapter);
+        Long id = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0L);
+        String username = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("username", "");
+
+        listarPostagensUseCase.listarPostagens(new ListarPostagensUseCase.VerificarCallback() {
+            @Override
+            public void onVerificarSuccess(List<Post> postList, List<Post> liked) {
+                if (postList.isEmpty()) {
+                    Log.e("Erro", "Sem Posts");
+                } else {
+                    postAdapter.updatePostList(postList);
+
+                    for (Post post : postList) {
+                        boolean isLiked = liked.contains(post);
+                        postAdapter.curtir(post, isLiked);
+                    }
+                }
+            }
+            @Override
+            public void onVerificarFailure(String errorMessage) {
+            }
+
+        }, 0, 5, username);
 
         recyclerViewForum = view.findViewById(R.id.recycler_forum);
 
         forumList = new ArrayList<>();
 
-        forumList.add(new Forum(1, "PingPros", "Comunidade de ping pong.", "user2","https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", 0));
-        forumList.add(new Forum(2, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", "https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", 0));
-        forumList.add(new Forum(3, "PingPros", "Comunidade de ping pong.", "user2", "https://lastfm.freetls.fastly.net/i/u/avatar170s/c009cbba6eb44dfb9ba4081f30bfe46b", "https://lastfm.freetls.fastly.net/i/u/avatar170s/3dad5639665ad1b040cfb4071e95fb7a", 0));
-
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         forumAdapter = new ForumAdapter(forumList, new ForumAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Forum forum) {
-
+                Intent intent = new Intent(getContext(), TelaForum.class);
+                intent.putExtra("forum", forum.getNome());
+                startActivity(intent);
             }
         });
         recyclerViewForum.setAdapter(forumAdapter);
 
+        listarForunsUseCase.listarForuns(token, new ListarForunsUseCase.ListarForunsCallback() {
+            @Override
+            public void onListarForunsSuccess(List<Forum> forumList) {
+                forumAdapter.setListaFiltrada(forumList);
+            }
+
+            @Override
+            public void onListarForunsFailure(String errorMessage) {
+            }
+        },0,5);
         return view;
     }
 }

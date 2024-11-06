@@ -107,6 +107,7 @@ public class TelaCadastroAnuncio extends AppCompatActivity {
 
                 Bundle bundle = new Bundle();
 
+                bundle.putString("tela", "anuncio");
                 bundle.putString("nome", nome);
                 bundle.putString("descricao", descricao);
                 bundle.putDouble("preco", preco);

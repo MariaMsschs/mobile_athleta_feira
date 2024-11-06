@@ -34,9 +34,9 @@ import java.util.List;
 public class AnuncioFragment extends Fragment {
 
     private RecyclerView recyclerViewAnuncios;
+    private SearchView searchView;
     private AnuncioAdapter anuncioAdapter;
     private List<Anuncio> anuncioList;
-    private SearchView searchView;
     private TextView textViewNoResults;
     private ImageView imageNoResults;
 
@@ -90,7 +90,10 @@ public class AnuncioFragment extends Fragment {
         adicionarAnuncio.setOnClickListener(v -> {
             checarVendedorUseCase.checarVendedor(token, usuarioId, bol -> {
                 if(bol == true){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tela", "anuncio");
                     Intent cadastroVendedor = new Intent(getContext(), TelaCadastroAnuncio.class);
+                    cadastroVendedor.putExtras(bundle);
                     startActivity(cadastroVendedor);
                 }
                 else{

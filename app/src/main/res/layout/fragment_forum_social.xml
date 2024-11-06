@@ -65,7 +65,6 @@
             android:textAlignment="center"
             android:textSize="24sp"
             android:visibility="gone" />
-
     </LinearLayout>
 
     <Button

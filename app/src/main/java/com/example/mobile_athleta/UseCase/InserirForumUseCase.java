@@ -3,6 +3,7 @@ package com.example.mobile_athleta.UseCase;
 import android.util.Log;
 
 import com.example.mobile_athleta.models.Anuncio;
+import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.service.ApiResponse;
 import com.example.mobile_athleta.service.AthletaService;
 import com.example.mobile_athleta.service.RetrofitClientSql;
@@ -12,32 +13,32 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InserirAnuncioUseCase {
-    public interface InserirAnuncioCallBack{
-        void onInserirAnuncioSuccess();
-        void onInserirAnuncioFailure();
+public class InserirForumUseCase {
+    public interface InserirForumCallBack{
+        void onInserirForumSuccess();
+        void onInserirForumFailure();
     }
 
-    public void inserirAnuncio(String token, Anuncio anuncio, InserirAnuncioCallBack callback){
+    public void inserirForum(String token, Forum forum, InserirForumCallBack callback){
         AthletaService service = RetrofitClientSql.getAthletaService();
-        Call<ApiResponse> call = service.inserirAnuncio(token, anuncio);
+        Call<ApiResponse> call = service.inserirForum(token, forum);
 
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    Log.d("INSERIR ANUNCIO SUCESSO", new Gson().toJson(anuncio));
-                    callback.onInserirAnuncioSuccess();
+                    Log.d("INSERIR FORUM SUCESSO", new Gson().toJson(forum));
+                    callback.onInserirForumSuccess();
                 }
                 else{
-                    String errorMessage = "Erro ao inserir anuncio. Código: " + response.code() + ", Mensagem: " + response.message();
-                    Log.e("INSERIR ANUNCIO ERRO", errorMessage);
+                    String errorMessage = "Erro ao inserir forum. Código: " + response.code() + ", Mensagem: " + response.message();
+                    Log.e("LISTAR FORUM ERRO", errorMessage);
                 }
             }
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable throwable) {
-                Log.e("INSERIR ANUNCIO ERRO", throwable.getMessage());
-                callback.onInserirAnuncioFailure();
+                Log.e("INSERIR FORUM ERRO", throwable.getMessage());
+                callback.onInserirForumFailure();
             }
         });
 

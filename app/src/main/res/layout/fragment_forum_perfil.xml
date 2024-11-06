@@ -10,4 +10,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/card_comunidade" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/erro_rosto_triste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/erro_rosto_triste"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewNoResultsForumPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/roboto"
+            android:text="Ops! Parece que não encontramos o que você está procurando."
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLoadMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/button_design"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Carregar Mais"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
 </FrameLayout>

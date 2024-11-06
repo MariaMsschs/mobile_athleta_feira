@@ -145,19 +145,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
             fotoFirebaseImpl.recuperarImagem(usuarioPerfil, post.getUserFoto());
 
-            curtir.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(post);
-                }
-            });
+            curtir.setOnClickListener(v -> listener.onItemClick(post));
 
-            comentar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(post);
-                }
-            });
+            comentar.setOnClickListener(v -> listener.onItemClick(post));
         }
     }
 }

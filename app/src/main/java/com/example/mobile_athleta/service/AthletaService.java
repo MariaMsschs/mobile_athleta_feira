@@ -108,6 +108,15 @@ public interface AthletaService {
     @GET("api/vendedor/listar/telefone/{id}")
     Call<Vendedor> listarTelefonePorId(@Header("Authorization") String token, @Path("id") Long id);
 
+    @GET("api/evento/listar")
+    Call<EventoResponse> listarEventos(@Header("Authorization") String token, @Query("pagina") int pagina, @Query("tamanho") int tamanho);
+
+    @GET("api/evento/listar/{nome}")
+    Call<EventoResponse> listarEventosPorNome(@Header("Authorization") String token, @Path("nome") String nome);
+
+    @GET("api/evento/listar/organizador/{organizador}")
+    Call<EventoResponse> listarEventosPorOrganizador(@Header("Authorization") String token, @Path("organizador") int organizador, @Query("pagina") int pagina, @Query("tamanho") int tamanho);
+
     @DELETE("api/anuncio/excluir/{id}")
     Call<ApiResponse> excluirAnuncio(@Header("Authorization") String token, @Path("id") Long idAnuncio);
 

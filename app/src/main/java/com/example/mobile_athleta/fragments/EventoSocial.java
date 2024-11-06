@@ -1,5 +1,7 @@
 package com.example.mobile_athleta.fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -14,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaEvento;
+import com.example.mobile_athleta.UseCase.ListarEventosPorNomeUseCase;
+import com.example.mobile_athleta.UseCase.ListarEventosUseCase;
 import com.example.mobile_athleta.adapter.EventoAdapter;
 import com.example.mobile_athleta.models.Evento;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
@@ -48,6 +53,9 @@ public class EventoSocial extends Fragment {
     private TextView textViewNoResults;
     private ImageView imageNoResults;
     private RecyclerView recyclerViewEvento;
+    private ListarEventosUseCase listarEventosUseCase = new ListarEventosUseCase();
+    private ListarEventosPorNomeUseCase listarEventosPorNomeUseCase = new ListarEventosPorNomeUseCase();
+    int pagina = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +64,6 @@ public class EventoSocial extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -72,18 +79,76 @@ public class EventoSocial extends Fragment {
         String dataFormatada = validacaoCadastroImpl.converterDataInterface(dateString);
 
         eventoList = new ArrayList<>();
-        eventoList.add(new Evento(2, "PingPros", "Comunidade de ping pong.", dataFormatada, "https://static.wikia.nocookie.net/disney/images/e/e5/Profile_-_Marie.jpg/revision/latest?cb=20240215032542&path-prefix=pt-br"));
-        eventoList.add(new Evento(3, "piruetando", "Comunidade de ballet.", dataFormatada, "https://i.scdn.co/image/ab6761610000e5eb0522e98a6f0cf1ddbee9a74f"));
-        eventoList.add(new Evento(4, "ta dando onda", "Comunidade de surfe.", dataFormatada, "https://i.scdn.co/image/ab6761610000e5eb0522e98a6f0cf1ddbee9a74f"));
-
         recyclerViewEvento.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        eventoAdapter = new EventoAdapter(eventoList);
+        eventoAdapter = new EventoAdapter(eventoList, new EventoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Evento evento) {
+                Intent intent = new Intent(getContext(), TelaEvento.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Nome", evento.getNome());
+                bundle.putSerializable("Descricao", evento.getDescricao());
+                bundle.putSerializable("Imagem", evento.getImg());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         recyclerViewEvento.setAdapter(eventoAdapter);
+        String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
+
+        listarEventosUseCase.listarEventos(token, new ListarEventosUseCase.ListarEventosCallback() {
+            @Override
+            public void onListarEventosSuccess(List<Evento> postList) {
+                textViewNoResults.setVisibility(View.GONE);
+                imageNoResults.setVisibility(View.GONE);
+                eventoAdapter.updatePostList(postList);
+                mudarPagina();
+            }
+
+            @Override
+            public void onListarEventosFailure(String errorMessage) {
+                recyclerViewEvento.setVisibility(View.GONE);
+                textViewNoResults.setVisibility(View.VISIBLE);
+                textViewNoResults.setText("Ops! Parece que não temos eventos disponíveis");
+                imageNoResults.setVisibility(View.VISIBLE);
+            }
+        },pagina,15);
 
         searchView.setQueryHint("Buscar eventos");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                listarEventosPorNomeUseCase.listarEventos(token, new ListarEventosPorNomeUseCase.ListarEventosCallback() {
+                    @Override
+                    public void onListarEventosSuccess(List<Evento> postList) {
+                        textViewNoResults.setVisibility(View.GONE);
+                        imageNoResults.setVisibility(View.GONE);
+                        eventoAdapter.updatePostList(postList);
+                    }
+
+                    @Override
+                    public void onListarEventosFailure(String errorMessage) {
+                        if (query.isEmpty()){
+                            pagina = 0;
+                            listarEventosUseCase.listarEventos(token, new ListarEventosUseCase.ListarEventosCallback() {
+                                @Override
+                                public void onListarEventosSuccess(List<Evento> postList) {
+                                    textViewNoResults.setVisibility(View.GONE);
+                                    imageNoResults.setVisibility(View.GONE);
+                                    eventoAdapter.updatePostList(postList);
+                                    mudarPagina();
+                                }
+
+                                @Override
+                                public void onListarEventosFailure(String errorMessage) {
+                                    textViewNoResults.setVisibility(View.VISIBLE);
+                                    imageNoResults.setVisibility(View.VISIBLE);
+                                    textViewNoResults.setText("Ops! Parece que não temos eventos disponíveis");
+                                }
+                            },pagina,15);
+                        }
+                    }
+                }, query);
                 return false;
             }
 
@@ -115,5 +180,11 @@ public class EventoSocial extends Fragment {
             recyclerViewEvento.setVisibility(View.VISIBLE);
             eventoAdapter.setListaFiltrada(listaFiltrada);
         }
+    }
+
+    public void mudarPagina() {
+        int numero = pagina + 1;
+        getContext().getSharedPreferences("posts", Context.MODE_PRIVATE).edit().putInt("pagina", numero).apply();
+        pagina = numero;
     }
 }

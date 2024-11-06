@@ -20,6 +20,9 @@
             android:name=".TelaCadastroForum"
             android:exported="false" />
         <activity
+            android:name=".TelaEvento"
+            android:exported="false" />
+        <activity
             android:name=".TelaPagamento"
             android:exported="false" />
         <activity
@@ -48,19 +51,6 @@
         <activity
             android:name=".TelaEsporte"
             android:exported="false" />
-        <activity
-            android:name=".TelaComentarios"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/TransparentActivityTheme" />
-        <activity
-            android:name=".TelaCadastroAnuncio"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".TelaAreaRestrita"
-            android:exported="false"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".TelaItem"
             android:exported="false"

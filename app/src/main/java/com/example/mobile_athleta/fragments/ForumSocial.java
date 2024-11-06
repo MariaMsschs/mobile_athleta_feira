@@ -112,6 +112,7 @@ public class ForumSocial extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.isEmpty()) {
+                    pagina = 0;
                     listarForunsUseCase.listarForuns(token, new ListarForunsUseCase.ListarForunsCallback() {
                         @Override
                         public void onListarForunsSuccess(List<Forum> forumList) {

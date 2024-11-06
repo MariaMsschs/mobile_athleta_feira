@@ -15,13 +15,15 @@ public class Evento {
 
     private int organizador;
 
-    public Evento(int idEvento, String nome, String descricao, String dtEvento, String img, int organizador) {
+    private Long idLocal;
+    public Evento(int idEvento, String nome, String descricao, String dtEvento, String img, int organizador, Long idLocal) {
         this.idEvento = idEvento;
         this.nome = nome;
         this.descricao = descricao;
         this.dtEvento = dtEvento;
         this.img = img;
         this.organizador = organizador;
+        this.idLocal = idLocal;
     }
 
     public int getIdEvento() {
@@ -50,5 +52,9 @@ public class Evento {
 
     public int getOrganizador() {
         return organizador;
+    }
+
+    public Long getIdLocal() {
+        return idLocal;
     }
 }

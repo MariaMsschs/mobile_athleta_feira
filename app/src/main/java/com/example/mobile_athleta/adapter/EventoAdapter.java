@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Evento;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -63,6 +64,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
         private ImageView imagem_evento;
         private TextView evento_titulo, evento_descricao, evento_data;
 
+        ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
         private Context context;
 
         public EventoViewHolder(@NonNull View itemView) {
@@ -80,7 +82,9 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
                     .into(imagem_evento);
             evento_titulo.setText(evento.getNome());
             evento_descricao.setText(evento.getDescricao());
-            evento_data.setText(String.valueOf(evento.getDtEvento()));
+            String dateString = String.valueOf(evento.getDtEvento());
+            String dataFormatada = validacaoCadastroImpl.converterDataInterface(dateString);
+            evento_data.setText(dataFormatada);
         }
     }
 }

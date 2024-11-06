@@ -184,12 +184,11 @@ public class PostSocial extends Fragment {
 
         return view;
     }
-
-//    public void mudarPagina() {
-//        int numero = pagina + 1;
-//        getContext().getSharedPreferences("posts", Context.MODE_PRIVATE).edit().putInt("pagina", numero).apply();
-//        pagina = numero;
-//    }
+  
+    public void mudarPagina() {
+        int numero = pagina + 1;
+        pagina = numero;
+    }
 
     private void checkSeVazio() {
         if (postList.isEmpty()) {

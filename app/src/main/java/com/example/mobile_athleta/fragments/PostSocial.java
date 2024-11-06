@@ -1,5 +1,7 @@
 package com.example.mobile_athleta.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaPerfil;
 import com.example.mobile_athleta.TelaPostagem;
 import com.example.mobile_athleta.UseCase.ListarPostagensUseCase;
+import com.example.mobile_athleta.UseCase.ListarUsuarioPorUsernameUsecase;
 import com.example.mobile_athleta.adapter.PostAdapter;
 import com.example.mobile_athleta.models.Post;
+import com.example.mobile_athleta.models.Usuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -59,6 +64,7 @@ public class PostSocial extends Fragment {
     private PostAdapter postAdapter;
     private List<Post> postList;
     private ListarPostagensUseCase listarPostagensUseCase = new ListarPostagensUseCase();
+    private ListarUsuarioPorUsernameUsecase listarUsuarioPorUsernameUsecase = new ListarUsuarioPorUsernameUsecase();
     private RecyclerView recyclerViewPost;
     private Button btnLoadMore;
     private TextView textViewNoResults;
@@ -87,6 +93,33 @@ public class PostSocial extends Fragment {
         postAdapter = new PostAdapter(postList, new PostAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Post post) {
+            }
+
+            @Override
+            public void onFotoClick(Post post) {
+                frameLayout.setVisibility(ProgressBar.VISIBLE);
+                Intent intent = new Intent(getContext(), TelaPerfil.class);
+                String token = getContext().getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
+
+                listarUsuarioPorUsernameUsecase.listarUsuarioPorUsername(token,post.getUsername(), new ListarUsuarioPorUsernameUsecase.ListarUsuarioPorUsernameCallBack() {
+                    @Override
+                    public void onListarUsuarioSuccess(Usuario response) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("nome",response.getNome());
+                        bundle.putString("username", post.getUsername());
+                        bundle.putString("url",post.getUserFoto());
+                        bundle.putLong("userId",response.getIdUsuario());
+                        intent.putExtras(bundle);
+                        frameLayout.setVisibility(ProgressBar.GONE);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onListarUsuarioFailure(String errorMessage) {
+
+                    }
+                });
+
 
             }
         });

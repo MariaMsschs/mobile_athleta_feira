@@ -67,6 +67,8 @@ public class PerfilFragment extends Fragment {
         String nomeAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("nome", "");
         String usernameAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("username", "");
         String caminhoAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("caminho","");
+        Long id = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getLong("idUsuario", 0L);
+        view.getContext().getSharedPreferences("perfil", getContext().MODE_PRIVATE).edit().putLong("idPerfil", id).apply();
 
         nome.setText(nomeAtual);
         username.setText(usernameAtual);

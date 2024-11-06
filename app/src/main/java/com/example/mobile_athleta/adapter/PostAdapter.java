@@ -112,6 +112,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
 
     public interface OnItemClickListener {
         void onItemClick(Post post);
+        void onFotoClick(Post post);
     }
 
     @Override
@@ -148,6 +149,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             curtir.setOnClickListener(v -> listener.onItemClick(post));
 
             comentar.setOnClickListener(v -> listener.onItemClick(post));
+
+            usuarioPerfil.setOnClickListener(v -> listener.onFotoClick(post));
         }
     }
 }

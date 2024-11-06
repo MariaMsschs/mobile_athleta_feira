@@ -96,7 +96,7 @@ public class EventoPerfil extends Fragment {
 
 
         String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
-        Long id = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0);
+        Long id = getContext().getSharedPreferences("perfil", Context.MODE_PRIVATE).getLong("idPerfil", 0L);
 
         listarEventosPorOrganizador.listarEventos(token, new ListarEventosPorOrganizador.ListarEventosCallBack() {
             @Override

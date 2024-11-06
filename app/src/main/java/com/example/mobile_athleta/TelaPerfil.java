@@ -52,6 +52,10 @@ public class TelaPerfil extends AppCompatActivity {
         View indicator = findViewById(R.id.indicator);
 
         tabPosts.post(() -> {
+            int width = tabPosts.getWidth();
+            ViewGroup.LayoutParams params = indicator.getLayoutParams();
+            params.width = width;
+            indicator.setLayoutParams(params);
             carregarFragment(new PostPerfil());
         });
 

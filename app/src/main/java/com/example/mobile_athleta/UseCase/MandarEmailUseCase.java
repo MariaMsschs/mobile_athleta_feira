@@ -30,6 +30,7 @@ public class MandarEmailUseCase {
             @Override
             public void onResponse(Call<RedisResponse> call, Response<RedisResponse> response) {
                 if(response.isSuccessful()) {
+                    Log.d("SUCESSO MandarEmail", "Sucesso ao mandar email: " + email);
                     RedisResponse redisResponse = response.body();
                     String key = redisResponse.getKey();
                     context.getSharedPreferences("key", Context.MODE_PRIVATE).edit().putString("key", key).apply();
@@ -38,6 +39,7 @@ public class MandarEmailUseCase {
 
             @Override
             public void onFailure(Call<RedisResponse> call, Throwable throwable) {
+                Log.d("ERRO MandarEmail", throwable.getMessage());
             }
         });
     }

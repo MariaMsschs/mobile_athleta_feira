@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioFireUseCase;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
@@ -107,26 +110,49 @@ public class TelaFoto extends AppCompatActivity {
 
         UserLogin userLogin = new UserLogin(usuario.getUsername(), usuario.getSenha());
 
-        cadastrarUsuarioUseCase.cadastrarUsuario(usuario, () -> {
+        cadastrarUsuarioUseCase.cadastrarUsuario(usuario, new CadastrarUsuarioUseCase.CadastroCallback() {
 
-            loginFireUseCase.loginFirebase(usuario.getEmail(), usuario.getSenha());
-            loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
 
-                @Override
-                public void onLoginSuccess() {
-                    Intent intro = new Intent(TelaFoto.this, TelaItem.class);
-                    binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-                    startActivity(intro);
+            @Override
+            public void onCadastroSuccess() {
+                loginFireUseCase.loginFirebase(usuario.getEmail(), usuario.getSenha());
+                loginUseCase.login(userLogin, TelaFoto.this, new LoginUseCase.LoginCallback() {
+
+                    @Override
+                    public void onLoginSuccess() {
+                        Intent intro = new Intent(TelaFoto.this, TelaItem.class);
+                        binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
+                        startActivity(intro);
+                        finish();
+                    }
+
+                    @Override
+                    public void onLoginFailure(String errorMessage) {
+                        binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
+                        Log.e("LOGIN", "Falha no login: " + errorMessage);
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                });
+            }
+
+            @Override
+            public void onCadastroFailure(String message) {
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(TelaFoto.this);
+                TextView textView = dialogView.findViewById(R.id.text);
+                textView.setText("Não foi possível cadastro o usuário!");
+                builder.setView(dialogView);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                View botao_erro_alterar = dialogView.findViewById(R.id.botao_erro_alterar);
+                botao_erro_alterar.setOnClickListener(v -> {
+                    Intent config = new Intent(TelaFoto.this, Login.class);
+                    startActivity(config);
                     finish();
-                }
-
-                @Override
-                public void onLoginFailure(String errorMessage) {
-                    binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
-                    Log.e("LOGIN", "Falha no login: " + errorMessage);
-                    FirebaseAuth.getInstance().signOut();
-                }
-            });
+                    dialog.dismiss();
+                });
+            }
         });
     }
 

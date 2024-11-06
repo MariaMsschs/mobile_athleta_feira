@@ -40,7 +40,6 @@ public class TelaVerificacao extends AppCompatActivity {
         checkField();
         if(binding.codigoVerificacao.getError() == null) {
             Bundle bundle = getIntent().getExtras();
-            Log.d("key", getSharedPreferences("key", MODE_PRIVATE).getString("key", ""));
             verificarOTPUseCase.verificar(getSharedPreferences("key", MODE_PRIVATE).getString("key", ""),
                     codigoVerificacao.getText().toString(), this, new VerificarOTPUseCase.VerificarCallback() {
                         @Override

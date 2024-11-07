@@ -7,6 +7,8 @@ public interface ValidacaoCadastro {
 
     void definirData(EditText editText, Context context);
 
+    void definirDataEvento(EditText editText, Context context);
+
     String converterDataCadastro(String dataString);
     String converterDataInterface(String dataString);
 

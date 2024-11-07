@@ -17,11 +17,6 @@
         android:title="Social" />
 
     <item
-        android:id="@+id/notificacoes"
-        android:icon="@drawable/notificacoes"
-        android:title="notificacoes" />
-
-    <item
         android:id="@+id/perfil"
         android:icon="@drawable/perfil"
         android:title="Perfil" />

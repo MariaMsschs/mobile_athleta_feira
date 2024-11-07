@@ -2,6 +2,7 @@ package com.example.mobile_athleta.service;
 
 import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Comentario;
+import com.example.mobile_athleta.models.Evento;
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.RedisResponse;
@@ -129,6 +130,12 @@ public interface AthletaService {
     @GET("api/forum/listar/id/{id}")
     Call<ForumResponse> listarForumPorId(@Header("Authorization") String token, @Path("id") Long forumId);
 
+    @POST("api/evento/inserir")
+    Call<ApiResponse> inserirEvento(@Header("Authorization") String token, @Body Evento evento);
+
+    @DELETE("api/evento/excluir/{id}")
+    Call<ApiResponse> excluirEvento(@Header("Authorization") String token, @Path("id") Long id);
+  
     @POST("api/relacionamento/seguir")
     Call<RelacionamentoResponse> seguir(@Header("Authorization") String token, @Body RelacionamentoUsuario relacionamentoUsuario);
 
@@ -143,4 +150,5 @@ public interface AthletaService {
 
     @POST("api/relacionamento/existe")
     Call<SeguidoresResponse> verificarRelacionamento(@Header("Authorization") String token, @Body RelacionamentoUsuario relacionamentoUsuario);
+
 }

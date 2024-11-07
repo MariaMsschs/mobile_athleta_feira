@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f4"
+    tools:context=".TelaCadastroEvento">
+
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logo_athleta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
+            app:srcCompat="@drawable/athleta_logo_pequena" />
+
+        <ImageButton
+            android:id="@+id/botao_voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/logo_athleta"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/seta_volta" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/titulo_nome_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Titulo do evento:"
+                android:textColor="#626161"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/nome_evento"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/titulo_descricao_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Descrição do evento:"
+                android:textColor="#626161"
+                android:textSize="12sp"/>
+
+            <EditText
+                android:id="@+id/descricao_evento"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/input_design"
+                android:ems="10"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="#626161"
+                android:textCursorDrawable="@drawable/cursor_design"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/titulo_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Data de evento:"
+                android:textColor="#626161"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toTopOf="@+id/data_nascimento"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.099"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/data_nascimento"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/input_design"
+                    android:clickable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:padding="10dp"
+                    android:textColor="#626161"
+                    android:textCursorDrawable="@drawable/cursor_design"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/calendario"
+                    android:layout_width="49dp"
+                    android:layout_height="46dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/calendario" />
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/titulo_imagem_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto"
+                android:text="Imagem do evento:"
+                android:textColor="#626161"
+                android:textSize="12sp" />
+
+            <ImageButton
+                android:id="@+id/imagem_evento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="1dp"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:background="@drawable/post_design"
+                android:src="@drawable/inserir_foto" />
+
+            <Button
+                android:id="@+id/cadastro_evento"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/gray_button_design"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Adicionar evento"
+                android:textColor="@color/gray"
+                android:textAllCaps="false"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/frameLayoutEvento"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#70F4F4F4"
+        android:clickable="true"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBarEvento"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/orange" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

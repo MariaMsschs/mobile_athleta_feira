@@ -114,6 +114,10 @@ public class TelaCadastroVendedor extends AppCompatActivity {
                             Intent novaTela = new Intent(TelaCadastroVendedor.this, TelaCadastroForum.class);
                             startActivity(novaTela);
                         }
+                        if(bundle.getString("tela").equals("evento")) {
+                            Intent novaTela = new Intent(TelaCadastroVendedor.this, TelaCadastroEvento.class);
+                            startActivity(novaTela);
+                        }
 
                         frameLayout.setVisibility(ProgressBar.GONE);
                         finish();

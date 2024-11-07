@@ -53,6 +53,7 @@ public class TelaVerificacao extends AppCompatActivity {
 
                         @Override
                         public void onVerificarFailure(String errorMessage) {
+                            Log.d("ERRO", errorMessage);
                             binding.codigoVerificacao.setError("Código inválido");
                         }
                     });

@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioFireUseCase;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
@@ -110,6 +112,7 @@ public class TelaFoto extends AppCompatActivity {
         cadastrarUsuarioUseCase.cadastrarUsuario(usuario, () -> {
 
             loginFireUseCase.loginFirebase(usuario.getEmail(), usuario.getSenha());
+
             loginUseCase.login(userLogin, this, new LoginUseCase.LoginCallback() {
 
                 @Override
@@ -124,6 +127,7 @@ public class TelaFoto extends AppCompatActivity {
                 public void onLoginFailure(String errorMessage) {
                     binding.frameLayoutFoto.setVisibility(ProgressBar.GONE);
                     Log.e("LOGIN", "Falha no login: " + errorMessage);
+                    Toast.makeText(TelaFoto.this, "Erro no cadastro!", Toast.LENGTH_SHORT).show();
                     FirebaseAuth.getInstance().signOut();
                 }
             });

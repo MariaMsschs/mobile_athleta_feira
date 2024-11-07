@@ -16,10 +16,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mobile_athleta.UseCase.InserirAnuncioUseCase;
+import com.example.mobile_athleta.UseCase.InserirEventoUseCase;
 import com.example.mobile_athleta.UseCase.InserirForumUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaCadastroBinding;
 import com.example.mobile_athleta.databinding.ActivityTelaPagamentoBinding;
 import com.example.mobile_athleta.models.Anuncio;
+import com.example.mobile_athleta.models.Evento;
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Usuario;
 
@@ -34,6 +36,8 @@ public class TelaPagamento extends AppCompatActivity {
 
     private InserirAnuncioUseCase inserirAnuncioUseCase = new InserirAnuncioUseCase();
     private InserirForumUseCase inserirForumUseCase = new InserirForumUseCase();
+
+    private InserirEventoUseCase inserirEventoUseCase = new InserirEventoUseCase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,12 @@ public class TelaPagamento extends AppCompatActivity {
                             bundle.getString("imagemPerfil"), bundle.getString("imagemHeader"), bundle.getLong("idUsuario"));
 
                     cadastrarForum(forum, token);
+                }
+                else if(decisao.equals("evento")){
+                    Evento evento = new Evento(bundle.getString("nome"), bundle.getString("descricao"),
+                            bundle.getString("data"), bundle.getString("imagem"), bundle.getLong("idUsuario"));
+
+                    cadastrarEvento(evento, token);
                 }
             }
         });
@@ -143,6 +153,56 @@ public class TelaPagamento extends AppCompatActivity {
         });
 
 
+    }
+
+    public void cadastrarEvento(Evento evento, String token) {
+        if(evento.getImg() != null) {
+            inserirEventoUseCase.inserirEvento(token, evento, new InserirEventoUseCase.InserirEventoCallBack() {
+                @Override
+                public void onInserirEventoSuccess() {
+                    getSharedPreferences("foto", MODE_PRIVATE).edit().remove("caminho_imagem").apply();
+                    binding.frameLayoutPagamento.setVisibility(ProgressBar.GONE);
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.anuncio_inserido_dialog, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TelaPagamento.this);
+                    View botao = dialogView.findViewById(R.id.botao_inserido);
+                    builder.setView(dialogView);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    botao.setOnClickListener(v2 -> {
+                        Intent intent = new Intent(TelaPagamento.this, TelaHome.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                        dialog.dismiss();
+                    });
+                }
+
+                @Override
+                public void onInserirEventoFailure(){
+                    binding.frameLayoutPagamento.setVisibility(ProgressBar.GONE);
+                    getSharedPreferences("foto", MODE_PRIVATE).edit().remove("caminho_imagem").apply();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.anuncio_erro_dialog, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TelaPagamento.this);
+                    builder.setView(dialogView);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    View botao_alterado = dialogView.findViewById(R.id.botao_erro_inserir);
+                    botao_alterado.setOnClickListener(v -> {
+                        Intent intent = new Intent(TelaPagamento.this, TelaHome.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        finish();
+                        dialog.dismiss();
+                    });
+                }
+            });
+        }
+        else{
+            Log.d("FALHA AO INSERIR", "Imagem vazia");
+        }
     }
 
     public void cadastrarForum(Forum forum, String token) {

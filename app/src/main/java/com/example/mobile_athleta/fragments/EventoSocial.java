@@ -1,9 +1,12 @@
 package com.example.mobile_athleta.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,11 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaCadastroEvento;
+import com.example.mobile_athleta.TelaCadastroForum;
+import com.example.mobile_athleta.TelaCadastroVendedor;
 import com.example.mobile_athleta.TelaEvento;
+import com.example.mobile_athleta.UseCase.ChecarVendedorUseCase;
 import com.example.mobile_athleta.UseCase.ListarEventosPorNomeUseCase;
 import com.example.mobile_athleta.UseCase.ListarEventosUseCase;
 import com.example.mobile_athleta.adapter.EventoAdapter;
@@ -52,9 +60,14 @@ public class EventoSocial extends Fragment {
     private SearchView searchView;
     private TextView textViewNoResults;
     private ImageView imageNoResults;
+
+    private ImageButton adicionarEvento;
     private RecyclerView recyclerViewEvento;
     private ListarEventosUseCase listarEventosUseCase = new ListarEventosUseCase();
     private ListarEventosPorNomeUseCase listarEventosPorNomeUseCase = new ListarEventosPorNomeUseCase();
+
+    private ChecarVendedorUseCase checarVendedorUseCase = new ChecarVendedorUseCase();
+
     int pagina = 0;
 
     @Override
@@ -74,6 +87,7 @@ public class EventoSocial extends Fragment {
         searchView = view.findViewById(R.id.searchView);
         textViewNoResults = view.findViewById(R.id.textViewNoResults);
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
+        adicionarEvento = view.findViewById(R.id.criar_evento);
 
         String dateString = "06-02-2008";
         String dataFormatada = validacaoCadastroImpl.converterDataInterface(dateString);
@@ -95,6 +109,9 @@ public class EventoSocial extends Fragment {
 
         recyclerViewEvento.setAdapter(eventoAdapter);
         String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
+        Long usuarioId = getContext().getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
+
+
 
         listarEventosUseCase.listarEventos(token, new ListarEventosUseCase.ListarEventosCallback() {
             @Override
@@ -176,6 +193,31 @@ public class EventoSocial extends Fragment {
                 }
                 return false;
             }
+        });
+
+        adicionarEvento.setOnClickListener(v -> {
+            checarVendedorUseCase.checarVendedor(token, usuarioId, bol -> {
+                if(bol == true){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("tela", "evento");
+                    Intent cadastroVendedor = new Intent(getContext(), TelaCadastroEvento.class);
+                    cadastroVendedor.putExtras(bundle);
+                    startActivity(cadastroVendedor);
+                }
+                else{
+                    View dialogView = inflater.inflate(R.layout.vendedor_dialog, null);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    View botao = dialogView.findViewById(R.id.botao_vendedor_dialog);
+                    builder.setView(dialogView);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    botao.setOnClickListener(v2 -> {
+                        Intent config = new Intent(getContext(), TelaCadastroVendedor.class);
+                        startActivity(config);
+                        dialog.dismiss();
+                    });
+                }
+            });
         });
 
         return view;

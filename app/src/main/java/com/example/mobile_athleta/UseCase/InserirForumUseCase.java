@@ -32,7 +32,7 @@ public class InserirForumUseCase {
                 }
                 else{
                     String errorMessage = "Erro ao inserir forum. Código: " + response.code() + ", Mensagem: " + response.message();
-                    Log.e("LISTAR FORUM ERRO", errorMessage);
+                    Log.e("INSERIR FORUM ERRO", errorMessage);
                 }
             }
             @Override

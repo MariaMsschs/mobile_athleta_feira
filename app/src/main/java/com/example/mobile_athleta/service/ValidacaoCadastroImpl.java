@@ -38,6 +38,28 @@ public class ValidacaoCadastroImpl implements ValidacaoCadastro {
     }
 
     @Override
+    public void definirDataEvento(EditText editText, Context context) {
+        Calendar calendar = Calendar.getInstance();
+        final int year = calendar.get(Calendar.YEAR);
+        final int month = calendar.get(Calendar.MONTH);
+        final int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                context,
+                (view, year1, month1, dayOfMonth) -> {
+                    selectedYear = year1;
+                    selectedMonth = month1;
+                    selectedDay = dayOfMonth;
+                    String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                    editText.setText(selectedDate);
+                },
+                year, month, day);
+
+        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+        datePickerDialog.show();
+    }
+
+    @Override
     public String converterDataCadastro(String dataString) {
         final SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy");
         final SimpleDateFormat formatoSaida = new SimpleDateFormat("yyyy-MM-dd");

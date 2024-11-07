@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import com.example.mobile_athleta.UseCase.ListarUsuarioUseCase;
 import com.example.mobile_athleta.UseCase.LoginFireUseCase;
 import com.example.mobile_athleta.UseCase.LoginUseCase;
@@ -72,6 +74,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onLoginFailure(String errorMessage) {
                         binding.frameLayoutLogin.setVisibility(ProgressBar.GONE);
+                        Toast.makeText(Login.this, "Não foi possível realizar o login, tente novamente!", Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
                     }
                 });

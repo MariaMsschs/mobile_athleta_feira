@@ -149,9 +149,8 @@ public class TelaFoto extends AppCompatActivity {
                     Intent config = new Intent(TelaFoto.this, Login.class);
                     startActivity(config);
                     finish();
-                }
-            });
-                 
+                });
+            }
         });
     }
 

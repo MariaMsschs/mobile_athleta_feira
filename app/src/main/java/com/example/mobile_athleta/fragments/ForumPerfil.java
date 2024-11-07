@@ -2,6 +2,7 @@ package com.example.mobile_athleta.fragments;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaForum;
+import com.example.mobile_athleta.UseCase.ListarForumPorIdUseCase;
 import com.example.mobile_athleta.UseCase.ListarForunsUseCase;
 import com.example.mobile_athleta.adapter.ForumAdapter;
 import com.example.mobile_athleta.adapter.PostAdapter;
@@ -62,6 +64,7 @@ public class ForumPerfil extends Fragment {
     private Button btnLoadMore;
     int pagina = 0;
     private ListarForunsUseCase listarForunsUseCase = new ListarForunsUseCase();
+    private ListarForumPorIdUseCase listarForumPorIdUseCase = new ListarForumPorIdUseCase();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,25 +79,7 @@ public class ForumPerfil extends Fragment {
         forumList = new ArrayList<>();
 
         String token = getContext().getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
-        Long usuarioId = getContext().getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
-
-        listarForunsUseCase.listarForuns(token, new ListarForunsUseCase.ListarForunsCallback() {
-            @Override
-            public void onListarForunsSuccess(List<Forum> forumList) {
-                textViewNoResults.setVisibility(View.GONE);
-                imageNoResults.setVisibility(View.GONE);
-                recyclerViewForum.setVisibility(View.VISIBLE);
-                forumAdapter.setListaFiltrada(forumList);
-                mudarPagina();
-            }
-
-            @Override
-            public void onListarForunsFailure(String errorMessage) {
-                recyclerViewForum.setVisibility(View.GONE);
-                textViewNoResults.setVisibility(View.VISIBLE);
-                imageNoResults.setVisibility(View.VISIBLE);
-            }
-        },pagina,15);
+        Long usuarioId = getContext().getSharedPreferences("perfil", Context.MODE_PRIVATE).getLong("idPerfil", 0L);
 
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         forumAdapter = new ForumAdapter(forumList, forum -> {
@@ -107,6 +92,17 @@ public class ForumPerfil extends Fragment {
         });
 
         recyclerViewForum.setAdapter(forumAdapter);
+
+        listarForumPorIdUseCase.listarForumPorId(token, usuarioId, new ListarForumPorIdUseCase.ListarForumPorIdCallBack() {
+            @Override
+            public void onForumRetornado(Forum forum) {
+                textViewNoResults.setVisibility(View.GONE);
+                imageNoResults.setVisibility(View.GONE);
+                recyclerViewForum.setVisibility(View.VISIBLE);
+                forumAdapter.setListaFiltrada(forumList);
+                mudarPagina();
+            }
+        });
 
         return view;
     }

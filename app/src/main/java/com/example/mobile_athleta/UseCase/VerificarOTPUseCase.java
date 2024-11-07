@@ -36,6 +36,7 @@ public class VerificarOTPUseCase {
             public void onResponse(Call<RedisResponse> call, Response<RedisResponse> response) {
                 if(response.isSuccessful()) {
                     if (response.code() == 200) {
+                        Log.d("SUCESSO", "verificação concluída");
                         context.getSharedPreferences("key", Context.MODE_PRIVATE).edit().clear().apply();
                         callback.onVerificarSuccess();
                     }

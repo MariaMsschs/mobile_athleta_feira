@@ -13,18 +13,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaEsporte;
 import com.example.mobile_athleta.TelaForum;
+import com.example.mobile_athleta.TelaPerfil;
 import com.example.mobile_athleta.UseCase.ListarEsportesUseCase;
 import com.example.mobile_athleta.UseCase.ListarForunsUseCase;
 import com.example.mobile_athleta.UseCase.ListarPostagensUseCase;
+import com.example.mobile_athleta.UseCase.ListarUsuarioPorUsernameUsecase;
 import com.example.mobile_athleta.adapter.EsporteCardAdapter;
 import com.example.mobile_athleta.adapter.ForumAdapter;
 import com.example.mobile_athleta.adapter.PostAdapter;
 import com.example.mobile_athleta.models.Esporte;
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Post;
+import com.example.mobile_athleta.models.Usuario;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +45,8 @@ public class HomeFragment extends Fragment {
     private List<Post> postList;
     private ListarPostagensUseCase listarPostagensUseCase = new ListarPostagensUseCase();
     private ListarForunsUseCase listarForunsUseCase = new ListarForunsUseCase();
+    private ListarUsuarioPorUsernameUsecase listarUsuarioPorUsernameUsecase = new ListarUsuarioPorUsernameUsecase();
+
     private List<Forum> forumList;
 
     @Override
@@ -82,7 +90,26 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFotoClick(Post post) {
+                Intent intent = new Intent(getContext(), TelaPerfil.class);
+                String token = getContext().getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
 
+                listarUsuarioPorUsernameUsecase.listarUsuarioPorUsername(token,post.getUsername(), new ListarUsuarioPorUsernameUsecase.ListarUsuarioPorUsernameCallBack() {
+                    @Override
+                    public void onListarUsuarioSuccess(Usuario response) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("nome",response.getNome());
+                        bundle.putString("username", post.getUsername());
+                        bundle.putString("url",post.getUserFoto());
+                        bundle.putLong("userId",response.getIdUsuario());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onListarUsuarioFailure(String errorMessage) {
+
+                    }
+                });
             }
         });
 

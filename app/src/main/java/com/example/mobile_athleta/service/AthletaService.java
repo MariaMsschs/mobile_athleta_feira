@@ -129,4 +129,18 @@ public interface AthletaService {
     @GET("api/forum/listar/id/{id}")
     Call<ForumResponse> listarForumPorId(@Header("Authorization") String token, @Path("id") Long forumId);
 
+    @POST("api/relacionamento/seguir")
+    Call<RelacionamentoResponse> seguir(@Header("Authorization") String token, @Body RelacionamentoUsuario relacionamentoUsuario);
+
+    @DELETE("api/relacionamento/seguir/{id}")
+    Call<SeguidoresResponse> pararDeSeguir(@Header("Authorization") String token, @Path("id") Long idRelacionamento);
+
+    @GET("api/relacionamento/seguindo/{id}")
+    Call<Long> seguindo(@Header("Authorization") String token, @Path("id") Long id);
+
+    @GET("api/relacionamento/seguidores/{id}")
+    Call<Long> seguidores(@Header("Authorization") String token, @Path("id") Long id);
+
+    @POST("api/relacionamento/existe")
+    Call<SeguidoresResponse> verificarRelacionamento(@Header("Authorization") String token, @Body RelacionamentoUsuario relacionamentoUsuario);
 }

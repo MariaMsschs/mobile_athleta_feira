@@ -24,7 +24,7 @@ public class CadastrarUsuarioUseCase {
         call.enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, retrofit2.Response<ApiResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().getResponseSucessfull() == true) {
                     Log.d("SUCESSO CADASTRO", new Gson().toJson(usuario));
                     callback.onCadastroSuccess();
 

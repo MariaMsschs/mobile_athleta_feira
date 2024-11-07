@@ -141,7 +141,7 @@ public class TelaFoto extends AppCompatActivity {
                 View dialogView = inflater.inflate(R.layout.erro_alterar_dialog, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(TelaFoto.this);
                 TextView textView = dialogView.findViewById(R.id.text);
-                textView.setText("Não foi possível cadastro o usuário!");
+                textView.setText("Não foi possível cadastrar o usuário!");
                 builder.setView(dialogView);
                 AlertDialog dialog = builder.create();
                 dialog.show();

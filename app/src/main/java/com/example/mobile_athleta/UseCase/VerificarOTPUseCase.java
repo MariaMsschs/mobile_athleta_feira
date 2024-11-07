@@ -44,6 +44,9 @@ public class VerificarOTPUseCase {
                     Log.e("Erro API", "Código inválido, status: 404");
                     callback.onVerificarFailure("Código inválido");
                 }
+                else{
+                    callback.onVerificarFailure("Código inválido");
+                }
             }
 
             @Override

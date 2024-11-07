@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioFireUseCase;
 import com.example.mobile_athleta.UseCase.CadastrarUsuarioUseCase;
@@ -150,7 +149,6 @@ public class TelaFoto extends AppCompatActivity {
                     Intent config = new Intent(TelaFoto.this, Login.class);
                     startActivity(config);
                     finish();
-                    dialog.dismiss();
                 });
             }
         });

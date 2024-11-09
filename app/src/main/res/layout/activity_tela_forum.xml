@@ -27,26 +27,6 @@
             android:scaleType="centerCrop"
             tools:srcCompat="@color/orange" />
 
-
-        <Button
-            android:id="@+id/botao_excluir_forum"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="258dp"
-            android:layout_marginTop="135dp"
-            android:layout_marginBottom="25dp"
-            android:background="@drawable/gray_button_design"
-            android:fontFamily="@font/roboto_bold"
-            android:paddingLeft="18dp"
-            android:paddingTop="7dp"
-            android:paddingRight="18dp"
-            android:paddingBottom="7dp"
-            android:text="Excluir Forúm"
-            android:textAllCaps="false"
-            android:textColor="@color/orange"
-            android:textSize="12sp" />
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/forumImagemFrente"
             android:layout_width="100dp"
@@ -57,7 +37,18 @@
             app:shapeAppearanceOverlay="@style/circleImageView"
             app:srcCompat="@drawable/foto_perfil_design" />
 
-
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/excluir_forum"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:elevation="4dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_menu_delete"
+            app:backgroundTint="@color/light_gray" />
     </FrameLayout>
 
 

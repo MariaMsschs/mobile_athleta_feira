@@ -48,7 +48,7 @@ public class TelaForum extends AppCompatActivity {
         binding = ActivityTelaForumBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.botaoExcluirForum.setVisibility(View.GONE);
+        binding.excluirForum.setVisibility(View.GONE);
 
         postList = new ArrayList<>();
 
@@ -194,14 +194,14 @@ public class TelaForum extends AppCompatActivity {
             fotoHeader = forum.getImgFundo();
 
             if (criadorId == usuarioAtualId) {
-                binding.botaoExcluirForum.setVisibility(View.VISIBLE);
+                binding.excluirForum.setVisibility(View.VISIBLE);
 
-                binding.botaoExcluirForum.setOnClickListener(v ->
+                binding.excluirForum.setOnClickListener(v ->
                         excluirForum(token, forumId)
                 );
             }
             else{
-                binding.botaoExcluirForum.setVisibility(View.GONE);
+                binding.excluirForum.setVisibility(View.GONE);
             }
 
             fotoFirebaseImpl.recuperarImagem(binding.forumImagemFrente, forum.getImgForum());

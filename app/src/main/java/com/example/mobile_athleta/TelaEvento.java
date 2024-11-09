@@ -21,12 +21,15 @@ public class TelaEvento extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String nome = extras.getString("Nome");
-        String descricao = extras.getString("Descrição");
+        String descricao = extras.getString("Descricao");
         String img = extras.getString("Imagem");
+
+        binding.botaoVoltar.setOnClickListener(view -> {
+            finish();
+        });
 
         binding.titulo.setText(nome);
         binding.descricao.setText(descricao);
-
-        fotoFirebaseImpl.recuperarImagem(binding.imageView2, img );
+        fotoFirebaseImpl.recuperarImagem(binding.imagemEvento, img );
     }
 }

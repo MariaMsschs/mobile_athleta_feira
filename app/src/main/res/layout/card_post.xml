@@ -61,16 +61,6 @@
                     android:fontFamily="@font/roboto_bold"
                     android:text="Usuario"
                     android:gravity="center"/>
-
-                <TextView
-                    android:id="@+id/seguir"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_medium"
-                    android:layout_marginStart="8dp"
-                    android:text="+seguir"
-                    android:textColor="@color/orange"
-                    android:gravity="center" />
             </LinearLayout>
 
         </FrameLayout>

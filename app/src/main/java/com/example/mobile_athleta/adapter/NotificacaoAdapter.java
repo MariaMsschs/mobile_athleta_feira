@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Notificacao;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 
 import java.util.List;
 
@@ -40,9 +41,15 @@ public class NotificacaoAdapter extends RecyclerView.Adapter<NotificacaoAdapter.
         return notificacaoList.size();
     }
 
+    public void updateNotificacoesList(List<Notificacao> newPostList) {
+        this.notificacaoList.addAll(newPostList);
+        notifyDataSetChanged();
+    }
+
     public static class NotificacaoViewHolder extends RecyclerView.ViewHolder {
         private ImageView imagemNotificacao;
         private TextView descricao_notificacao, data_notificacao;
+        ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
 
         public NotificacaoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -52,9 +59,13 @@ public class NotificacaoAdapter extends RecyclerView.Adapter<NotificacaoAdapter.
         }
 
         public void bind(Notificacao notificacao) {
-            imagemNotificacao.setImageResource(notificacao.getImagemNotificacao());
-            descricao_notificacao.setText(notificacao.getDescricao());
-            data_notificacao.setText(notificacao.getData());
+            if(notificacao.getConteudo().contains("O organizador")){
+                imagemNotificacao.setImageResource(R.drawable.social);
+            }
+            descricao_notificacao.setText(notificacao.getConteudo());
+            String data = notificacao.getDtNotificacao().toString();
+            String dataFormatada = validacaoCadastroImpl.converterDataFormatoLongo(data);
+            data_notificacao.setText(dataFormatada);
         }
     }
 }

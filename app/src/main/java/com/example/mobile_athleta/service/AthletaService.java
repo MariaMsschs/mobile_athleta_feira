@@ -151,4 +151,7 @@ public interface AthletaService {
     @POST("api/relacionamento/existe")
     Call<SeguidoresResponse> verificarRelacionamento(@Header("Authorization") String token, @Body RelacionamentoUsuario relacionamentoUsuario);
 
+    @GET("api/notificacao/listar/{id}")
+    Call<NotificacaoResponse> listarNotificacoes(@Header("Authorization") String token, @Path("id") Long id);
+
 }

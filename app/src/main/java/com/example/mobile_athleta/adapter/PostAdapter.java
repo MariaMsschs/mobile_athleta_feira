@@ -142,7 +142,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             usuarioNome.setText(post.getUsername());
             legenda.setText(post.getLegenda());
 
-            fotoFirebaseImpl.recuperarImagem(imagem, post.getImagem());
+            if(post.getImagem() != null && !post.getImagem().isEmpty()) {
+                imagem.setVisibility(View.VISIBLE);
+                fotoFirebaseImpl.recuperarImagem(imagem, post.getImagem());
+            }
 
             fotoFirebaseImpl.recuperarImagem(usuarioPerfil, post.getUserFoto());
 

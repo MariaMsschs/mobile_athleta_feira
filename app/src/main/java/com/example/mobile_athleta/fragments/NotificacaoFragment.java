@@ -1,5 +1,6 @@
 package com.example.mobile_athleta.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,27 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.UseCase.ListarNotificacoesUseCase;
 import com.example.mobile_athleta.adapter.NotificacaoAdapter;
 import com.example.mobile_athleta.models.Notificacao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class NotificacaoFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
 
     public NotificacaoFragment() {
-        // Required empty public constructor
     }
-    public static NotificacaoFragment newInstance(String param1, String param2) {
+    public static NotificacaoFragment newInstance() {
         NotificacaoFragment fragment = new NotificacaoFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,14 +35,11 @@ public class NotificacaoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     RecyclerView recyclerViewNotificacao;
     private List<Notificacao> notificacaoList;
+    private ListarNotificacoesUseCase listarNotificacoesUseCase = new ListarNotificacoesUseCase();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,12 +47,23 @@ public class NotificacaoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_notificacao, container, false);
         recyclerViewNotificacao = view.findViewById(R.id.recyler_notificacao);
         notificacaoList = new ArrayList<>();
-        notificacaoList.add(new Notificacao(0,0,"A","10/10/2020"));
-        notificacaoList.add(new Notificacao(1,0,"A","10/10/2020"));
-
+        Long id = view.getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0);
+        String token = view.getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
         recyclerViewNotificacao.setLayoutManager(new LinearLayoutManager(getContext()));
         NotificacaoAdapter notificacaoAdapter = new NotificacaoAdapter(notificacaoList);
         recyclerViewNotificacao.setAdapter(notificacaoAdapter);
+
+        listarNotificacoesUseCase.listarNotificacoes(token, id, new ListarNotificacoesUseCase.OnListarNotificacoesCallback() {
+            @Override
+            public void onListarNotificacoesSuccess(List<Notificacao> notificacaoList) {
+                notificacaoAdapter.updateNotificacoesList(notificacaoList);
+            }
+
+            @Override
+            public void onListarNotificacoesError(String message) {
+
+            }
+        });
         return view;
     }
 }

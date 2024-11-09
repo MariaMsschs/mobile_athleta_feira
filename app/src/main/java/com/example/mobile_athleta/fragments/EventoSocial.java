@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaCadastroEvento;
-import com.example.mobile_athleta.TelaCadastroForum;
 import com.example.mobile_athleta.TelaCadastroVendedor;
 import com.example.mobile_athleta.TelaEvento;
 import com.example.mobile_athleta.UseCase.ChecarVendedorUseCase;
@@ -29,32 +28,10 @@ import com.example.mobile_athleta.UseCase.ListarEventosPorNomeUseCase;
 import com.example.mobile_athleta.UseCase.ListarEventosUseCase;
 import com.example.mobile_athleta.adapter.EventoAdapter;
 import com.example.mobile_athleta.models.Evento;
-import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventoSocial extends Fragment {
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public EventoSocial() {
-    }
-
-    public static EventoSocial newInstance(String param1, String param2) {
-        EventoSocial fragment = new EventoSocial();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
     EventoAdapter eventoAdapter;
     List<Evento> eventoList;
     private SearchView searchView;
@@ -70,14 +47,6 @@ public class EventoSocial extends Fragment {
 
     int pagina = 0;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,58 +58,34 @@ public class EventoSocial extends Fragment {
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
         adicionarEvento = view.findViewById(R.id.criar_evento);
 
-        String dateString = "06-02-2008";
-        String dataFormatada = validacaoCadastroImpl.converterDataInterface(dateString);
+        searchView.setQueryHint("Buscar eventos");
 
-        eventoList = new ArrayList<>();
-        recyclerViewEvento.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        eventoAdapter = new EventoAdapter(eventoList, new EventoAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Evento evento) {
-                Intent intent = new Intent(getContext(), TelaEvento.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Nome", evento.getNome());
-                bundle.putSerializable("Descricao", evento.getDescricao());
-                bundle.putSerializable("Imagem", evento.getImg());
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-
-        recyclerViewEvento.setAdapter(eventoAdapter);
         String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
         Long usuarioId = getContext().getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
 
+        eventoList = new ArrayList<>();
 
+        recyclerViewEvento.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        eventoAdapter = new EventoAdapter(eventoList, evento -> {
+            Intent intent = new Intent(getContext(), TelaEvento.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("Nome", evento.getNome());
+            bundle.putString("Descricao", evento.getDescricao());
+            bundle.putString("Imagem", evento.getImg());
+            intent.putExtras(bundle);
+            startActivity(intent);
+        });
+        recyclerViewEvento.setAdapter(eventoAdapter);
 
-        listarEventosUseCase.listarEventos(token, new ListarEventosUseCase.ListarEventosCallback() {
-            @Override
-            public void onListarEventosSuccess(List<Evento> postList) {
-                textViewNoResults.setVisibility(View.GONE);
-                imageNoResults.setVisibility(View.GONE);
-                eventoAdapter.updatePostList(postList);
-                mudarPagina();
-            }
-
-            @Override
-            public void onListarEventosFailure(String errorMessage) {
-                recyclerViewEvento.setVisibility(View.GONE);
-                textViewNoResults.setVisibility(View.VISIBLE);
-                textViewNoResults.setText("Ops! Parece que não temos eventos disponíveis");
-                imageNoResults.setVisibility(View.VISIBLE);
-            }
-        },pagina,15);
-
-        searchView.setQueryHint("Buscar eventos");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 listarEventosPorNomeUseCase.listarEventos(token, new ListarEventosPorNomeUseCase.ListarEventosCallback() {
                     @Override
-                    public void onListarEventosSuccess(List<Evento> postList) {
+                    public void onListarEventosSuccess(List<Evento> eventoList) {
                         textViewNoResults.setVisibility(View.GONE);
                         imageNoResults.setVisibility(View.GONE);
-                        eventoAdapter.updatePostList(postList);
+                        eventoAdapter.updateEventoList(eventoList);
                     }
 
                     @Override
@@ -152,7 +97,7 @@ public class EventoSocial extends Fragment {
                                 public void onListarEventosSuccess(List<Evento> postList) {
                                     textViewNoResults.setVisibility(View.GONE);
                                     imageNoResults.setVisibility(View.GONE);
-                                    eventoAdapter.updatePostList(postList);
+                                    eventoAdapter.updateEventoList(eventoList);
                                     mudarPagina();
                                 }
 
@@ -178,7 +123,7 @@ public class EventoSocial extends Fragment {
                         public void onListarEventosSuccess(List<Evento> postList) {
                             textViewNoResults.setVisibility(View.GONE);
                             imageNoResults.setVisibility(View.GONE);
-                            eventoAdapter.updatePostList(postList);
+                            eventoAdapter.updateEventoList(postList);
                             mudarPagina();
                         }
 
@@ -194,6 +139,25 @@ public class EventoSocial extends Fragment {
                 return false;
             }
         });
+
+        listarEventosUseCase.listarEventos(token, new ListarEventosUseCase.ListarEventosCallback() {
+            @Override
+            public void onListarEventosSuccess(List<Evento> eventoList) {
+                textViewNoResults.setVisibility(View.GONE);
+                imageNoResults.setVisibility(View.GONE);
+                recyclerViewEvento.setVisibility(View.VISIBLE);
+                eventoAdapter.setListaFiltrada(eventoList);
+                mudarPagina();
+            }
+
+            @Override
+            public void onListarEventosFailure(String errorMessage) {
+                recyclerViewEvento.setVisibility(View.GONE);
+                textViewNoResults.setVisibility(View.VISIBLE);
+                textViewNoResults.setText("Ops! Parece que não temos eventos disponíveis");
+                imageNoResults.setVisibility(View.VISIBLE);
+            }
+        },pagina,15);
 
         adicionarEvento.setOnClickListener(v -> {
             checarVendedorUseCase.checarVendedor(token, usuarioId, bol -> {

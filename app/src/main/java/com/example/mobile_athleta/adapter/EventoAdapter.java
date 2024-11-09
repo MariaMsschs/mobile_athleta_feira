@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.models.Evento;
+import com.example.mobile_athleta.service.FotoFirebaseImpl;
 import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 import com.squareup.picasso.Picasso;
 
@@ -21,14 +22,16 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
 
     private List<Evento> eventoList;
     private OnItemClickListener onItemClickListener;
-
-    public EventoAdapter(List<Evento> eventoList, OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-        this.eventoList = eventoList;
-
+    public interface OnItemClickListener {
+        void onItemClick(Evento evento);
     }
 
-    public void updatePostList(List<Evento> newEventoList) {
+    public EventoAdapter(List<Evento> eventoList, OnItemClickListener onItemClickListener) {
+        this.eventoList = eventoList;
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public void updateEventoList(List<Evento> newEventoList) {
         this.eventoList.clear();
         this.eventoList.addAll(newEventoList);
         notifyDataSetChanged();
@@ -39,9 +42,6 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
         notifyDataSetChanged();
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(Evento evento);
-    }
     @NonNull
     @Override
     public EventoAdapter.EventoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -65,6 +65,7 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
         private TextView evento_titulo, evento_descricao, evento_data;
 
         ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
+        FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
         private Context context;
 
         public EventoViewHolder(@NonNull View itemView) {
@@ -76,15 +77,19 @@ public class EventoAdapter extends RecyclerView.Adapter<EventoAdapter.EventoView
             context = itemView.getContext();
         }
         public void bind(Evento evento, final OnItemClickListener onItemClickListener) {
-            String imagemUrl = evento.getImg();
-            Picasso.get()
-                    .load(imagemUrl)
-                    .into(imagem_evento);
+            fotoFirebaseImpl.recuperarImagem(imagem_evento, evento.getImg());
             evento_titulo.setText(evento.getNome());
             evento_descricao.setText(evento.getDescricao());
             String dateString = String.valueOf(evento.getDtEvento());
             String dataFormatada = validacaoCadastroImpl.converterDataInterface(dateString);
             evento_data.setText(dataFormatada);
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClickListener.onItemClick(evento);
+                }
+            });
         }
     }
 }

@@ -38,7 +38,7 @@ public class ExcluirAnuncioUseCase {
 
             @Override
             public void onFailure(Call<ApiResponse> call, Throwable throwable) {
-                Log.e("Erro ao listar telefone", throwable.getMessage());
+                Log.e("Erro ao excluir anúncio", throwable.getMessage());
                 callback.onExcluirAnuncioError();
             }
         });

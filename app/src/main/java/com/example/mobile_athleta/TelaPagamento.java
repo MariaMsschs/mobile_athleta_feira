@@ -24,6 +24,7 @@ import com.example.mobile_athleta.models.Anuncio;
 import com.example.mobile_athleta.models.Evento;
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Usuario;
+import com.example.mobile_athleta.service.ValidacaoCadastroImpl;
 
 public class TelaPagamento extends AppCompatActivity {
     private ActivityTelaPagamentoBinding binding;
@@ -36,7 +37,7 @@ public class TelaPagamento extends AppCompatActivity {
 
     private InserirAnuncioUseCase inserirAnuncioUseCase = new InserirAnuncioUseCase();
     private InserirForumUseCase inserirForumUseCase = new InserirForumUseCase();
-
+    private ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
     private InserirEventoUseCase inserirEventoUseCase = new InserirEventoUseCase();
 
     @Override
@@ -86,8 +87,10 @@ public class TelaPagamento extends AppCompatActivity {
                     cadastrarForum(forum, token);
                 }
                 else if(decisao.equals("evento")){
+                    String data = validacaoCadastroImpl.converterDataCadastro(bundle.getString("data"));
+
                     Evento evento = new Evento(bundle.getString("nome"), bundle.getString("descricao"),
-                            bundle.getString("data"), bundle.getString("imagem"), bundle.getLong("idUsuario"));
+                            data, bundle.getString("imagem"), bundle.getLong("idUsuario"));
 
                     cadastrarEvento(evento, token);
                 }

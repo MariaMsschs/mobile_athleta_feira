@@ -69,9 +69,12 @@ public class EventoSocial extends Fragment {
         eventoAdapter = new EventoAdapter(eventoList, evento -> {
             Intent intent = new Intent(getContext(), TelaEvento.class);
             Bundle bundle = new Bundle();
+            bundle.putLong("eventoUserId", evento.getOrganizador());
+            bundle.putLong("eventoId", evento.getIdEvento());
             bundle.putString("Nome", evento.getNome());
             bundle.putString("Descricao", evento.getDescricao());
             bundle.putString("Imagem", evento.getImg());
+            bundle.putString("token", token);
             intent.putExtras(bundle);
             startActivity(intent);
         });

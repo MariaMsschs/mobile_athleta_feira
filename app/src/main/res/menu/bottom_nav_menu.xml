@@ -15,6 +15,10 @@
         android:id="@+id/social"
         android:icon="@drawable/rede"
         android:title="Social" />
+    <item
+        android:id="@+id/notificacoes"
+        android:icon="@drawable/notificacoes"
+        android:title="notificacoes" />
 
     <item
         android:id="@+id/perfil"

@@ -85,7 +85,7 @@ public class TelaPostagem extends AppCompatActivity {
         binding.publicar.setOnClickListener(v -> {
             String texto = binding.textoPost.getText().toString();
             Post post = new Post();
-            post.setLegenda(texto);
+            post.setLegenda(texto.trim());
             String caminho = getSharedPreferences("login", MODE_PRIVATE).getString("caminho", "");
             post.setUserFoto(caminho);
             caminho = getSharedPreferences("login", MODE_PRIVATE).getString("username", "");

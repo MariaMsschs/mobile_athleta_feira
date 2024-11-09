@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class ValidacaoCadastroImpl implements ValidacaoCadastro {
@@ -90,6 +91,20 @@ public class ValidacaoCadastroImpl implements ValidacaoCadastro {
     @Override
     public String converterDataInterface(String dataString) {
         final SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        final SimpleDateFormat formatoSaida = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date data = formatoEntrada.parse(dataString);
+            return formatoSaida.format(data);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return dataString;
+        }
+    }
+
+    @Override
+    public String converterDataFormatoLongo(String dataString) {
+        final SimpleDateFormat formatoEntrada = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         final SimpleDateFormat formatoSaida = new SimpleDateFormat("dd/MM/yyyy");
 
         try {

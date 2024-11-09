@@ -159,7 +159,7 @@ public class PostSocial extends Fragment {
                         boolean isLiked = liked.contains(post);
                         postAdapter.curtir(post, isLiked);
                     }
-//                    mudarPagina();
+                    mudarPagina();
                 }
             }
             @Override
@@ -188,7 +188,7 @@ public class PostSocial extends Fragment {
                             btnLoadMore.setVisibility(View.GONE);
                             postAdapter.updatePostList(postList);
                             btnLoadMore.setClickable(true);
-//                            mudarPagina();
+                            mudarPagina();
                             for (Post post : postList) {
                                 boolean isLiked = liked.contains(post);
                                 postAdapter.curtir(post, isLiked);

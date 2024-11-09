@@ -13,4 +13,6 @@ public interface ValidacaoCadastro {
     String converterDataInterface(String dataString);
 
     String converterDataEditar(String dataString);
+
+    String converterDataFormatoLongo(String dataString);
 }

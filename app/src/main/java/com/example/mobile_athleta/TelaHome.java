@@ -52,6 +52,10 @@ public class TelaHome extends AppCompatActivity {
                 selectedFragment = new AnuncioFragment();
             }
 
+            if(item.getItemId() == R.id.notificacoes){
+                selectedFragment = new NotificacaoFragment();
+            }
+
             if(item.getItemId() == R.id.social){
                 selectedFragment = new SocialFragment();
             }

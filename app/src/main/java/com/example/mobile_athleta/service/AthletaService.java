@@ -153,5 +153,4 @@ public interface AthletaService {
 
     @GET("api/notificacao/listar/{id}")
     Call<NotificacaoResponse> listarNotificacoes(@Header("Authorization") String token, @Path("id") Long id);
-
 }

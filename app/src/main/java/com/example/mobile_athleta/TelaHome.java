@@ -25,7 +25,6 @@ import java.util.List;
 
 public class TelaHome extends AppCompatActivity {
     private ActivityTelaHomeBinding binding;
-    private PerfilFragment perfilFragment = new PerfilFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

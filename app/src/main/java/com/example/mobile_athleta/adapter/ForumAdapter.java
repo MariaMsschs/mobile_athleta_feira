@@ -30,10 +30,7 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
         this.onItemClickListener = onItemClickListener;
     }
 
-
-
     public void setListaFiltrada(List<Forum> forumList) {
-        this.forumList.clear();
         this.forumList.addAll(forumList);
         notifyDataSetChanged();
     }

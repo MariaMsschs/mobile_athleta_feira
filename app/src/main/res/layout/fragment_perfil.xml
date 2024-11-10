@@ -75,29 +75,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
-                android:text="234 Seguidores"
+                android:text="0 Seguidores"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 android:gravity="center" />
 
             <TextView
-                android:id="@+id/posts"
+                android:id="@+id/seguindo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_medium"
-                android:text="12 Posts"
-                android:textColor="@color/gray"
-                android:textSize="14sp"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/produtos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/roboto_medium"
-                android:text="0 Produtos"
+                android:text="0 Seguindo"
                 android:textColor="@color/gray"
                 android:textSize="14sp"
                 android:gravity="center" />

@@ -24,21 +24,21 @@ public class ListarForumPorIdUseCase {
         call.enqueue(new Callback<ForumResponse>() {
             @Override
             public void onResponse(Call<ForumResponse> call, retrofit2.Response<ForumResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null && response.body().isResponseSucessfull() == true) {
                     Forum forum = response.body().getObject().get(0);
 
-                    Log.d("SUCESSO ListarAnuncioPorId", response.body().toString());
+                    Log.d("SUCESSO ListarForumPorId", response.body().toString());
 
                     callback.onForumRetornado(forum);
 
                 } else {
-                    Log.e("ERRO ListarAnuncioPorId", "Response is not successful or body is null. Code: " + response.code() + ", Message: " + response.message());
+                    Log.e("ERRO ListarForumPorId", "Response is not successful or body is null. Code: " + response.code() + ", Message: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<ForumResponse> call, Throwable throwable) {
-                Log.e("Erro ListarAnuncioPorId", throwable.getMessage());
+                Log.e("Erro ListarForumPorId", throwable.getMessage());
             }
         });
     }

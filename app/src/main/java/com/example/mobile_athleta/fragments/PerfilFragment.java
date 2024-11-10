@@ -15,54 +15,54 @@ import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaConfiguracao;
+import com.example.mobile_athleta.UseCase.GetSeguidoresUseCase;
+import com.example.mobile_athleta.UseCase.GetSeguindoUseCase;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
 
 public class PerfilFragment extends Fragment {
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public PerfilFragment() {
-    }
-
-    public static PerfilFragment newInstance(String param1, String param2) {
-        PerfilFragment fragment = new PerfilFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    TextView tabPosts, tabForuns, tabEventos;
+    TextView tabPosts, tabForuns, tabEventos, nome, username, seguindo, seguidores;
     ImageButton config;
-
-    private TextView nome;
-    private TextView username;
     ImageView foto;
-
     FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
+    GetSeguidoresUseCase getSeguidoresUseCase = new GetSeguidoresUseCase();
+    GetSeguindoUseCase getSeguindoUseCase = new GetSeguindoUseCase();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
+        String token = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("token", "");
+        Long userId = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getLong("idUsuario", 0);
         nome = view.findViewById(R.id.nome_perfil);
         username = view.findViewById(R.id.username_perfil);
         foto = view.findViewById(R.id.perfil_foto);
+        seguindo = view.findViewById(R.id.seguindo);
+        seguidores = view.findViewById(R.id.seguidores);
+
+        getSeguidoresUseCase.getSeguidores(token, userId, new GetSeguidoresUseCase.SeguidoresCallback() {
+            @Override
+            public void onSeguidoresSuccess(String numero_seguidores) {
+                seguidores.setText(numero_seguidores + " seguidores");
+            }
+
+            @Override
+            public void onSeguidoresFailure(String errorMessage) {
+                Log.d("Erro ao buscar seguidores", errorMessage);
+            }
+        });
+
+        getSeguindoUseCase.getSeguindo(token, userId, new GetSeguindoUseCase.SeguindoCallback() {
+            @Override
+            public void onSeguindoSuccess(String numero_seguidores) {
+                seguindo.setText(numero_seguidores + " seguindo");
+            }
+
+            @Override
+            public void onSeguindoFailure(String errorMessage) {
+                Log.d("Erro ao buscar seguindo", errorMessage);
+            }
+        });
 
         String nomeAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("nome", "");
         String usernameAtual = getContext().getSharedPreferences("login", getContext().MODE_PRIVATE).getString("username", "");
@@ -72,12 +72,7 @@ public class PerfilFragment extends Fragment {
 
         nome.setText(nomeAtual);
         username.setText(usernameAtual);
-        if (!caminhoAtual.isEmpty()) {
-            fotoFirebaseImpl.recuperarImagem(foto, caminhoAtual);
-            Log.d("IMAGEM!", "Caminho da imagem encontrado: " + caminhoAtual);
-        } else {
-            Log.d("IMAGEM!", "Caminho da imagem não encontrado");
-        }
+        fotoFirebaseImpl.recuperarImagem(foto, caminhoAtual);
 
         if (savedInstanceState == null) {
             carregarFragment(new PostPerfil());

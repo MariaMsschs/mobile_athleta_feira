@@ -137,7 +137,6 @@ public class PostPerfil extends Fragment {
 
     public void mudarPagina() {
         int numero = pagina + 1;
-        getContext().getSharedPreferences("posts", Context.MODE_PRIVATE).edit().putInt("pagina", numero).apply();
         pagina = numero;
     }
 

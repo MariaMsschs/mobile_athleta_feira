@@ -57,7 +57,7 @@ public class EventoSocial extends Fragment {
         textViewNoResults = view.findViewById(R.id.textViewNoResults);
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
         adicionarEvento = view.findViewById(R.id.criar_evento);
-
+        searchView.clearFocus();
         searchView.setQueryHint("Buscar eventos");
 
         String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");

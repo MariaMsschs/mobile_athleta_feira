@@ -1,6 +1,7 @@
 package com.example.mobile_athleta.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaEvento;
 import com.example.mobile_athleta.UseCase.ListarEventosPorNomeUseCase;
 import com.example.mobile_athleta.UseCase.ListarEventosPorOrganizador;
 import com.example.mobile_athleta.UseCase.ListarEventosUseCase;
@@ -32,23 +34,7 @@ import java.util.Date;
 import java.util.List;
 
 public class EventoPerfil extends Fragment {
-    public EventoPerfil() {
-    }
-
-    public static EventoPerfil newInstance() {
-        EventoPerfil fragment = new EventoPerfil();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     ValidacaoCadastroImpl validacaoCadastroImpl = new ValidacaoCadastroImpl();
-
     private ListarEventosPorOrganizador listarEventosPorOrganizador = new ListarEventosPorOrganizador();
     int pagina = 0;
     private EventoAdapter eventoAdapter;
@@ -67,17 +53,23 @@ public class EventoPerfil extends Fragment {
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
         btnMaisEventos = view.findViewById(R.id.btnLoadMore);
 
-        String dateString = "06-02-2008";
-
-        String dataFormatada = validacaoCadastroImpl.converterDataInterface(dateString);
+        String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
+        Long id = getContext().getSharedPreferences("perfil", Context.MODE_PRIVATE).getLong("idPerfil", 0L);
 
         eventoList = new ArrayList<>();
 
         recyclerViewEvento.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        eventoAdapter = new EventoAdapter(eventoList, new EventoAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Evento evento) {
-            }
+        eventoAdapter = new EventoAdapter(eventoList, evento -> {
+            Intent intent = new Intent(getContext(), TelaEvento.class);
+            Bundle bundle = new Bundle();
+            bundle.putLong("eventoUserId", evento.getOrganizador());
+            bundle.putLong("eventoId", evento.getIdEvento());
+            bundle.putString("Nome", evento.getNome());
+            bundle.putString("Descricao", evento.getDescricao());
+            bundle.putString("Imagem", evento.getImg());
+            bundle.putString("token", token);
+            intent.putExtras(bundle);
+            startActivity(intent);
         });
         recyclerViewEvento.setAdapter(eventoAdapter);
 
@@ -93,10 +85,6 @@ public class EventoPerfil extends Fragment {
                 }
             }
         });
-
-
-        String token = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("token", "");
-        Long id = getContext().getSharedPreferences("perfil", Context.MODE_PRIVATE).getLong("idPerfil", 0L);
 
         listarEventosPorOrganizador.listarEventos(token, new ListarEventosPorOrganizador.ListarEventosCallBack() {
             @Override
@@ -123,6 +111,7 @@ public class EventoPerfil extends Fragment {
                 }
             }
         }, id.intValue(),pagina,15);
+
         btnMaisEventos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

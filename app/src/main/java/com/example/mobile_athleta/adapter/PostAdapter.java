@@ -32,7 +32,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
     private List<Post> postList;
     private OnItemClickListener onItemClickListener;
     private CurtidaUseCase curtidaUseCase = new CurtidaUseCase();
-    FotoFirebaseImpl fotoFirebaseImpl = new FotoFirebaseImpl();
 
     ImageButton curtida;
 

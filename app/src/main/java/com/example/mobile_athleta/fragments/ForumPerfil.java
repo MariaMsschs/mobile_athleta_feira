@@ -30,40 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForumPerfil extends Fragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
-    public ForumPerfil() {
-    }
-
-    public static ForumPerfil newInstance(String param1, String param2) {
-        ForumPerfil fragment = new ForumPerfil();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     private ForumAdapter forumAdapter;
     private List<Forum> forumList;
     private TextView textViewNoResults;
     private ImageView imageNoResults;
     private Button btnLoadMore;
     int pagina = 0;
-    private ListarForunsUseCase listarForunsUseCase = new ListarForunsUseCase();
     private ListarForumPorIdUseCase listarForumPorIdUseCase = new ListarForumPorIdUseCase();
 
     @Override
@@ -93,9 +65,11 @@ public class ForumPerfil extends Fragment {
 
         recyclerViewForum.setAdapter(forumAdapter);
 
-        listarForumPorIdUseCase.listarForumPorId(token, usuarioId, new ListarForumPorIdUseCase.ListarForumPorIdCallBack() {
-            @Override
-            public void onForumRetornado(Forum forum) {
+        listarForumPorIdUseCase.listarForumPorId(token, usuarioId, forum -> {
+            if (forumList.isEmpty()) {
+                textViewNoResults.setVisibility(View.VISIBLE);
+                imageNoResults.setVisibility(View.VISIBLE);
+            } else {
                 textViewNoResults.setVisibility(View.GONE);
                 imageNoResults.setVisibility(View.GONE);
                 recyclerViewForum.setVisibility(View.VISIBLE);

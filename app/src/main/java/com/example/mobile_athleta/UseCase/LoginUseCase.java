@@ -15,8 +15,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginUseCase {
-
-
     public interface LoginCallback {
         void onLoginSuccess();
         void onLoginFailure(String errorMessage);

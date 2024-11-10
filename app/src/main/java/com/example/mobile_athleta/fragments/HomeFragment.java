@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -30,6 +31,7 @@ import com.example.mobile_athleta.models.Esporte;
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.models.Usuario;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +92,11 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFotoClick(Post post) {
-                Intent intent = new Intent(getContext(), TelaPerfil.class);
+                Intent perfil = new Intent(getContext(), TelaPerfil.class);
                 String token = getContext().getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
+                Long userIdAtual = getContext().getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
+
+                Fragment novoFragment = new PerfilFragment();
 
                 listarUsuarioPorUsernameUsecase.listarUsuarioPorUsername(token,post.getUsername(), new ListarUsuarioPorUsernameUsecase.ListarUsuarioPorUsernameCallBack() {
                     @Override
@@ -101,20 +106,31 @@ public class HomeFragment extends Fragment {
                         bundle.putString("username", post.getUsername());
                         bundle.putString("url",post.getUserFoto());
                         bundle.putLong("userId",response.getIdUsuario());
-                        intent.putExtras(bundle);
-                        startActivity(intent);
+
+                        if(response.getIdUsuario() == userIdAtual){
+                            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.frame_conteudo_home, novoFragment);
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+
+                            BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomviewnav);
+                            bottomNavigationView.setSelectedItemId(R.id.perfil);
+                        }
+                        else{
+                            perfil.putExtras(bundle);
+                            startActivity(perfil);
+                        }
                     }
 
                     @Override
                     public void onListarUsuarioFailure(String errorMessage) {
-
+                        Log.d("Falha ao listar usuário", errorMessage);
                     }
                 });
             }
         });
 
         recyclerViewPosts.setAdapter(postAdapter);
-        Long id = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getLong("idUsuario", 0L);
         String username = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).getString("username", "");
 
         listarPostagensUseCase.listarPostagens(new ListarPostagensUseCase.VerificarCallback() {

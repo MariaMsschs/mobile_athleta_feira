@@ -1,6 +1,7 @@
 package com.example.mobile_athleta.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,9 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mobile_athleta.R;
+import com.example.mobile_athleta.TelaPostagem;
 import com.example.mobile_athleta.UseCase.ListarPostagensPorIdUseCase;
 import com.example.mobile_athleta.adapter.PostAdapter;
 import com.example.mobile_athleta.models.Post;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +34,7 @@ public class PostPerfil extends Fragment {
     private PostAdapter postAdapter;
     private List<Post> postList;
     private Button btnLoadMore;
+    private FloatingActionButton floatingActionButton;
     private ListarPostagensPorIdUseCase listarPostagensPorIdUseCase = new ListarPostagensPorIdUseCase();
     int pagina = 0;
 
@@ -41,6 +46,7 @@ public class PostPerfil extends Fragment {
         textViewNoResults = view.findViewById(R.id.textViewNoResults);
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
         btnLoadMore = view.findViewById(R.id.btnLoadMore);
+        floatingActionButton = view.findViewById(R.id.postar);
 
 
         postList = new ArrayList<>();
@@ -132,6 +138,15 @@ public class PostPerfil extends Fragment {
                 }, pagina,15,username);
             }
         });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), TelaPostagem.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 

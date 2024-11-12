@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaCadastroForum;
 import com.example.mobile_athleta.TelaCadastroVendedor;
@@ -145,7 +147,7 @@ public class ForumSocial extends Fragment {
                 textViewNoResults.setVisibility(View.GONE);
                 imageNoResults.setVisibility(View.GONE);
                 recyclerViewForum.setVisibility(View.VISIBLE);
-                forumAdapter.setListaFiltrada(forumList);
+                forumAdapter.pesquisa(forumList);
                 mudarPagina();
             }
 
@@ -162,13 +164,17 @@ public class ForumSocial extends Fragment {
             listarForunsUseCase.listarForuns(token, new ListarForunsUseCase.ListarForunsCallback() {
                 @Override
                 public void onListarForunsSuccess(List<Forum> forumList) {
-                    textViewNoResults.setVisibility(View.GONE);
-                    imageNoResults.setVisibility(View.GONE);
-                    recyclerViewForum.setVisibility(View.VISIBLE);
-                    btnLoadMore.setVisibility(View.GONE);
-                    forumAdapter.setListaFiltrada(forumList);
-                    btnLoadMore.setClickable(true);
-                    mudarPagina();
+                    if (forumList.isEmpty()) {
+                        checkSeVazio();
+                    }else {
+                        textViewNoResults.setVisibility(View.GONE);
+                        imageNoResults.setVisibility(View.GONE);
+                        recyclerViewForum.setVisibility(View.VISIBLE);
+                        btnLoadMore.setVisibility(View.GONE);
+                        forumAdapter.setListaFiltrada(forumList);
+                        btnLoadMore.setClickable(true);
+                        mudarPagina();
+                    }
                 }
 
                 @Override
@@ -213,5 +219,19 @@ public class ForumSocial extends Fragment {
     public void mudarPagina() {
         int numero = pagina + 1;
         pagina = numero;
+    }
+
+    private void checkSeVazio() {
+        if (forumList.isEmpty()) {
+            textViewNoResults.setVisibility(View.VISIBLE);
+            imageNoResults.setVisibility(View.VISIBLE);
+            btnLoadMore.setClickable(true);
+        } else {
+            textViewNoResults.setVisibility(View.GONE);
+            imageNoResults.setVisibility(View.GONE);
+            btnLoadMore.setVisibility(View.GONE);
+            btnLoadMore.setClickable(true);
+            Toast.makeText(getContext(), "Não possuimos mais postagens", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -22,6 +22,7 @@ import com.example.mobile_athleta.databinding.ActivityTelaForumBinding;
 import com.example.mobile_athleta.models.Forum;
 import com.example.mobile_athleta.models.Post;
 import com.example.mobile_athleta.service.FotoFirebaseImpl;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -137,6 +138,9 @@ public class TelaForum extends AppCompatActivity {
 
         binding.postar.setOnClickListener( v -> {
             Intent intent = new Intent(TelaForum.this, TelaPostagem.class);
+            Bundle informacoes = new Bundle();
+            informacoes.putString("forum", forum);
+            intent.putExtras(informacoes);
             startActivity(intent);
         });
     }

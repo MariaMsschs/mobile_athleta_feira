@@ -5,6 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TelaPostagem extends AppCompatActivity {
 
@@ -37,6 +39,7 @@ public class TelaPostagem extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri imageUri;
     File photoFile = null;
+    String forum = null;
     private InserirPostagemUseCase inserirPostagemUseCase = new InserirPostagemUseCase();
 
     @Override
@@ -44,17 +47,21 @@ public class TelaPostagem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityTelaPostagemBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        String fotoUser = getSharedPreferences("login", Context.MODE_PRIVATE).getString("caminho", "");
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            forum = bundle.getString("forum");
+            binding.tipoImagem.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.social_cinza, null));
+            binding.tipoImagem.invalidate();
+            binding.tipoPost.setText(forum);
+        }
+
+       fotoFirebaseImpl.recuperarImagem(binding.fotoPerfil, fotoUser);
 
         binding.botaoVoltar.setOnClickListener(v -> {
             finish();
         });
-
-//        binding.abrirCamera.setOnClickListener(v -> {
-//            Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//            if (camera.resolveActivity(getPackageManager()) != null) {
-//                startActivityForResult(camera, REQUEST_IMAGE_CAPTURE);
-//            }
-//        });
 
         binding.abrirCamera.setOnClickListener(v -> {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -94,7 +101,13 @@ public class TelaPostagem extends AppCompatActivity {
             post.setCompartilhamento(new ArrayList<>());
             Long id = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
             post.setUsuarioId(Long.toString(id));
-            post.setForuns(new ArrayList<>());
+            if (forum != null) {
+                ArrayList<String> lista = new ArrayList<>();
+                lista.add(forum);
+                post.setForuns(lista);
+            }else{
+                post.setForuns(new ArrayList<>());
+            }
             if(binding.imagemPost.getDrawable() != null) {
                 caminho = getSharedPreferences("foto", MODE_PRIVATE).getString("caminho_imagem", "");
                 post.setImagem(caminho);

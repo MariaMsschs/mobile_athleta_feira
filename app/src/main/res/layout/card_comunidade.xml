@@ -51,38 +51,6 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="12dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imagem_comunidade"
-            app:layout_constraintTop_toBottomOf="@+id/text_layout">
-
-            <TextView
-                android:id="@+id/forum_seguidores"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto_bold"
-                android:text="2000"
-                android:textColor="@color/gray" />
-
-            <TextView
-                android:id="@+id/forum_seguidores_titulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginBottom="1dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="seguidores"
-                android:textColor="@color/gray" />
-        </LinearLayout>
-
         <ImageView
             android:id="@+id/imagem_comunidade"
             android:layout_width="120dp"

@@ -90,6 +90,10 @@ public class TelaAlterarSenha extends AppCompatActivity {
     public void checkAllFields() {
         if(binding.novaSenha.getText().toString().trim().isEmpty()){
             binding.novaSenha.setError("Este campo é obrigatório");
+        }if(binding.novaSenha.getText().toString().length() < 6){
+            binding.novaSenha.setError("A senha deve ter pelo menos 6 digitos");
+        }if (!binding.novaSenha.getText().toString().matches(".*[A-Z].*")) {
+            binding.novaSenha.setError("A senha deve ter pelo menos uma letra maiúscula");
         }
     }
 

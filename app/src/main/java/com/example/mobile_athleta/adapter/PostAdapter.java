@@ -146,7 +146,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 fotoFirebaseImpl.recuperarImagem(imagem, post.getImagem());
             }
 
-            fotoFirebaseImpl.recuperarImagem(usuarioPerfil, post.getUserFoto());
+            if(post.getUserFoto() != null && !post.getUserFoto().isEmpty()) {
+                usuarioPerfil.setVisibility(View.VISIBLE);
+                fotoFirebaseImpl.recuperarImagem(usuarioPerfil, post.getUserFoto());
+            }
 
             curtir.setOnClickListener(v -> listener.onItemClick(post));
 

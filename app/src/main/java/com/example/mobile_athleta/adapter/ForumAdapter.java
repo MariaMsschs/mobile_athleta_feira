@@ -70,7 +70,6 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
             imagem_perfil = itemView.findViewById(R.id.imagem_comunidade);
             forum_titulo = itemView.findViewById(R.id.forum_titulo);
             forum_descricao = itemView.findViewById(R.id.forum_descricao);
-            forum_seguidores = itemView.findViewById(R.id.forum_seguidores);
             context = itemView.getContext();
         }
 
@@ -78,7 +77,6 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
             fotoFirebaseImpl.recuperarImagem(imagem_perfil, forum.getImgForum());
             forum_titulo.setText(forum.getNome());
             forum_descricao.setText(forum.getDescricao());
-            forum_seguidores.setText(String.valueOf(forum.getSeguidores()));
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();

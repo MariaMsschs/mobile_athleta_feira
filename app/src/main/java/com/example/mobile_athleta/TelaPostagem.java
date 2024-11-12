@@ -39,7 +39,7 @@ public class TelaPostagem extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Uri imageUri;
     File photoFile = null;
-    String forum;
+    String forum = null;
     private InserirPostagemUseCase inserirPostagemUseCase = new InserirPostagemUseCase();
 
     @Override
@@ -101,7 +101,7 @@ public class TelaPostagem extends AppCompatActivity {
             post.setCompartilhamento(new ArrayList<>());
             Long id = getSharedPreferences("login", MODE_PRIVATE).getLong("idUsuario", 0L);
             post.setUsuarioId(Long.toString(id));
-            if (!forum.isEmpty() && forum != null) {
+            if (forum != null) {
                 ArrayList<String> lista = new ArrayList<>();
                 lista.add(forum);
                 post.setForuns(lista);

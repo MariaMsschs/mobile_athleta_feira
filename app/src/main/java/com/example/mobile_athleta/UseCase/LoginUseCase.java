@@ -44,6 +44,8 @@ public class LoginUseCase {
                         editor.putString("token", token);
                         editor.apply();
 
+                        context.getSharedPreferences("userRole", Context.MODE_PRIVATE).edit().putString("role", usuario.getUserRole()).apply();
+
                         Log.d("LOGIN SUCCESS", new Gson().toJson(login));
 
                         callback.onLoginSuccess();

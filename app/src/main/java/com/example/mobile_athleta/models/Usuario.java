@@ -10,6 +10,7 @@ public class Usuario {
     private String dtNasc;
     private String username;
     private String fotoPerfil;
+    private String userRole;
 
     public Usuario() {
 
@@ -65,5 +66,9 @@ public class Usuario {
 
     public String getFotoPerfil() {
         return fotoPerfil;
+    }
+
+    public String getUserRole() {
+        return userRole;
     }
 }

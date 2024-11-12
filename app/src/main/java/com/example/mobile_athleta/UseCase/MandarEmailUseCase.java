@@ -39,6 +39,7 @@ public class MandarEmailUseCase {
 
             @Override
             public void onFailure(Call<RedisResponse> call, Throwable throwable) {
+                Toast.makeText(context, "Não foi possível enviar o email.", Toast.LENGTH_SHORT).show();
                 Log.d("ERRO MandarEmail", throwable.getMessage());
             }
         });

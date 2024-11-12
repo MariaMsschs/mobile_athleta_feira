@@ -141,6 +141,7 @@ public class TelaPerfil extends AppCompatActivity {
                     public void onSucess(RelacionamentoUsuario relacionamentoUsuario) {
                         getSharedPreferences("id",MODE_PRIVATE).edit().putLong("idRelacionamento", relacionamentoUsuario.getIdRelacionamento()).apply();
                         seguir.setText("Seguindo");
+                        seguir.setBackground(getResources().getDrawable(R.drawable.gray_button_design));
                         String numeroEmTexto = seguidores.getText().toString().replaceAll("\\D+", "");
                         int numero = Integer.parseInt(numeroEmTexto);
                         numero += 1;

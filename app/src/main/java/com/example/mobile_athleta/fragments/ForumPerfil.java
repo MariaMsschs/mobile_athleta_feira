@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,10 @@ import android.widget.TextView;
 import com.example.mobile_athleta.R;
 import com.example.mobile_athleta.TelaForum;
 import com.example.mobile_athleta.UseCase.ListarForumPorIdUseCase;
-import com.example.mobile_athleta.UseCase.ListarForunsUseCase;
+import com.example.mobile_athleta.UseCase.ListarForumPorOrganizador;
 import com.example.mobile_athleta.adapter.ForumAdapter;
-import com.example.mobile_athleta.adapter.PostAdapter;
+import com.example.mobile_athleta.models.Evento;
 import com.example.mobile_athleta.models.Forum;
-import com.example.mobile_athleta.models.Post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +38,8 @@ public class ForumPerfil extends Fragment {
     int pagina = 0;
     private ListarForumPorIdUseCase listarForumPorIdUseCase = new ListarForumPorIdUseCase();
 
+    private ListarForumPorOrganizador listarForumPorOrganizador = new ListarForumPorOrganizador();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,11 +50,10 @@ public class ForumPerfil extends Fragment {
         imageNoResults = view.findViewById(R.id.erro_rosto_triste);
         btnLoadMore = view.findViewById(R.id.btnLoadMore);
 
-        forumList = new ArrayList<>();
-
         String token = getContext().getSharedPreferences("login", MODE_PRIVATE).getString("token", "");
         Long usuarioId = getContext().getSharedPreferences("perfil", Context.MODE_PRIVATE).getLong("idPerfil", 0L);
 
+        forumList = new ArrayList<>();
         recyclerViewForum.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         forumAdapter = new ForumAdapter(forumList, forum -> {
             Intent intent = new Intent(getContext(), TelaForum.class);
@@ -62,19 +63,29 @@ public class ForumPerfil extends Fragment {
             intent.putExtras(bundle);
             startActivity(intent);
         });
-
         recyclerViewForum.setAdapter(forumAdapter);
 
-        listarForumPorIdUseCase.listarForumPorId(token, usuarioId, forum -> {
-            if (forumList.isEmpty()) {
+
+        listarForumPorOrganizador.listarForumPorOrganizador(token, usuarioId, new ListarForumPorOrganizador.ListarForumPorOrganizadorCallBack() {
+            @Override
+            public void onForumRetornado(List<Forum> forumList) {
+                if (forumList.isEmpty()) {
+                    textViewNoResults.setVisibility(View.VISIBLE);
+                    imageNoResults.setVisibility(View.VISIBLE);
+                } else {
+                    textViewNoResults.setVisibility(View.GONE);
+                    imageNoResults.setVisibility(View.GONE);
+                    recyclerViewForum.setVisibility(View.VISIBLE);
+                    forumAdapter.setListaFiltrada(forumList);
+                }
+            }
+
+            @Override
+            public void onForumErro(String error) {
+                Log.d("ERRO", error);
                 textViewNoResults.setVisibility(View.VISIBLE);
                 imageNoResults.setVisibility(View.VISIBLE);
-            } else {
-                textViewNoResults.setVisibility(View.GONE);
-                imageNoResults.setVisibility(View.GONE);
-                recyclerViewForum.setVisibility(View.VISIBLE);
-                forumAdapter.setListaFiltrada(forumList);
-                mudarPagina();
+                btnLoadMore.setVisibility(View.GONE);
             }
         });
 

@@ -87,6 +87,10 @@ public class TelaCadastro extends AppCompatActivity {
             dataNascimentoEdit.setError("Este campo é obrigatório");
         } if(usernameEdit.getText().toString().trim().isEmpty()){
             usernameEdit.setError("Este campo é obrigatório");
+        } if(senhaEdit.getText().toString().length() < 6){
+            senhaEdit.setError("A senha deve ter pelo menos 6 digitos");
+        }if (!senhaEdit.getText().toString().matches(".*[A-Z].*")) {
+            senhaEdit.setError("A senha deve ter pelo menos uma letra maiúscula");
         }
     }
 }

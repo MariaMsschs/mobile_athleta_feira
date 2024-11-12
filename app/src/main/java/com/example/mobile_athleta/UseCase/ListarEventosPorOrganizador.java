@@ -16,7 +16,6 @@ import retrofit2.Response;
 public class ListarEventosPorOrganizador {
 
     public interface ListarEventosCallBack{
-
         void onSuccess(List<Evento> eventoList);
         void onError(String error);
     }
@@ -24,7 +23,7 @@ public class ListarEventosPorOrganizador {
     public void listarEventos(String token, ListarEventosCallBack callback, int organizador, int pagina, int tamanho){
 
         AthletaService service = RetrofitClientSql.getAthletaService();
-        Call<EventoResponse> call = service.listarEventosPorOrganizador(token, organizador,pagina,tamanho);
+        Call<EventoResponse> call = service.listarEventosPorOrganizador(token, organizador, pagina,tamanho);
 
         call.enqueue(new Callback<EventoResponse>() {
             @Override

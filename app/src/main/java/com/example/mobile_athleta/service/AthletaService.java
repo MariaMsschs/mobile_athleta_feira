@@ -153,4 +153,7 @@ public interface AthletaService {
 
     @GET("api/notificacao/listar/{id}")
     Call<NotificacaoResponse> listarNotificacoes(@Header("Authorization") String token, @Path("id") Long id);
+
+    @GET("api/forum/listar/organizador/{organizador}")
+    Call<ForumResponse> listarForumPorOrganizador(@Header("Authorization") String token, @Path("organizador") Long idOrganizador);
 }

@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment {
 
         postList = new ArrayList<>();
 
-        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         postAdapter = new PostAdapter(postList, new PostAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Post post) {

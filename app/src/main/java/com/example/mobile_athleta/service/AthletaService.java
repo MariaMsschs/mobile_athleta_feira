@@ -156,4 +156,8 @@ public interface AthletaService {
 
     @GET("api/forum/listar/organizador/{organizador}")
     Call<ForumResponse> listarForumPorOrganizador(@Header("Authorization") String token, @Path("organizador") Long idOrganizador);
+
+    @POST("api/forumrelacionamento/seguir")
+    Call<RelacionamentoForumResponse> seguirForum(@Header("Authorization") String token, @Body RelacionamentoForum relacionamentoForum);
+
 }

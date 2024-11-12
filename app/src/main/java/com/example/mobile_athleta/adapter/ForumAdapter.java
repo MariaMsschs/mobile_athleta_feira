@@ -35,6 +35,12 @@ public class ForumAdapter  extends RecyclerView.Adapter<ForumAdapter.ForumViewHo
         notifyDataSetChanged();
     }
 
+    public void pesquisa(List<Forum> forumList) {
+        this.forumList.clear();
+        this.forumList.addAll(forumList);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ForumAdapter.ForumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

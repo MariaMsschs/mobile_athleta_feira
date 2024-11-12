@@ -49,7 +49,7 @@ public class TelaConfiguracao extends AppCompatActivity {
         });
 
         binding.areaRestrita.setOnClickListener(v -> {
-            String role = getSharedPreferences("login", MODE_PRIVATE).getString("userRole", null);
+            String role = getSharedPreferences("userRole", MODE_PRIVATE).getString("role", null);
             if( role != null && Integer.parseInt(role) == 1) {
                 Intent areaRestrita = new Intent(this, TelaAreaRestrita.class);
                 startActivity(areaRestrita);

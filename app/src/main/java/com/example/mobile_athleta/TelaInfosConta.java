@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.example.mobile_athleta.UseCase.AtualizarUsuarioUseCase;
 import com.example.mobile_athleta.databinding.ActivityTelaInfosContaBinding;
@@ -28,6 +30,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
+
 public class TelaInfosConta extends AppCompatActivity{
 
     private ActivityTelaInfosContaBinding binding;
@@ -159,6 +164,8 @@ public class TelaInfosConta extends AppCompatActivity{
                                         getSharedPreferences("login", MODE_PRIVATE).edit().putString("email", novoEmail).apply();
                                         LayoutInflater inflater = getLayoutInflater();
                                         View dialogView = inflater.inflate(R.layout.alterado_dialog, null);
+                                        TextView texto = dialogView.findViewById(R.id.text);
+                                        texto.setText("Informações alteradas com sucesso!");
                                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                                         builder.setView(dialogView);
                                         AlertDialog dialog = builder.create();
